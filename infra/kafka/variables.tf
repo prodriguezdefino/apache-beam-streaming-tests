@@ -1,5 +1,5 @@
 variable "project" {
-  default = "pabs-pso-lab"
+  description = "GCP project identifier"
 }
 
 variable "region" {
@@ -19,6 +19,14 @@ variable zone {
 variable zk_version {
   description = ""
   default     = "3.4.6"
+}
+
+variable zk_node_count {
+  default = "3"
+}
+
+variable kafka_node_count {
+  default = "10"
 }
 
 variable kafka_version {
