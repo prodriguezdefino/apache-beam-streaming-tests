@@ -17,7 +17,7 @@
  * under the License.
  */
  
-namespace java com.google.cloud.dataflow.example
+namespace java com.google.cloud.dataflow.example.thrift
 
 struct UniqueEvent {
   1: required string hostName

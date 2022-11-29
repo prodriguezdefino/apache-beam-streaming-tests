@@ -36,6 +36,8 @@ public interface DataGenerator extends Serializable {
 
   Object createInstance(boolean allFieldsPopulated);
 
+  Iterable<Object> createInstance(boolean allFieldsPopulated, Integer count);
+
   KV<byte[], String> createInstanceAsBytesAndSchemaAsStringIfPresent(
           boolean allFieldsPopulated) throws Exception;
 

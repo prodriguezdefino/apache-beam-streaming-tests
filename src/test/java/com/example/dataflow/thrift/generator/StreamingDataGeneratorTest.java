@@ -15,7 +15,7 @@
  */
 package com.example.dataflow.thrift.generator;
 
-import com.google.cloud.dataflow.example.LogEvent;
+import com.google.cloud.dataflow.example.thrift.LogEvent;
 import com.google.cloud.dataflow.example.generator.formats.ThriftDataGenerator;
 import com.google.common.math.Quantiles;
 import java.util.ArrayList;

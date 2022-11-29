@@ -345,6 +345,14 @@ public class ThriftDataGenerator implements DataGenerator {
   }
 
   @Override
+  public Iterable<Object> createInstance(boolean allFieldsPopulated, Integer count) {
+    return IntStream
+            .range(0, count - 1)
+            .mapToObj(i -> populateNewInstance(allFieldsPopulated))
+            .collect(Collectors.toList());
+  }
+
+  @Override
   public KV<byte[], String> createInstanceAsBytesAndSchemaAsStringIfPresent(boolean allFieldsPopulated) throws Exception {
     TSerializer serializer = null;
     try {

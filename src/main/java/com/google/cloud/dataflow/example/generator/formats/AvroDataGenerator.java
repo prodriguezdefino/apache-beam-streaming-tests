@@ -1,6 +1,7 @@
 package com.google.cloud.dataflow.example.generator.formats;
 
 import com.google.cloud.dataflow.example.generator.DataGenerator;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -9,18 +10,20 @@ import java.nio.channels.ReadableByteChannel;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import org.apache.avro.Schema;
+import org.apache.avro.file.DataFileReader;
 import org.apache.avro.file.DataFileStream;
+import org.apache.avro.file.SeekableByteArrayInput;
 import org.apache.avro.generic.GenericDatumReader;
 import org.apache.avro.generic.GenericDatumWriter;
 import org.apache.avro.generic.GenericRecord;
-import org.apache.avro.io.DatumReader;
 import org.apache.avro.io.DatumWriter;
 import org.apache.avro.io.Encoder;
 import org.apache.avro.io.EncoderFactory;
+import org.apache.avro.util.RandomData;
 import org.apache.beam.sdk.io.FileSystems;
 import org.apache.beam.sdk.values.KV;
-import org.apache.commons.lang.NotImplementedException;
 import org.joda.time.Instant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,21 +37,14 @@ public class AvroDataGenerator implements DataGenerator {
   private static final Random RANDOM = new Random();
   private static final ArrayList<GenericRecord> DATA_CACHE = Lists.newArrayList();
 
-  private String filePath;
-  private Schema dataSchema;
+  private final String filePath;
+  private final String dataSchemaPath;
+  private Schema schema;
   private boolean fromFile;
-  private boolean transformTimestamps = true;
+  private final boolean transformTimestamps = true;
 
-  private AvroDataGenerator(String filePath, Schema dataSchema) {
-    this.filePath = filePath;
-    this.dataSchema = dataSchema;
-  }
-
-  private AvroDataGenerator(Schema dataSchema) {
-    this.dataSchema = dataSchema;
-  }
-
-  private AvroDataGenerator(String filePath) {
+  private AvroDataGenerator(String dataSchema, String filePath) {
+    this.dataSchemaPath = dataSchema;
     this.filePath = filePath;
   }
 
@@ -56,13 +52,14 @@ public class AvroDataGenerator implements DataGenerator {
     if (!DATA_CACHE.isEmpty()) {
       return;
     }
+    Preconditions.checkState(filePath != null, "A file path should be provided");
     ReadableByteChannel chan
             = FileSystems.open(
                     FileSystems.matchNewResource(
                             filePath, false));
-    DatumReader<GenericRecord> datumReader = new GenericDatumReader<>();
-    DataFileStream<GenericRecord> stream = new DataFileStream<>(Channels.newInputStream(chan), datumReader);
-    dataSchema = stream.getSchema();
+    DataFileStream<GenericRecord> stream
+            = new DataFileStream<>(Channels.newInputStream(chan), new GenericDatumReader<>());
+    schema = stream.getSchema();
     GenericRecord record = null;
     while (stream.hasNext()) {
       record = stream.next();
@@ -71,14 +68,28 @@ public class AvroDataGenerator implements DataGenerator {
     }
   }
 
+  synchronized private void initFromSchema() throws IOException {
+    if (schema != null) {
+      return;
+    }
+    var chan
+            = Channels.newInputStream(FileSystems.open(
+                    FileSystems.matchNewResource(
+                            dataSchemaPath, false)));
+    var dataFileReader = new DataFileReader<>(
+            new SeekableByteArrayInput(chan.readAllBytes()),
+            new GenericDatumReader<>());
+    schema = dataFileReader.getSchema();
+  }
+
   GenericRecord modifyTimestamps(GenericRecord record) {
     for (Schema.Field field : record.getSchema().getFields()) {
       if (!field.schema().getTypes().isEmpty()
               && field.schema()
                       .getTypes()
                       .stream()
-                      .anyMatch(s -> s.getLogicalType() != null 
-                              && s.getLogicalType().getName().startsWith("timestamp"))
+                      .anyMatch(s -> s.getLogicalType() != null
+                      && s.getLogicalType().getName().startsWith("timestamp"))
               && transformTimestamps) {
         record.put(field.name(), Instant.now().getMillis());
         LOG.debug("trasformed field name {}, new field value {}, field types [{}]",
@@ -95,19 +106,34 @@ public class AvroDataGenerator implements DataGenerator {
   }
 
   public static AvroDataGenerator createFromFile(String filePath) throws IOException {
-    AvroDataGenerator gen = new AvroDataGenerator(filePath);
+    AvroDataGenerator gen = new AvroDataGenerator(null, filePath);
     gen.fromFile = true;
     return gen;
   }
 
-  public static AvroDataGenerator createFromSchema(String schemaStr) {
-    throw new NotImplementedException(
-            "generating avro data from an arbitrary schema has not been implemented yet");
+  public static AvroDataGenerator createFromSchema(String schemaPath) {
+    AvroDataGenerator gen = new AvroDataGenerator(schemaPath, null);
+    gen.fromFile = false;
+    return gen;
   }
 
   @Override
   public Object createInstance(boolean allFieldsPopulated) {
-    return DATA_CACHE.get(RANDOM.nextInt(DATA_CACHE.size()));
+    if (fromFile) {
+      return DATA_CACHE.get(RANDOM.nextInt(DATA_CACHE.size()));
+    }
+    return new RandomData(schema, 1, true).iterator().next();
+  }
+
+  @Override
+  public Iterable<Object> createInstance(boolean allFieldsPopulated, Integer count) {
+    if (fromFile) {
+      return IntStream
+              .range(0, count - 1)
+              .mapToObj(i -> DATA_CACHE.get(RANDOM.nextInt(DATA_CACHE.size())))
+              .collect(Collectors.toList());
+    }
+    return new RandomData(schema, count, true);
   }
 
   @Override
@@ -126,6 +152,8 @@ public class AvroDataGenerator implements DataGenerator {
   public void init() throws Exception {
     if (fromFile) {
       initFromFile();
+    } else {
+      initFromSchema();
     }
   }
 

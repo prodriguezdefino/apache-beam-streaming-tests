@@ -1,0 +1,58 @@
+{
+    "type": "record",
+    "name": "LogEvent",
+    "namespace": "com.google.cloud.dataflow.example.avro",
+    "fields": [{
+        "name": "category",
+        "type": ["null", "string"],
+        "default": null
+    }, {
+        "name": "clientId",
+        "type": ["null", "long"],
+        "default": null
+    }, {
+        "name": "createTimestamp",
+        "type": ["null", "string"],
+        "default": null
+    }, {
+        "name": "data",
+        "type": ["null", "string"],
+        "default": null
+    }, {
+        "name": "destination",
+        "type": ["null", "string"],
+        "default": null
+    }, {
+        "name": "epochId",
+        "type": ["null", "long"],
+        "default": null
+    }, {
+        "name": "event",
+        "type": ["null", {
+            "type": "record",
+            "name": "UniqueEvent",
+            "fields": [{
+                "name": "eventName",
+                "type": ["null", "string"],
+                "default": null
+            }, {
+                "name": "hostBootTime",
+                "type": ["null", "long"],
+                "default": null
+            }, {
+                "name": "hostName",
+                "type": ["null", "string"],
+                "default": null
+            }]
+        }],
+        "default": null
+    }, {
+        "name": "source",
+        "type": ["null", "string"],
+        "default": null
+    }, {
+        "name": "uuid",
+        "type": ["null", "string"],
+        "default": null
+    }]
+}
