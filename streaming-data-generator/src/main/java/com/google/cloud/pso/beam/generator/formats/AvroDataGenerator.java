@@ -1,6 +1,6 @@
-package com.google.cloud.dataflow.example.generator.formats;
+package com.google.cloud.pso.beam.generator.formats;
 
-import com.google.cloud.dataflow.example.generator.DataGenerator;
+import com.google.cloud.pso.beam.generator.DataGenerator;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import java.io.ByteArrayOutputStream;

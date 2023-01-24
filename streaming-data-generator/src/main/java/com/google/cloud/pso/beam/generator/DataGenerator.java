@@ -13,10 +13,10 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.google.cloud.dataflow.example.generator;
+package com.google.cloud.pso.beam.generator;
 
-import com.google.cloud.dataflow.example.generator.formats.AvroDataGenerator;
-import com.google.cloud.dataflow.example.generator.formats.ThriftDataGenerator;
+import com.google.cloud.pso.beam.generator.formats.AvroDataGenerator;
+import com.google.cloud.pso.beam.generator.formats.ThriftDataGenerator;
 import java.io.IOException;
 import java.io.Serializable;
 import org.apache.beam.sdk.values.KV;

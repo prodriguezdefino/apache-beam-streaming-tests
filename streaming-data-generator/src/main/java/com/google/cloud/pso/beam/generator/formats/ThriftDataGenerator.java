@@ -13,9 +13,9 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.google.cloud.dataflow.example.generator.formats;
+package com.google.cloud.pso.beam.generator.formats;
 
-import com.google.cloud.dataflow.example.generator.DataGenerator;
+import com.google.cloud.pso.beam.generator.DataGenerator;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -120,7 +120,7 @@ public class ThriftDataGenerator implements DataGenerator {
     try {
       if (TBase.class.isAssignableFrom(clazz)) { // struct
         value = (TBase) clazz.getDeclaredConstructor().newInstance();
-        for (FieldMetaData f : FieldMetaData.getStructMetaDataMap((Class<? extends TBase>) clazz).values()) {
+        for (FieldMetaData f : ((Map<? extends TBase, FieldMetaData>) FieldMetaData.getStructMetaDataMap((Class<? extends TBase>) clazz)).values()) {
           Object fieldValue = createValue(f, f.valueMetaData, allFieldsPopulated, randomFreq);
 
           // check for container types, because we won't be able to use reflection on those.

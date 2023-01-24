@@ -16,15 +16,34 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+ 
+namespace java com.google.cloud.pso.beam.generator.thrift
 
-namespace java com.google.cloud.dataflow.example
-
-struct Envelope {
-  1: optional map<string, string> headers,
-  2: optional list<Element> records;
+struct SimpleEvent {
+  1: required string location
+  2: required Epoch startup
+  3: required string description
 }
 
-struct Element {
-  1: optional map<string, string> headers,
-  2: optional binary data;
+struct Carrier {
+  1: required string id
+  2: required i64 value
 }
+
+typedef i64 ExternalId
+
+typedef i64 Epoch
+
+struct CompoundEvent {
+   1: required string                uuid,
+   2: optional string                name,
+   3: optional ExternalId            externalId,
+   4: optional Epoch	               clientEpoch,
+   5: optional string                createdTimestamp,
+   6: optional string                data,
+   7: optional string                source,
+   8: optional string                destination,
+   9: optional set<SimpleEvent>      events,
+   10: optional map<string, Carrier> carriers
+}
+

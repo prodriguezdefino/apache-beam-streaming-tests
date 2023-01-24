@@ -13,9 +13,10 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.google.cloud.dataflow.example.generator;
+package com.google.cloud.pso.beam.generator;
 
-import com.google.cloud.dataflow.example.generator.envelope.EnvelopeCompression;
+import com.google.cloud.pso.beam.common.compression.CompressionUtils;
+import com.google.cloud.pso.beam.common.compression.thrift.ThriftCompression;
 import com.google.common.base.Splitter;
 import com.google.common.math.Quantiles;
 import java.util.ArrayList;
@@ -63,19 +64,19 @@ public class StreamingDataGenerator {
     void setOutputTopic(String value);
 
     @Description("How many raw events will be generated every second")
-    @Default.Integer(299000)
+    @Default.Integer(200000)
     Integer getGeneratorRatePerSec();
 
     void setGeneratorRatePerSec(Integer value);
 
     @Description("How many events will be batched together")
-    @Default.Integer(5000)
+    @Default.Integer(4500)
     Integer getMaxRecordsPerBatch();
 
     void setMaxRecordsPerBatch(Integer value);
 
     @Description("FQCN of the type that should be generated")
-    @Default.String("com.google.cloud.dataflow.example.LogEvent")
+    @Default.String("com.google.cloud.pso.beam.generator.thrift.CompoundEvent")
     String getClassName();
 
     void setClassName(String value);
@@ -250,16 +251,16 @@ public class StreamingDataGenerator {
       if (compressionEnabled) {
         long startTimeBatch = System.currentTimeMillis();
         long rawDataSize = 0;
-        List<com.google.cloud.dataflow.example.Element> records = new ArrayList<>();
+        List<com.google.cloud.pso.beam.envelope.Element> elements = new ArrayList<>();
         for (int i = 0; i < recordsPerImpulse; i++) {
           byte[] message = makeMessage().getKey();
           rawDataSize += message.length;
           RAW_SIZE.update(message.length);
-          records.add(EnvelopeCompression.constructThriftRecord(message, EMPTY_ATTRS));
+          elements.add(ThriftCompression.constructElement(message, EMPTY_ATTRS));
         }
         byte[] compressedData
-                = EnvelopeCompression.compressBatchRecords(
-                        EnvelopeCompression.constructThriftBatchRecord(records, EMPTY_ATTRS),
+                = ThriftCompression.compressEnvelope(
+                        ThriftCompression.constructEnvelope(elements, EMPTY_ATTRS),
                         compressionLevel);
         TIME_TO_GENERATE_BATCH.update(System.currentTimeMillis() - startTimeBatch);
         BATCH_RAW_SIZE.update(rawDataSize);
@@ -272,7 +273,7 @@ public class StreamingDataGenerator {
       } else {
         KV<byte[], String> messageAndSchema = makeMessage();
         // compress the schema
-        String compressedSchema = EnvelopeCompression.compressString(messageAndSchema.getValue());
+        String compressedSchema = CompressionUtils.compressString(messageAndSchema.getValue());
         // partition the schema in multiple strings of ~800 bytes (under the limit of 1k per map entry) 
         // and build an attribute map with it
         Map<String, String> attributeMap = Splitter.fixedLength(400)

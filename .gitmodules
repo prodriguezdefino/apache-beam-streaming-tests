@@ -1,0 +1,3 @@
+[submodule "apache-beam-ptransforms"]
+	path = apache-beam-ptransforms
+	url = https://github.com/prodriguezdefino/apache-beam-ptransforms.git

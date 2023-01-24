@@ -13,10 +13,10 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.example.dataflow.thrift.generator;
+package com.google.cloud.pso.beam.generator;
 
-import com.google.cloud.dataflow.example.thrift.LogEvent;
-import com.google.cloud.dataflow.example.generator.formats.ThriftDataGenerator;
+import com.google.cloud.pso.beam.generator.formats.ThriftDataGenerator;
+import com.google.cloud.pso.beam.generator.thrift.CompoundEvent;
 import com.google.common.math.Quantiles;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,13 +42,13 @@ public class StreamingDataGeneratorTest {
     TBase obj = null;
     List<Long> sizes = new ArrayList<>();
     List<Long> times = new ArrayList<>();
-    ThriftDataGenerator gen = ThriftDataGenerator.create(LogEvent.class, 10, 25, 2);
+    ThriftDataGenerator gen = ThriftDataGenerator.create(CompoundEvent.class, 10, 25, 2);
     for (int i = 0; i < 1000; i++) {
       long start = System.nanoTime();
       obj = gen.populateNewInstance(true, 0.001D);
       times.add(System.nanoTime() - start);
       Assert.assertNotNull(obj);
-      Assert.assertTrue(obj instanceof LogEvent);
+      Assert.assertTrue(obj instanceof CompoundEvent);
       TSerializer serializer = null;
       try {
         serializer = new TSerializer(new TBinaryProtocol.Factory());
