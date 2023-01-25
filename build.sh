@@ -1,4 +1,4 @@
 #!/bin/bash
 set -xeu
 
-mvn clean compile -U
+mvn clean install -U
