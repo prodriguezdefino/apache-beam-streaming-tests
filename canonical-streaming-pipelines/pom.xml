@@ -8,10 +8,10 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>com.google.cloud.pso.beam.generator</groupId>
-  <artifactId>streaming-data-generator</artifactId>
+  <groupId>com.google.cloud.pso.beam.pipelines</groupId>
+  <artifactId>streaming-pipelines</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Streaming Data Generator</name>
+  <name>Streaming Ingestion Pipelines</name>
   <packaging>jar</packaging>
   
   <properties>
@@ -19,26 +19,6 @@
   </properties>
   
   <dependencies>
-    <dependency>
-      <groupId>org.apache.thrift</groupId>
-      <artifactId>libthrift</artifactId>
-      <version>0.17.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.avro</groupId>
-      <artifactId>avro-thrift</artifactId>
-      <version>1.11.1</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-codec</groupId>
-      <artifactId>commons-codec</artifactId>
-      <version>1.15</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.beam</groupId>
-      <artifactId>beam-sdks-java-io-google-cloud-platform</artifactId>
-    </dependency>
     <dependency>
       <groupId>org.apache.beam</groupId>
       <artifactId>beam-runners-google-cloud-dataflow-java</artifactId>
@@ -58,24 +38,21 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit-dep</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-      <version>2.6</version>
-      <type>jar</type>
-    </dependency>
-    <dependency>
       <groupId>com.google.cloud.pso.beam</groupId>
       <artifactId>common</artifactId>
     </dependency>
     <dependency>
       <groupId>com.google.cloud.pso.beam</groupId>
+      <artifactId>udf</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.cloud.pso.beam</groupId>
       <artifactId>transforms</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.avro</groupId>
+      <artifactId>avro-thrift</artifactId>
+      <version>1.11.1</version>
     </dependency>
   </dependencies>
   
@@ -89,25 +66,6 @@
           <source>${java.version}</source>
           <target>${java.version}</target>
         </configuration>
-      </plugin>
-      <!-- added to compile and include the shared thrift objects for test run -->
-      <plugin>
-        <groupId>org.apache.thrift.tools</groupId>
-        <artifactId>maven-thrift-plugin</artifactId>
-        <version>0.1.11</version>
-        <configuration>
-          <thriftSourceRoot>${basedir}/src/main/thrift</thriftSourceRoot>
-          <generator>java</generator>
-        </configuration>
-        <executions>
-          <execution>
-            <id>thrift-sources</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>

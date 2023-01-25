@@ -17,8 +17,8 @@ package com.google.cloud.pso.beam.generator;
 
 import com.google.cloud.pso.beam.common.compression.CompressionUtils;
 import com.google.cloud.pso.beam.common.compression.thrift.ThriftCompression;
+import com.google.cloud.pso.beam.common.transport.CommonTransport;
 import com.google.cloud.pso.beam.common.transport.EventTransport;
-import com.google.cloud.pso.beam.generator.transport.GeneratorTransport;
 import com.google.cloud.pso.beam.options.StreamingSinkOptions;
 import com.google.cloud.pso.beam.transforms.WriteStreamingSink;
 import com.google.common.base.Splitter;
@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import org.apache.beam.runners.dataflow.options.DataflowPipelineOptions;
 import org.apache.beam.sdk.Pipeline;
@@ -124,16 +125,6 @@ public class StreamingDataGenerator {
   }
 
   static final Map<String, String> EMPTY_ATTRS = new HashMap<>();
-  static final String COMPRESSION_TYPE_HEADER_KEY = "compression";
-  static final String AVRO_SCHEMA_ATTRIBUTE = "AVRO_SCHEMA_ATTRIBUTE";
-
-  /**
-   * Supported compression types.
-   */
-  public enum CompressionType {
-    NO_COMPRESSION, // default
-    ZLIB,
-  }
 
   /**
    * Sets up and starts generator pipeline.
@@ -261,9 +252,12 @@ public class StreamingDataGenerator {
         BATCH_RAW_SIZE.update(rawDataSize);
         BATCH_SIZE.update(compressedData.length);
         context.output(
-                new GeneratorTransport(
-                        compressedData,
-                        Map.of(COMPRESSION_TYPE_HEADER_KEY, CompressionType.ZLIB.name())));
+                new CommonTransport(
+                        UUID.randomUUID().toString(),
+                        Map.of(
+                                CompressionUtils.COMPRESSION_TYPE_HEADER_KEY,
+                                CompressionUtils.CompressionType.THRIFT_ZLIB.name()),
+                        compressedData));
 
       } else {
         var messageAndSchema = makeMessage();
@@ -283,9 +277,11 @@ public class StreamingDataGenerator {
                         })
                 .entrySet()
                 .stream()
-                .map(e -> KV.of(AVRO_SCHEMA_ATTRIBUTE + e.getKey(), e.getValue()))
+                .map(e -> KV.of(EventTransport.SCHEMA_ATTRIBUTE_KEY + e.getKey(), e.getValue()))
                 .collect(Collectors.toMap(KV::getKey, KV::getValue));
-        context.output(new GeneratorTransport(messageAndSchema.getKey(), attributeMap));
+        context.output(
+                new CommonTransport(
+                        UUID.randomUUID().toString(), attributeMap, messageAndSchema.getKey()));
       }
     }
 

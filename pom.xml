@@ -36,6 +36,11 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud.pso.beam</groupId>
+        <artifactId>udf</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud.pso.beam</groupId>
         <artifactId>transforms</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -58,6 +63,7 @@
   <modules>
     <module>apache-beam-ptransforms</module>
     <module>streaming-data-generator</module>
+    <module>canonical-streaming-pipelines</module>    
   </modules>
 </project>
 
