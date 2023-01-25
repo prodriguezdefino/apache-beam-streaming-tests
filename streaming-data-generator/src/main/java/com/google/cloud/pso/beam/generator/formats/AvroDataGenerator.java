@@ -6,7 +6,6 @@ import com.google.common.collect.Lists;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -18,8 +17,6 @@ import org.apache.avro.file.SeekableByteArrayInput;
 import org.apache.avro.generic.GenericDatumReader;
 import org.apache.avro.generic.GenericDatumWriter;
 import org.apache.avro.generic.GenericRecord;
-import org.apache.avro.io.DatumWriter;
-import org.apache.avro.io.Encoder;
 import org.apache.avro.io.EncoderFactory;
 import org.apache.avro.util.RandomData;
 import org.apache.beam.sdk.io.FileSystems;
@@ -53,12 +50,13 @@ public class AvroDataGenerator implements DataGenerator {
       return;
     }
     Preconditions.checkState(filePath != null, "A file path should be provided");
-    ReadableByteChannel chan
+    var chan
             = FileSystems.open(
                     FileSystems.matchNewResource(
                             filePath, false));
-    DataFileStream<GenericRecord> stream
-            = new DataFileStream<>(Channels.newInputStream(chan), new GenericDatumReader<>());
+    var stream
+            = new DataFileStream<GenericRecord>(
+                    Channels.newInputStream(chan), new GenericDatumReader<>());
     schema = stream.getSchema();
     GenericRecord record = null;
     while (stream.hasNext()) {
@@ -106,13 +104,13 @@ public class AvroDataGenerator implements DataGenerator {
   }
 
   public static AvroDataGenerator createFromFile(String filePath) throws IOException {
-    AvroDataGenerator gen = new AvroDataGenerator(null, filePath);
+    var gen = new AvroDataGenerator(null, filePath);
     gen.fromFile = true;
     return gen;
   }
 
   public static AvroDataGenerator createFromSchema(String schemaPath) {
-    AvroDataGenerator gen = new AvroDataGenerator(schemaPath, null);
+    var gen = new AvroDataGenerator(schemaPath, null);
     gen.fromFile = false;
     return gen;
   }
@@ -139,10 +137,10 @@ public class AvroDataGenerator implements DataGenerator {
   @Override
   public KV<byte[], String> createInstanceAsBytesAndSchemaAsStringIfPresent(
           boolean allFieldsPopulated) throws Exception {
-    GenericRecord record = (GenericRecord) createInstance(allFieldsPopulated);
-    DatumWriter<GenericRecord> writer = new GenericDatumWriter<>(record.getSchema());
-    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-    Encoder encoder = EncoderFactory.get().binaryEncoder(stream, null);
+    var record = (GenericRecord) createInstance(allFieldsPopulated);
+    var writer = new GenericDatumWriter<GenericRecord>(record.getSchema());
+    var stream = new ByteArrayOutputStream();
+    var encoder = EncoderFactory.get().binaryEncoder(stream, null);
     writer.write(record, encoder);
     encoder.flush();
     return KV.of(stream.toByteArray(), record.getSchema().toString());

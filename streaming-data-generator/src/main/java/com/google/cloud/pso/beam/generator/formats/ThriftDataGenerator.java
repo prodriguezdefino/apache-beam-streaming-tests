@@ -16,7 +16,6 @@
 package com.google.cloud.pso.beam.generator.formats;
 
 import com.google.cloud.pso.beam.generator.DataGenerator;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
@@ -120,16 +119,16 @@ public class ThriftDataGenerator implements DataGenerator {
     try {
       if (TBase.class.isAssignableFrom(clazz)) { // struct
         value = (TBase) clazz.getDeclaredConstructor().newInstance();
-        for (FieldMetaData f : ((Map<? extends TBase, FieldMetaData>) FieldMetaData.getStructMetaDataMap((Class<? extends TBase>) clazz)).values()) {
-          Object fieldValue = createValue(f, f.valueMetaData, allFieldsPopulated, randomFreq);
+        for (var f : ((Map<? extends TBase, FieldMetaData>) FieldMetaData.getStructMetaDataMap((Class<? extends TBase>) clazz)).values()) {
+          var fieldValue = createValue(f, f.valueMetaData, allFieldsPopulated, randomFreq);
 
           // check for container types, because we won't be able to use reflection on those.
           if (f.valueMetaData.isContainer() && containsField(clazz, f.fieldName)) {
-            Field field = clazz.getDeclaredField(f.fieldName);
+            var field = clazz.getDeclaredField(f.fieldName);
             field.setAccessible(true);
             field.set(value, fieldValue);
           } else if (f.valueMetaData.isContainer()) {
-            Method setter
+            var setter
                     = findMethodByName(
                             clazz,
                             "set" + StringUtils.capitalize(f.fieldName)).get();
@@ -137,7 +136,7 @@ public class ThriftDataGenerator implements DataGenerator {
               setter.invoke(value, fieldValue);
             }
           } else {
-            Method setter
+            var setter
                     = clazz.getDeclaredMethod(
                             "set" + StringUtils.capitalize(f.fieldName),
                             getClassFromField(f.valueMetaData));
@@ -184,14 +183,14 @@ public class ThriftDataGenerator implements DataGenerator {
       case TType.DOUBLE:
         return double.class;
       case TType.ENUM:
-        EnumMetaData enumMeta = (EnumMetaData) f;
+        var enumMeta = (EnumMetaData) f;
         return enumMeta.enumClass;
       case TType.STRING:
         return f.isBinary() ? ByteBuffer.class : String.class;
       case TType.STRUCT:
         Class structClass;
         if (f instanceof StructMetaData) {
-          StructMetaData structMeta = (StructMetaData) f;
+          var structMeta = (StructMetaData) f;
           structClass = structMeta.structClass;
         } else {
           // Some thrift version will use structMeta + typedefname as struct.
@@ -218,7 +217,7 @@ public class ThriftDataGenerator implements DataGenerator {
           FieldMetaData fieldMetadata,
           ListMetaData listMeta,
           double randomFreq) {
-    int maybeRange = RANDOM.nextInt(maxSizeCollection);
+    var maybeRange = RANDOM.nextInt(maxSizeCollection);
     return IntStream
             .range(0, maybeRange == 0 ? 1 : maybeRange)
             .mapToObj(i -> createValue(fieldMetadata, listMeta.elemMetaData, true, randomFreq))
@@ -229,7 +228,7 @@ public class ThriftDataGenerator implements DataGenerator {
           FieldMetaData fieldMetadata,
           SetMetaData setMeta,
           double randomFreq) {
-    int maybeRange = RANDOM.nextInt(maxSizeCollection);
+    var maybeRange = RANDOM.nextInt(maxSizeCollection);
     return IntStream
             .range(0, maybeRange == 0 ? 1 : maybeRange)
             .mapToObj(i -> createValue(fieldMetadata, setMeta.elemMetaData, true, randomFreq))
@@ -240,7 +239,7 @@ public class ThriftDataGenerator implements DataGenerator {
           FieldMetaData fieldMetadata,
           MapMetaData mapMeta,
           double randomFreq) {
-    int maybeRange = RANDOM.nextInt(maxSizeCollection);
+    var maybeRange = RANDOM.nextInt(maxSizeCollection);
     return IntStream
             .range(0, maybeRange == 0 ? 1 : maybeRange)
             .mapToObj(i -> Map.entry(
@@ -271,33 +270,33 @@ public class ThriftDataGenerator implements DataGenerator {
       case TType.DOUBLE:
         return getValueToAssign(() -> RANDOM.nextDouble(), fieldMetadata, allFieldsPopulated).orElse(null);
       case TType.ENUM:
-        EnumMetaData enumMeta = (EnumMetaData) fieldValueMetadata;
-        List<Enum> symbols = new ArrayList<>();
+        var enumMeta = (EnumMetaData) fieldValueMetadata;
+        var symbols = new ArrayList<Enum>();
         symbols.addAll(Arrays.asList(((Class<? extends Enum>) enumMeta.enumClass).getEnumConstants()));
         return getValueToAssign(() -> symbols.get(RANDOM.nextInt(symbols.size())), fieldMetadata, allFieldsPopulated).orElse(null);
       case TType.LIST:
-        ListMetaData listMeta = (ListMetaData) fieldValueMetadata;
+        var listMeta = (ListMetaData) fieldValueMetadata;
         return getValueToAssign(
                 () -> createList(fieldMetadata, listMeta, randomFreq),
                 fieldMetadata,
                 allFieldsPopulated)
                 .orElse(List.of());
       case TType.MAP:
-        MapMetaData mapMeta = (MapMetaData) fieldValueMetadata;
+        var mapMeta = (MapMetaData) fieldValueMetadata;
         return getValueToAssign(
                 () -> createMap(fieldMetadata, mapMeta, randomFreq),
                 fieldMetadata,
                 allFieldsPopulated)
                 .orElse(Map.of());
       case TType.SET:
-        SetMetaData setMeta = (SetMetaData) fieldValueMetadata;
+        var setMeta = (SetMetaData) fieldValueMetadata;
         return getValueToAssign(
                 () -> createSet(fieldMetadata, setMeta, randomFreq),
                 fieldMetadata,
                 allFieldsPopulated)
                 .orElse(Set.of());
       case TType.STRING:
-        String value = getStringValue(fieldMetadata.fieldName, randomFreq);
+        var value = getStringValue(fieldMetadata.fieldName, randomFreq);
         if (fieldValueMetadata.isBinary()) {
           return ByteBuffer.wrap(value.getBytes());
         }

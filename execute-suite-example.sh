@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xeu
+set -eu
 
 echo "starting data generator"
 pushd streaming-data-generator
@@ -10,5 +10,13 @@ source run.sh $1 $2 $3 "\
   --maxRecordsPerBatch=4500 \
   --compressionEnabled=true \
   --completeObjects=true "
+
+popd
+
+echo "starting processing pipeline"
+
+pushd canonical-streaming-pipeline
+
+source run.sh $1 $2-sub $3
 
 popd

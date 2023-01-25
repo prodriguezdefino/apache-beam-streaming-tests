@@ -17,6 +17,10 @@ package com.google.cloud.pso.beam.generator;
 
 import com.google.cloud.pso.beam.common.compression.CompressionUtils;
 import com.google.cloud.pso.beam.common.compression.thrift.ThriftCompression;
+import com.google.cloud.pso.beam.common.transport.EventTransport;
+import com.google.cloud.pso.beam.generator.transport.GeneratorTransport;
+import com.google.cloud.pso.beam.options.StreamingSinkOptions;
+import com.google.cloud.pso.beam.transforms.WriteStreamingSink;
 import com.google.common.base.Splitter;
 import com.google.common.math.Quantiles;
 import java.util.ArrayList;
@@ -27,14 +31,11 @@ import java.util.stream.Collectors;
 import org.apache.beam.runners.dataflow.options.DataflowPipelineOptions;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.GenerateSequence;
-import org.apache.beam.sdk.io.gcp.pubsub.PubsubIO;
-import org.apache.beam.sdk.io.gcp.pubsub.PubsubMessage;
 import org.apache.beam.sdk.metrics.Distribution;
 import org.apache.beam.sdk.metrics.Metrics;
 import org.apache.beam.sdk.options.Default;
 import org.apache.beam.sdk.options.Description;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
-import org.apache.beam.sdk.options.Validation;
 import org.apache.beam.sdk.transforms.DoFn;
 import org.apache.beam.sdk.transforms.ParDo;
 import org.apache.beam.sdk.values.KV;
@@ -50,18 +51,10 @@ public class StreamingDataGenerator {
   private static final Logger LOG = LoggerFactory.getLogger(StreamingDataGenerator.class);
 
   /**
-   * Options supported by {@link PubsubIO}.
-   *
-   * <p>
-   * Inherits standard configuration options.
+   * Options for the streaming data generator
    */
-  public interface SparrowLoadGeneratorOptions extends DataflowPipelineOptions {
-
-    @Description("Output Pubsub topic")
-    @Validation.Required
-    String getOutputTopic();
-
-    void setOutputTopic(String value);
+  public interface StreamingDataGeneratorOptions
+          extends DataflowPipelineOptions, StreamingSinkOptions {
 
     @Description("How many raw events will be generated every second")
     @Default.Integer(200000)
@@ -149,21 +142,21 @@ public class StreamingDataGenerator {
    * @throws java.lang.ClassNotFoundException
    */
   public static void main(String[] args) throws Exception {
-    SparrowLoadGeneratorOptions options
+    var options
             = PipelineOptionsFactory.fromArgs(args)
                     .withValidation()
-                    .as(SparrowLoadGeneratorOptions.class);
+                    .as(StreamingDataGeneratorOptions.class);
     // setting as a streaming pipeline
     options.setStreaming(true);
-    
+
     // Run generator pipeline
-    Pipeline generator = Pipeline.create(options);
+    var generator = Pipeline.create(options);
 
     // capture class of the type that will be generated
-    Class clazz = Class.forName(options.getClassName());
+    var clazz = Class.forName(options.getClassName());
 
     // create a data generator for this class and based on the configured options
-    DataGenerator gen
+    var gen
             = DataGenerator.createDataGenerator(
                     options.getFormat(),
                     clazz,
@@ -172,7 +165,7 @@ public class StreamingDataGenerator {
                     options.getMaxSizeCollection(),
                     options.getFilePath());
 
-    int seqGeneratorRate = options.isCompressionEnabled()
+    var seqGeneratorRate = options.isCompressionEnabled()
             ? options.getGeneratorRatePerSec() / options.getMaxRecordsPerBatch()
             : options.getGeneratorRatePerSec();
 
@@ -189,30 +182,32 @@ public class StreamingDataGenerator {
                             .withRate(
                                     seqGeneratorRate,
                                     Duration.standardSeconds(1)))
-            .apply(String.format("Create%sPayloadForPubsub", options.getFormat().name()),
+            .apply(String.format("Create%sPayload", options.getFormat().name()),
                     ParDo.of(
-                            new CreatePubSubMessage(
+                            new CreateDataPayload(
                                     gen,
                                     options.isCompressionEnabled(),
                                     options.isCompleteObjects(),
                                     options.getCompressionLevel(),
                                     options.getMaxRecordsPerBatch())))
-            .apply("WriteToPubsub", PubsubIO.writeMessages().to(options.getOutputTopic()));
+            .apply("WriteToStreamingSink",
+                    WriteStreamingSink
+                            .create(options.getOutputTopic(), options.getSinkType()));
     generator.run();
   }
 
-  static class CreatePubSubMessage extends DoFn<Long, PubsubMessage> {
+  static class CreateDataPayload extends DoFn<Long, EventTransport> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CreatePubSubMessage.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CreateDataPayload.class);
 
     private static final Distribution TIME_TO_GENERATE_BATCH
-            = Metrics.distribution(CreatePubSubMessage.class, "batch_generation_ms");
+            = Metrics.distribution(CreateDataPayload.class, "batch_generation_ms");
     private static final Distribution BATCH_SIZE
-            = Metrics.distribution(CreatePubSubMessage.class, "batch_compressed_size_bytes");
+            = Metrics.distribution(CreateDataPayload.class, "batch_compressed_size_bytes");
     private static final Distribution BATCH_RAW_SIZE
-            = Metrics.distribution(CreatePubSubMessage.class, "batch_raw_size_bytes");
+            = Metrics.distribution(CreateDataPayload.class, "batch_raw_size_bytes");
     private static final Distribution RAW_SIZE
-            = Metrics.distribution(CreatePubSubMessage.class, "object_raw_size_bytes");
+            = Metrics.distribution(CreateDataPayload.class, "object_raw_size_bytes");
 
     private final boolean compressionEnabled;
     private final boolean generateCompleteObjects;
@@ -222,7 +217,7 @@ public class StreamingDataGenerator {
     private final List<Long> sizes = new ArrayList<>();
     private final List<Long> times = new ArrayList<>();
 
-    public CreatePubSubMessage(
+    public CreateDataPayload(
             DataGenerator dataGenerator,
             boolean compressionEnabled,
             boolean generateCompleteObjects,
@@ -249,16 +244,16 @@ public class StreamingDataGenerator {
     @ProcessElement
     public void processElement(ProcessContext context) throws Exception {
       if (compressionEnabled) {
-        long startTimeBatch = System.currentTimeMillis();
-        long rawDataSize = 0;
-        List<com.google.cloud.pso.beam.envelope.Element> elements = new ArrayList<>();
+        var startTimeBatch = System.currentTimeMillis();
+        var rawDataSize = 0;
+        var elements = new ArrayList<com.google.cloud.pso.beam.envelope.Element>();
         for (int i = 0; i < recordsPerImpulse; i++) {
-          byte[] message = makeMessage().getKey();
+          var message = makeMessage().getKey();
           rawDataSize += message.length;
           RAW_SIZE.update(message.length);
           elements.add(ThriftCompression.constructElement(message, EMPTY_ATTRS));
         }
-        byte[] compressedData
+        var compressedData
                 = ThriftCompression.compressEnvelope(
                         ThriftCompression.constructEnvelope(elements, EMPTY_ATTRS),
                         compressionLevel);
@@ -266,17 +261,17 @@ public class StreamingDataGenerator {
         BATCH_RAW_SIZE.update(rawDataSize);
         BATCH_SIZE.update(compressedData.length);
         context.output(
-                new PubsubMessage(
+                new GeneratorTransport(
                         compressedData,
                         Map.of(COMPRESSION_TYPE_HEADER_KEY, CompressionType.ZLIB.name())));
 
       } else {
-        KV<byte[], String> messageAndSchema = makeMessage();
+        var messageAndSchema = makeMessage();
         // compress the schema
-        String compressedSchema = CompressionUtils.compressString(messageAndSchema.getValue());
+        var compressedSchema = CompressionUtils.compressString(messageAndSchema.getValue());
         // partition the schema in multiple strings of ~800 bytes (under the limit of 1k per map entry) 
         // and build an attribute map with it
-        Map<String, String> attributeMap = Splitter.fixedLength(400)
+        var attributeMap = Splitter.fixedLength(400)
                 .splitToList(compressedSchema)
                 .stream()
                 .collect(
@@ -290,20 +285,22 @@ public class StreamingDataGenerator {
                 .stream()
                 .map(e -> KV.of(AVRO_SCHEMA_ATTRIBUTE + e.getKey(), e.getValue()))
                 .collect(Collectors.toMap(KV::getKey, KV::getValue));
-        context.output(new PubsubMessage(messageAndSchema.getKey(), attributeMap));
+        context.output(new GeneratorTransport(messageAndSchema.getKey(), attributeMap));
       }
     }
-    
+
     @FinishBundle
     public void finalizeBundle() {
-      LOG.info("Gen size percentiles (bytes): {}", Quantiles.percentiles().indexes(50, 90, 95).compute(sizes).toString());
-      LOG.info("Gen time percentiles (ns): {}", Quantiles.percentiles().indexes(50, 90, 95).compute(times).toString());
+      LOG.info("Gen size percentiles (bytes): {}",
+              Quantiles.percentiles().indexes(50, 90, 95).compute(sizes).toString());
+      LOG.info("Gen time percentiles (ns): {}",
+              Quantiles.percentiles().indexes(50, 90, 95).compute(times).toString());
     }
 
     KV<byte[], String> makeMessage() {
       try {
-        long objectStartTime = System.nanoTime();
-        KV<byte[], String> serializedMessage
+        var objectStartTime = System.nanoTime();
+        var serializedMessage
                 = gen.createInstanceAsBytesAndSchemaAsStringIfPresent(generateCompleteObjects);
         times.add(System.nanoTime() - objectStartTime);
         sizes.add((long) serializedMessage.getKey().length);
