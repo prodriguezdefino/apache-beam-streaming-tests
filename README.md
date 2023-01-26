@@ -44,7 +44,7 @@ If we need to test an specific version of a library in use by the ingestion pipe
 ```
 will force the ingestion pipeline to use that version of the library instead of the default one specified by the Apache Beam BOM dependencies. 
 
-## BigQuery Table Destination count
+### BigQuery Table Destination count
 
 By default the suite ingest all the data in 1 single table. We can change that by modifying the `canonical-streaming-pipeline/execute-ps2bq.sh` script for example like this: 
 
@@ -58,7 +58,7 @@ the created tables will all exists in the same BigQuery dataset.
 
 As seen in the snipet, the usage of BigQuery StorageWrite client pool is enabled by default, that can also be changed if needed.
 
-## Data Volume configuration
+### Data Volume configuration
 
 The amount of data and payload type that we want to send to the pipeline for BQ ingestion can be configured by modifying the `execute-ps2bq-suite-example` script for example.
 
