@@ -19,6 +19,7 @@ import com.google.cloud.pso.beam.common.compression.CompressionUtils;
 import com.google.cloud.pso.beam.common.compression.thrift.ThriftCompression;
 import com.google.cloud.pso.beam.common.transport.CommonTransport;
 import com.google.cloud.pso.beam.common.transport.EventTransport;
+import com.google.cloud.pso.beam.common.transport.coder.CommonTransportCoder;
 import com.google.cloud.pso.beam.options.StreamingSinkOptions;
 import com.google.cloud.pso.beam.transforms.WriteStreamingSink;
 import com.google.common.base.Splitter;
@@ -76,7 +77,7 @@ public class StreamingDataGenerator {
     void setClassName(String value);
 
     @Description("Min char count for a generated String")
-    @Default.Integer(1)
+    @Default.Integer(5)
     Integer getMinStringLength();
 
     void setMinStringLength(Integer value);
@@ -88,7 +89,7 @@ public class StreamingDataGenerator {
     void setMaxStringLength(Integer value);
 
     @Description("Max elements on a collection type")
-    @Default.Integer(10)
+    @Default.Integer(20)
     Integer getMaxSizeCollection();
 
     void setMaxSizeCollection(Integer value);
@@ -166,6 +167,9 @@ public class StreamingDataGenerator {
     }
     LOG.info("Sequence gen rate at {}", seqGeneratorRate);
 
+    generator.getCoderRegistry()
+            .registerCoderForClass(EventTransport.class, CommonTransportCoder.of());
+    
     generator
             .apply(
                     GenerateSequence

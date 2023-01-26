@@ -39,7 +39,7 @@ public class StreamingDataGeneratorTest {
   public void testMakeThriftMessage() {
     var sizes = new ArrayList<Long>();
     var times = new ArrayList<Long>();
-    var gen = ThriftDataGenerator.create(CompoundEvent.class, 10, 25, 2);
+    var gen = ThriftDataGenerator.create(CompoundEvent.class, 5, 25, 20);
     for (int i = 0; i < 1000; i++) {
       var start = System.nanoTime();
       var obj = gen.populateNewInstance(true, 0.001D);

@@ -21,8 +21,6 @@ import com.google.cloud.pso.beam.options.StreamingSourceOptions;
 import com.google.cloud.pso.beam.pipelines.transforms.PrepareBQIngestion;
 import com.google.cloud.pso.beam.transforms.ReadStreamingSource;
 import com.google.cloud.pso.beam.udf.transforms.ExecuteUDF;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.gcp.bigquery.BigQueryHelpers;

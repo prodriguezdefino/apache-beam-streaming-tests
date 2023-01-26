@@ -11,7 +11,7 @@
   <groupId>com.google.cloud.pso.beam.pipelines</groupId>
   <artifactId>streaming-pipelines</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Streaming Ingestion Pipelines</name>
+  <name>Dataflow Load Test Suite :: Streaming Ingestion Pipelines</name>
   <packaging>jar</packaging>
   
   <properties>
@@ -22,6 +22,10 @@
     <dependency>
       <groupId>org.apache.beam</groupId>
       <artifactId>beam-runners-google-cloud-dataflow-java</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.avro</groupId>
+      <artifactId>avro-thrift</artifactId>
     </dependency>
     <!-- Add slf4j API frontend binding with JUL backend -->
     <dependency>
@@ -50,9 +54,8 @@
       <artifactId>transforms</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.apache.avro</groupId>
-      <artifactId>avro-thrift</artifactId>
-      <version>1.11.1</version>
+      <groupId>com.google.cloud.pso.beam</groupId>
+      <artifactId>types</artifactId>
     </dependency>
   </dependencies>
   

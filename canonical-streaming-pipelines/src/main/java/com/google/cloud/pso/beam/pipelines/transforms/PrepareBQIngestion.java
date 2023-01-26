@@ -16,12 +16,17 @@
 package com.google.cloud.pso.beam.pipelines.transforms;
 
 import com.google.cloud.pso.beam.common.transport.EventTransport;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import org.apache.avro.generic.GenericDatumReader;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.io.DecoderFactory;
+import org.apache.avro.io.EncoderFactory;
 import org.apache.avro.thrift.ThriftData;
+import org.apache.avro.thrift.ThriftDatumWriter;
 import org.apache.beam.sdk.schemas.Schema;
 import org.apache.beam.sdk.schemas.utils.AvroUtils;
 import org.apache.beam.sdk.transforms.DoFn;
@@ -30,6 +35,9 @@ import org.apache.beam.sdk.transforms.ParDo;
 import org.apache.beam.sdk.values.PCollection;
 import org.apache.beam.sdk.values.Row;
 import org.apache.thrift.TBase;
+import org.apache.thrift.TDeserializer;
+import org.apache.thrift.TException;
+import org.apache.thrift.protocol.TBinaryProtocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,6 +69,7 @@ public class PrepareBQIngestion extends PTransform<PCollection<EventTransport>, 
 
     private Schema beamSchema;
     private org.apache.avro.Schema avroSchema;
+    private Class<? extends TBase<?, ?>> thriftClass;
     private final String className;
 
     public TransformTransportToRow(String className) {
@@ -71,6 +80,7 @@ public class PrepareBQIngestion extends PTransform<PCollection<EventTransport>, 
     public void setup() throws Exception {
       avroSchema = retrieveAvroSchema(className);
       beamSchema = AvroUtils.toBeamSchema(avroSchema);
+      thriftClass = retrieveThriftClass(className);
     }
 
     @StartBundle
@@ -79,27 +89,63 @@ public class PrepareBQIngestion extends PTransform<PCollection<EventTransport>, 
 
     @ProcessElement
     public void processElement(ProcessContext context) throws Exception {
-      context.output(retrieveRowFromTransport(context.element(), beamSchema, avroSchema));
+      context.output(
+              retrieveRowFromTransport(context.element(), thriftClass, beamSchema, avroSchema));
     }
 
     static Row retrieveRowFromTransport(
-            EventTransport transport, Schema beamSchema, org.apache.avro.Schema avroSchema) {
+            EventTransport transport,
+            Class<? extends TBase<?, ?>> thriftClass,
+            Schema beamSchema,
+            org.apache.avro.Schema avroSchema) {
+      
       return AvroUtils.toBeamRowStrict(
-              retrieveGenericRecordFromTransport(transport, avroSchema),
+              retrieveGenericRecordFromTransport(transport, thriftClass, avroSchema),
               beamSchema);
     }
 
+    static TBase<?, ?> getThriftObjectFromData(TBase<?, ?> emptyInstance, byte[] data) {
+      try {
+        TDeserializer deserializer = null;
+        try {
+          deserializer = new TDeserializer(new TBinaryProtocol.Factory());
+        } catch (Exception e) {
+          throw new RuntimeException("Error while creating a TDeserializer.", e);
+        }
+        deserializer.deserialize(emptyInstance, data);
+        return emptyInstance;
+      } catch (TException ex) {
+        throw new RuntimeException("Can't serialize instance.", ex);
+      }
+    }
+
     static GenericRecord retrieveGenericRecordFromTransport(
-            EventTransport transport, org.apache.avro.Schema avroSchema) {
-      return retrieveGenericRecordFromThriftData(transport.getData(), avroSchema);
+            EventTransport transport,
+            Class<? extends TBase<?, ?>> thriftClass,
+            org.apache.avro.Schema avroSchema) {
+      try {
+        var thriftEmptyInstance = thriftClass.getConstructor().newInstance();
+        var thriftObject = getThriftObjectFromData(thriftEmptyInstance, transport.getData());
+        return retrieveGenericRecordFromThriftData(thriftObject, avroSchema);
+      } catch (Exception ex) {
+        var msg = "Error while trying to retrieve a generic record from the transport object.";
+        LOG.error(msg, ex);
+        throw new RuntimeException(msg, ex);
+      }
     }
 
     static GenericRecord retrieveGenericRecordFromThriftData(
-            byte[] thriftData, org.apache.avro.Schema avroSchema) {
+            TBase<?, ?> thriftObject, org.apache.avro.Schema avroSchema) {
       try {
-        var reader = ThriftData.get().createDatumReader(avroSchema);
-        var decoder = DecoderFactory.get().binaryDecoder(thriftData, null);
-        return (GenericRecord) reader.read(null, decoder);
+        var bao = new ByteArrayOutputStream();
+        var w = new ThriftDatumWriter(avroSchema);
+        var e = EncoderFactory.get().binaryEncoder(bao, null);
+        w.write(thriftObject, e);
+        e.flush();
+        return new GenericDatumReader<GenericRecord>(avroSchema).read(
+                null,
+                DecoderFactory.get().binaryDecoder(
+                        new ByteArrayInputStream(bao.toByteArray()), null));
       } catch (IOException ex) {
         var msg = "Error while trying to retrieve a generic record from the thrift data.";
         LOG.error(msg, ex);

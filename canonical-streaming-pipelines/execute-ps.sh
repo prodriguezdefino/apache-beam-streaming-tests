@@ -19,9 +19,9 @@ TOPIC=`echo $2 | awk -F "-sub" '{print $1}'`
 SUBSCRIPTION=$2
 
 # The table need to be precreated with right schema.
-BQ_TABLE_NAME=`echo "$CATEGORY" | tr - _`
+BQ_TABLE_NAME=`echo "$2" | tr - _`
 BQ_DATASET_ID=`echo "${TOPIC}" | tr - _`
-BQ_PROJECT_ID=${DF_PROJECT_ID}
+BQ_PROJECT_ID=${PROJECT_ID}
 
 STAGING_BUCKET=${BUCKET}
 STAGING_PATH=${STAGING_BUCKET}"/.staging/"
@@ -35,6 +35,7 @@ LAUNCH_PARAMS=" \
  --jobName=${JOBNAME} \
  --project=${PROJECT_ID} \
  --runner=DataflowRunner \
+ --streaming \
  --region=${REGION} \
  --stagingLocation=${STAGING_PATH} \
  --tempLocation=${BUCKET}/.temp \
@@ -45,15 +46,15 @@ LAUNCH_PARAMS=" \
  --maxNumWorkers=400 \
  --experiments=min_num_workers=1 \
  --workerMachineType=n2d-standard-4 \
- --ingestionMode=STORAGE_API_AT_LEAST_ONCE \
- --ingestionProtocol=ROW \
- --createTable=true \
+ --createBQTable \
  --autoscalingAlgorithm=THROUGHPUT_BASED \
  --experiments=num_pubsub_keys=2048 \
  --experiments=use_pubsub_streaming \
  --enableStreamingEngine \
  --experiments=streaming_engine_job_setting=asymmetric_for_large_loadtest \
- --usePublicIps=false "
+ --usePublicIps=false \
+ --useStorageApiConnectionPool=true \
+ --tableDestinationCount=1 "
 
 
 if (( $# == 4 ))

@@ -44,6 +44,6 @@ struct CompoundEvent {
    7: optional string                source,
    8: optional string                destination,
    9: optional set<SimpleEvent>      events,
-   10: optional map<string, Carrier> carriers
+   10: optional list<Carrier>        carriers
 }
 
