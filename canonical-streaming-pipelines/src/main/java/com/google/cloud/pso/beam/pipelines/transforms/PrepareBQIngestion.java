@@ -16,11 +16,10 @@
 package com.google.cloud.pso.beam.pipelines.transforms;
 
 import com.google.cloud.pso.beam.common.transport.EventTransport;
+import com.google.cloud.pso.beam.pipelines.options.EventPayloadOptions;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.logging.Level;
 import org.apache.avro.generic.GenericDatumReader;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.io.DecoderFactory;
@@ -62,7 +61,8 @@ public class PrepareBQIngestion extends PTransform<PCollection<EventTransport>, 
   public PCollection<Row> expand(PCollection<EventTransport> input) {
     return input
             .apply("TransformToRow", ParDo.of(new TransformTransportToRow(className)))
-            .setRowSchema(retrieveRowSchema(className));
+            .setRowSchema(retrieveRowSchema(
+                    input.getPipeline().getOptions().as(EventPayloadOptions.class)));
   }
 
   static class TransformTransportToRow extends DoFn<EventTransport, Row> {
@@ -98,7 +98,7 @@ public class PrepareBQIngestion extends PTransform<PCollection<EventTransport>, 
             Class<? extends TBase<?, ?>> thriftClass,
             Schema beamSchema,
             org.apache.avro.Schema avroSchema) {
-      
+
       return AvroUtils.toBeamRowStrict(
               retrieveGenericRecordFromTransport(transport, thriftClass, avroSchema),
               beamSchema);
@@ -155,13 +155,26 @@ public class PrepareBQIngestion extends PTransform<PCollection<EventTransport>, 
 
   }
 
-  public static Schema retrieveRowSchema(String className) {
+  public static Schema retrieveRowSchema(EventPayloadOptions options) {
+    switch (options.getEventFormat()) {
+      case THRIFT: {
+        var thriftClassName = options.getClassName();
+        return retrieveRowSchema(thriftClassName);
+      }
+      default:
+        throw new IllegalArgumentException(
+                "Event format has not being implemented for ingestion: "
+                + options.getEventFormat());
+    }
+  }
+
+  public static Schema retrieveRowSchema(String thriftClassName) {
     try {
-      var thriftRecord = retrieveThriftClass(className);
+      var thriftRecord = retrieveThriftClass(thriftClassName);
       var avroSchema = ThriftData.get().getSchema(thriftRecord);
       return AvroUtils.toBeamSchema(avroSchema);
     } catch (ClassNotFoundException ex) {
-      var msg = "Error while trying to create class instance of " + className;
+      var msg = "Error while trying to create class instance of " + thriftClassName;
       LOG.error(msg, ex);
       throw new RuntimeException(msg, ex);
     }

@@ -35,4 +35,10 @@ then
   LAUNCH_PARAMS=$LAUNCH_PARAMS$4
 fi
 
-mvn compile exec:java -Dexec.mainClass=com.google.cloud.pso.beam.generator.StreamingDataGenerator -Dexec.cleanupDaemonThreads=false -Dexec.args="$LAUNCH_PARAMS"
+if [[ -z "${BEAM_VERSION}" ]]; then
+  MODIFY_BEAM_VERSION=""
+else
+  MODIFY_BEAM_VERSION="-Dbeam.version=${BEAM_VERSION}"
+fi
+
+mvn compile exec:java -Dexec.mainClass=com.google.cloud.pso.beam.generator.StreamingDataGenerator -Dexec.cleanupDaemonThreads=false $MODIFY_BEAM_VERSION -Dexec.args="$LAUNCH_PARAMS"

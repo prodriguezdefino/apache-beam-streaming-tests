@@ -9,7 +9,7 @@ if [ "$#" -ne 3 ] && [ "$#" -ne 4 ]
 fi
 
 SAN_SUBS=`echo "$2" | tr _ -`
-JOBNAME=nokill-${SAN_SUBS}-${USER}-ps2bq
+JOBNAME=ps2bq-${SAN_SUBS}-${USER}
 PROJECT_ID=$1
 BUCKET="gs://${3}"
 
@@ -56,10 +56,15 @@ LAUNCH_PARAMS=" \
  --useStorageApiConnectionPool=true \
  --tableDestinationCount=1 "
 
-
 if (( $# == 4 ))
 then
   LAUNCH_PARAMS=$LAUNCH_PARAMS$4
 fi
 
-mvn compile exec:java -Dexec.mainClass=com.google.cloud.pso.beam.pipelines.${PIPELINE_NAME} -Dexec.cleanupDaemonThreads=false -Dexec.args="${LAUNCH_PARAMS}"
+if [[ -z "${BEAM_VERSION}" ]]; then
+  MODIFY_BEAM_VERSION=""
+else
+  MODIFY_BEAM_VERSION="-Dbeam.version=${BEAM_VERSION}"
+fi
+
+mvn compile exec:java -Dexec.mainClass=com.google.cloud.pso.beam.pipelines.${PIPELINE_NAME} -Dexec.cleanupDaemonThreads=false $MODIFY_BEAM_VERSION -Dexec.args="${LAUNCH_PARAMS}"

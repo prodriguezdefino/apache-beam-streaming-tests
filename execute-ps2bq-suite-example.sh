@@ -14,11 +14,13 @@ then
   MORE_PARAMS=$MORE_PARAMS$4
 fi
 
+# Beam version var is unset, this will default in the pom.xml definitions
+BEAM_VERSION=2.46.0-SNAPSHOT
 
 echo "starting data generator"
 pushd streaming-data-generator
 
-source ./execute-ps.sh $1 $2 $3 "\
+source ./execute-ps2bq.sh $1 $2 $3 "\
   --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
   --generatorRatePerSec=200000 \
   --maxRecordsPerBatch=4500 \
@@ -30,6 +32,6 @@ popd
 echo "starting processing pipeline"
 pushd canonical-streaming-pipelines
 
-source ./execute-ps.sh $1 $2-sub $3 $MORE_PARAMS
+source ./execute-ps2bq.sh $1 $2-sub $3 $MORE_PARAMS
 
 popd
