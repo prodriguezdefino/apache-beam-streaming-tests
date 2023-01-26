@@ -15,7 +15,7 @@ then
 fi
 
 # Beam version var is unset, this will default in the pom.xml definitions
-BEAM_VERSION=2.46.0-SNAPSHOT
+BEAM_VERSION=
 
 echo "starting data generator"
 pushd streaming-data-generator
