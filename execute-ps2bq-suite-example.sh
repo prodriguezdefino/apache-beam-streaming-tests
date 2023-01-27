@@ -32,6 +32,9 @@ popd
 echo "starting processing pipeline"
 pushd canonical-streaming-pipelines
 
-source ./execute-ps2bq.sh $1 $2-sub $3 $MORE_PARAMS
+source ./execute-ps2bq.sh $1 $2-sub $3 "\
+ --useStorageApiConnectionPool=true \
+ --bigQueryWriteMethod=STORAGE_API_AT_LEAST_ONCE \
+ --tableDestinationCount=1 "$MORE_PARAMS
 
 popd

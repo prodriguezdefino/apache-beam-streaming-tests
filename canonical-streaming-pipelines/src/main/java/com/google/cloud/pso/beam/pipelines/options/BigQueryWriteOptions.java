@@ -49,4 +49,10 @@ public interface BigQueryWriteOptions extends PipelineOptions, EventPayloadOptio
   BigQueryIO.Write.Method getBigQueryWriteMethod();
 
   void setBigQueryWriteMethod(BigQueryIO.Write.Method value);
+
+  @Description("The number of storage write api stream to create to write into BQ (Exactly Once mode).")
+  @Default.Integer(1)
+  Integer getNumStorageWriteEOStreams();
+
+  void setNumStorageWriteEOStreams(Integer value);
 }
