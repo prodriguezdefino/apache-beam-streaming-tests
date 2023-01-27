@@ -70,7 +70,7 @@ public class StreamingDataGeneratorTest {
   public void testMakeAvroMessage() throws Exception {
     var sizes = new ArrayList<Long>();
     var times = new ArrayList<Long>();
-    var gen = AvroDataGenerator.createFromSchema("classpath://complex-event.avro");
+    var gen = AvroDataGenerator.createFromSchema("classpath://complex-event.avsc");
     gen.init();
     var schema = gen.getSchema();
     var datumWriter = new GenericDatumWriter(schema);

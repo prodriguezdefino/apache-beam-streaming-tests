@@ -11,7 +11,7 @@
   <groupId>com.google.cloud.pso.beam.pipelines</groupId>
   <artifactId>streaming-pipelines</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Dataflow Load Test Suite :: Streaming Ingestion Pipelines</name>
+  <name>Dataflow Load Test Suite :: Streaming Ingestion</name>
   <packaging>jar</packaging>
   
   <properties>

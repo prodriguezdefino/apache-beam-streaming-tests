@@ -36,6 +36,11 @@
       </dependency>
       <dependency>
         <groupId>org.apache.avro</groupId>
+        <artifactId>avro</artifactId>
+        <version>1.11.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.avro</groupId>
         <artifactId>avro-thrift</artifactId>
         <version>1.11.1</version>
       </dependency>    

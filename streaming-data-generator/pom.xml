@@ -11,7 +11,7 @@
   <groupId>com.google.cloud.pso.beam.generator</groupId>
   <artifactId>streaming-data-generator</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Dataflow Load Test Suite :: Streaming Data Generator</name>
+  <name>Dataflow Load Test Suite :: Streaming Generator</name>
   <packaging>jar</packaging>
   
   <properties>

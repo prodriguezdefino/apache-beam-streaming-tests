@@ -1,7 +1,7 @@
 {
     "type": "record",
     "name": "LogEvent",
-    "namespace": "com.google.cloud.dataflow.example.avro",
+    "namespace": "com.google.cloud.pso.beam.avro",
     "fields": [{
         "name": "category",
         "type": ["null", "string"],
