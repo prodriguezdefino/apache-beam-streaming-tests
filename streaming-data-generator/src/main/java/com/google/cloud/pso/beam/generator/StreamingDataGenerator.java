@@ -20,6 +20,7 @@ import com.google.cloud.pso.beam.common.compression.thrift.ThriftCompression;
 import com.google.cloud.pso.beam.common.transport.CommonTransport;
 import com.google.cloud.pso.beam.common.transport.EventTransport;
 import com.google.cloud.pso.beam.common.transport.coder.CommonTransportCoder;
+import com.google.cloud.pso.beam.generator.formats.AvroDataGenerator;
 import com.google.cloud.pso.beam.options.StreamingSinkOptions;
 import com.google.cloud.pso.beam.transforms.WriteStreamingSink;
 import com.google.common.base.Splitter;
@@ -118,7 +119,7 @@ public class StreamingDataGenerator {
 
     void setFormat(DataGenerator.Format value);
 
-    @Description("File path to copy already generated data from")
+    @Description("File path for the avro schema or already generated file with data to use.")
     @Default.String("")
     String getFilePath();
 
@@ -267,9 +268,9 @@ public class StreamingDataGenerator {
         var messageAndSchema = makeMessage();
         // compress the schema
         var compressedSchema = CompressionUtils.compressString(messageAndSchema.getValue());
-        // partition the schema in multiple strings of ~800 bytes (under the limit of 1k per map entry) 
+        // partition the schema in multiple strings of ~1000 bytes (under the limit of 1k per map entry) 
         // and build an attribute map with it
-        var attributeMap = Splitter.fixedLength(400)
+        var attributeMap = Splitter.fixedLength(500)
                 .splitToList(compressedSchema)
                 .stream()
                 .collect(

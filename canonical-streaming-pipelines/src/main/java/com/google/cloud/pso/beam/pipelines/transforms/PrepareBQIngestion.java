@@ -20,12 +20,16 @@ import com.google.cloud.pso.beam.pipelines.options.EventPayloadOptions;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.channels.Channels;
+import org.apache.avro.generic.GenericData;
 import org.apache.avro.generic.GenericDatumReader;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.io.DecoderFactory;
 import org.apache.avro.io.EncoderFactory;
 import org.apache.avro.thrift.ThriftData;
 import org.apache.avro.thrift.ThriftDatumWriter;
+import org.apache.beam.sdk.io.FileSystems;
 import org.apache.beam.sdk.schemas.Schema;
 import org.apache.beam.sdk.schemas.utils.AvroUtils;
 import org.apache.beam.sdk.transforms.DoFn;
@@ -47,20 +51,21 @@ public class PrepareBQIngestion extends PTransform<PCollection<EventTransport>, 
 
   private static final Logger LOG = LoggerFactory.getLogger(PrepareBQIngestion.class);
 
-  private final String className;
-
-  PrepareBQIngestion(String className) {
-    this.className = className;
+  PrepareBQIngestion() {
   }
 
-  public static PrepareBQIngestion create(String className) {
-    return new PrepareBQIngestion(className);
+  public static PrepareBQIngestion create() {
+    return new PrepareBQIngestion();
   }
 
   @Override
   public PCollection<Row> expand(PCollection<EventTransport> input) {
+    var options = input.getPipeline().getOptions().as(EventPayloadOptions.class);
     return input
-            .apply("TransformToRow", ParDo.of(new TransformTransportToRow(className)))
+            .apply("TransformToRow", ParDo.of(new TransformTransportToRow(
+                    options.getClassName(),
+                    options.getAvroSchemaLocation(),
+                    options.getEventFormat())))
             .setRowSchema(retrieveRowSchema(
                     input.getPipeline().getOptions().as(EventPayloadOptions.class)));
   }
@@ -71,16 +76,31 @@ public class PrepareBQIngestion extends PTransform<PCollection<EventTransport>, 
     private org.apache.avro.Schema avroSchema;
     private Class<? extends TBase<?, ?>> thriftClass;
     private final String className;
+    private final String avroSchemaLocation;
+    private final EventPayloadOptions.EventFormat eventFormat;
 
-    public TransformTransportToRow(String className) {
+    public TransformTransportToRow(
+            String className, String avroSchemaLocation,
+            EventPayloadOptions.EventFormat eventFormat) {
       this.className = className;
+      this.avroSchemaLocation = avroSchemaLocation;
+      this.eventFormat = eventFormat;
     }
 
     @Setup
     public void setup() throws Exception {
-      avroSchema = retrieveAvroSchema(className);
+      switch (eventFormat) {
+        case THRIFT: {
+          thriftClass = retrieveThriftClass(className);
+          avroSchema = retrieveAvroSchema(className);
+          break;
+        }
+        case AVRO: {
+          avroSchema = retrieveAvroSchemaFromLocation(avroSchemaLocation);
+          break;
+        }
+      }
       beamSchema = AvroUtils.toBeamSchema(avroSchema);
-      thriftClass = retrieveThriftClass(className);
     }
 
     @StartBundle
@@ -90,17 +110,19 @@ public class PrepareBQIngestion extends PTransform<PCollection<EventTransport>, 
     @ProcessElement
     public void processElement(ProcessContext context) throws Exception {
       context.output(
-              retrieveRowFromTransport(context.element(), thriftClass, beamSchema, avroSchema));
+              retrieveRowFromTransport(
+                      context.element(), eventFormat, thriftClass, beamSchema, avroSchema));
     }
 
     static Row retrieveRowFromTransport(
             EventTransport transport,
+            EventPayloadOptions.EventFormat eventFormat,
             Class<? extends TBase<?, ?>> thriftClass,
             Schema beamSchema,
             org.apache.avro.Schema avroSchema) {
 
       return AvroUtils.toBeamRowStrict(
-              retrieveGenericRecordFromTransport(transport, thriftClass, avroSchema),
+              retrieveGenericRecordFromTransport(transport, eventFormat, thriftClass, avroSchema),
               beamSchema);
     }
 
@@ -121,12 +143,27 @@ public class PrepareBQIngestion extends PTransform<PCollection<EventTransport>, 
 
     static GenericRecord retrieveGenericRecordFromTransport(
             EventTransport transport,
+            EventPayloadOptions.EventFormat eventFormat,
             Class<? extends TBase<?, ?>> thriftClass,
             org.apache.avro.Schema avroSchema) {
       try {
-        var thriftEmptyInstance = thriftClass.getConstructor().newInstance();
-        var thriftObject = getThriftObjectFromData(thriftEmptyInstance, transport.getData());
-        return retrieveGenericRecordFromThriftData(thriftObject, avroSchema);
+        switch (eventFormat) {
+          case AVRO: {
+            var reader = new GenericDatumReader<GenericRecord>(avroSchema);
+            var avroRec = new GenericData.Record(avroSchema);
+            var decoder = DecoderFactory.get().binaryDecoder(
+                    transport.getData(), 0, transport.getData().length, null);
+            reader.read(avroRec, decoder);
+            return avroRec;
+          }
+          case THRIFT: {
+            var thriftEmptyInstance = thriftClass.getConstructor().newInstance();
+            var thriftObject = getThriftObjectFromData(thriftEmptyInstance, transport.getData());
+            return retrieveGenericRecordFromThriftData(thriftObject, avroSchema);
+          }
+          default:
+            throw new RuntimeException("Format not implemented " + eventFormat);
+        }
       } catch (Exception ex) {
         var msg = "Error while trying to retrieve a generic record from the transport object.";
         LOG.error(msg, ex);
@@ -161,6 +198,10 @@ public class PrepareBQIngestion extends PTransform<PCollection<EventTransport>, 
         var thriftClassName = options.getClassName();
         return retrieveRowSchema(thriftClassName);
       }
+      case AVRO: {
+        return AvroUtils.toBeamSchema(
+                retrieveAvroSchemaFromLocation(options.getAvroSchemaLocation()));
+      }
       default:
         throw new IllegalArgumentException(
                 "Event format has not being implemented for ingestion: "
@@ -190,6 +231,26 @@ public class PrepareBQIngestion extends PTransform<PCollection<EventTransport>, 
           throws ClassNotFoundException {
     return (Class<? extends TBase<?, ?>>) Class.forName(
             className, true, Thread.currentThread().getContextClassLoader());
+  }
+
+  public static org.apache.avro.Schema retrieveAvroSchemaFromLocation(String avroSchemaLocation) {
+    InputStream iStream = null;
+    try {
+      if (avroSchemaLocation.startsWith("classpath://")) {
+        iStream = PrepareBQIngestion.class.getResourceAsStream(
+                avroSchemaLocation.replace("classpath://", "/"));
+      } else {
+        iStream
+                = Channels.newInputStream(FileSystems.open(
+                        FileSystems.matchNewResource(avroSchemaLocation, false)));
+      }
+      return new org.apache.avro.Schema.Parser().parse(iStream);
+    } catch (Exception ex) {
+      var msg = "Error while trying to retrieve the avro schema from location "
+              + avroSchemaLocation;
+      LOG.error(msg, ex);
+      throw new RuntimeException(msg, ex);
+    }
   }
 
 }

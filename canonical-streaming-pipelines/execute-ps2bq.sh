@@ -52,9 +52,7 @@ LAUNCH_PARAMS=" \
  --experiments=use_pubsub_streaming \
  --enableStreamingEngine \
  --experiments=streaming_engine_job_setting=asymmetric_for_large_loadtest \
- --usePublicIps=false \
- --useStorageApiConnectionPool=true \
- --tableDestinationCount=1 "
+ --usePublicIps=false "
 
 if (( $# == 4 ))
 then

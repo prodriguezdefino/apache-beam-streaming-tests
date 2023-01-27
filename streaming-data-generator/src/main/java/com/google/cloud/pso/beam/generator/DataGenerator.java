@@ -27,7 +27,8 @@ import org.apache.beam.sdk.values.KV;
 public interface DataGenerator extends Serializable {
 
   public enum Format {
-    AVRO,
+    AVRO_FROM_FILE,
+    AVRO_FROM_SCHEMA,
     THRIFT
   }
 
@@ -49,8 +50,10 @@ public interface DataGenerator extends Serializable {
           int maxSizeCollectionType,
           String filePath) throws IOException {
     switch (format) {
-      case AVRO:
+      case AVRO_FROM_FILE:
         return AvroDataGenerator.createFromFile(filePath);
+      case AVRO_FROM_SCHEMA:
+        return AvroDataGenerator.createFromSchema(filePath);
       case THRIFT:
         return ThriftDataGenerator.create(clazz, minChars, maxChars, maxSizeCollectionType);
       default:

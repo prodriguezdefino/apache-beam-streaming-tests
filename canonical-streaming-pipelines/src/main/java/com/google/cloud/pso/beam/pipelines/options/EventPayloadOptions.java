@@ -27,7 +27,7 @@ public interface EventPayloadOptions extends PipelineOptions {
 
   enum EventFormat {
     THRIFT,
-    AVRO // ingestion not implemented yet
+    AVRO 
   }
 
   @Description("FQCN of the type the pipeline will ingest, sets EventFormat as THRIFT.")

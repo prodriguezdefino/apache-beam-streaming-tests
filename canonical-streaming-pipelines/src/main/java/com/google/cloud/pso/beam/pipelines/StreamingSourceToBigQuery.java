@@ -69,7 +69,7 @@ public class StreamingSourceToBigQuery {
             .apply("ReadFromStreamingSource", ReadStreamingSource.create())
             .apply("MaybeDecompress", MaybeDecompressEvents.create())
             .apply("MaybeExecuteUDF", ExecuteUDF.create(options.getUDFClassName()))
-            .apply("PrepIngestion", PrepareBQIngestion.create(options.getClassName()))
+            .apply("PrepIngestion", PrepareBQIngestion.create())
             .apply("WriteIntoBigQuery", WriteToBigQuery.create());
 
     pipeline.run();

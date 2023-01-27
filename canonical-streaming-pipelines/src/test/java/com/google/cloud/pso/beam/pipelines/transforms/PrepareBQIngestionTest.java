@@ -4,6 +4,7 @@ import com.google.cloud.pso.beam.common.transport.CommonTransport;
 import com.google.cloud.pso.beam.generator.thrift.Carrier;
 import com.google.cloud.pso.beam.generator.thrift.CompoundEvent;
 import com.google.cloud.pso.beam.generator.thrift.SimpleEvent;
+import com.google.cloud.pso.beam.pipelines.options.EventPayloadOptions;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Random;
@@ -96,7 +97,7 @@ public class PrepareBQIngestionTest {
     var transport = new CommonTransport("someid", new HashMap<>(), thriftData);
 
     var row = PrepareBQIngestion.TransformTransportToRow.retrieveRowFromTransport(
-            transport, thriftClass, beamSchema, avroSchema);
+            transport, EventPayloadOptions.EventFormat.THRIFT, thriftClass, beamSchema, avroSchema);
 
     assertNotNull(row);
   }
