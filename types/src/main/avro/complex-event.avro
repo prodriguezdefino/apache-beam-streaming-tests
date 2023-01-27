@@ -1,0 +1,4561 @@
+{
+  "type" : "record",
+  "name" : "complexschema",
+  "namespace" : "org.apache.beam.sdk.io.gcp.bigquery",
+  "doc" : "Translated Avro Schema for complexschema",
+  "fields" : [ {
+    "name" : "edbienddsg_ua_em",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "edbienddsg_ua_em",
+        "doc" : "Translated Avro Schema for edbienddsg_ua_em",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : "string"
+        }, {
+          "name" : "vulae",
+          "type" : "double"
+        } ]
+      }
+    }
+  }, {
+    "name" : "isaranidr_oem_e_dvad_dats_",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "i_ds_ar_spivti_roed_agd__hnarsguraed",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "adiaadtier_e__vscd__",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "__d_ar_dsiteaatpy_stecveg_a",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "p_tecs_vayaed_adr_iet_",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "tt_adaan_i_c_radreoviev_sia",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_optalu_esbtdarg_td_e__daa",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "spaeaacp_ld_ed____edol_digeoagci",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "spaeaacp_ld_ed____edol_digeoagci",
+        "doc" : "Translated Avro Schema for spaeaacp_ld_ed____edol_digeoagci",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "auvle",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "aessteyt_aede_uv_ar__rfgditpi",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "aessteyt_aede_uv_ar__rfgditpi",
+        "doc" : "Translated Avro Schema for aessteyt_aede_uv_ar__rfgditpi",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "vlaeu",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "aaric_lar_ladsdsnnn_thv_lecsehans_ee_e",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "aaric_lar_ladsdsnnn_thv_lecsehans_ee_e",
+        "doc" : "Translated Avro Schema for aaric_lar_ladsdsnnn_thv_lecsehans_ee_e",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "velua",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "sd__l_yaiiadp_med_amfi",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "m_ifssay_pbeu_dd__ihilaprl",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "ndueaedirt_dseap__ro_adi__wpavdi_s_",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "_pdp_i_adidstaaun__",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "as_a_dda_p_pp_ip",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "epseaa_sacg_oappy__ctgad__t_rp",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "_p_ppd_oapaa_blsaid__lg",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "a_ocprdp_f_osil_are_p",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "upaiabp___d_p_sd",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "a_dp_gceyr_i____eotpscssaaep_alsamsotdp_ra",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "_sp_i_oposa_eal__tdcaseeedsdmarl__vpres",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "pagm__etpasppai_da_sldoep_ora___",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "epaad_iscoga_spltre_oord_a__p_y_appmt",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "d__seotpaualr_dp__yape_saippc_nr_morc",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "eps_npn_iprioadet_nsosucms___avr_desaepr_a_ort_othpl",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "dl_r_psiaa_edptc_p_s_opio_amrepap_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "nd_u_tcrp__psreadosiv_pom_pe_ou_pplcdtd_ssaetapi_eao",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "bndaae__abdps__atr_posepwaalelmed__p_ri_oepal",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "lt_d_eg__aapnt_as_m_daposairpvr_ogi",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "o_siogvmtota_silp_nrptn_u_ieeuart_od_rd_ncer_asr_pacn",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "e__e_imeld_alsfiosaaz_osp_pri_ptd_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "im_s_ppdis_f_eoiptl_ra_e_rrdpes_eao_ac",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "a_ursosi_p_dtmp_aetntrp_o_ond_acgla_i",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "eriea_esptlysar_pad_aboac_idpt_g_lhpp_us_",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "nag__p_trluv_d_s__ieriaathaed_spigabspl",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "lp_at_lsi__dps__dconbiarnpt_huaustgere_ai",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "aaphtae_a_iavrp__dregsgprna__g",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "anr_c_gvinehp_sga_d_repaa_r_otuapagt",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_cprldpagpn_c_soau_tlaa_agh_tnovi_s",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "tlnpor__ta_i_nf_laapsarcchas__govgaidp",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ic_s_lvnt_aaanpri_fta_i_acdaa_eadorocllgptshrpbg_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "d_gh__parpp_regaase_ed",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "vd_d_preospralep__hsapage_",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "_p__anlced_spgpia_hsapapttld__ara",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_p__anlced_spgpia_hsapapttld__ara",
+        "doc" : "Translated Avro Schema for _p__anlced_spgpia_hsapapttld__ara",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "lauev",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "eprt_aaph_ilsidgs_ad____ladnappp",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "apalok_lskot__analtapsplidpp_ce_r_eia__hdga",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "apalok_lskot__analtapsplidpp_ce_r_eia__hdga",
+        "doc" : "Translated Avro Schema for apalok_lskot__analtapsplidpp_ce_r_eia__hdga",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "ueval",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "h_xpa_aazas_mp_igapr_edsp_p_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ar_nlpax_aadnl_tu_sacphpc_otiso_g_m",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_hdrppfnnl_aicor_ama___psatlotacxisag_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "lem_aaatat_idcogin__p_lc_crtahsb_nxr_pfasiopaldar",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "pdt_ihmpngaa_r_nasi_g_r_ap",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "arhaopiaid__gngnr___p_patsum_cnt",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_gpaher_ap_eseMrg__p_vadd",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "a__p__vpaltgedal_ad_sAaippantrc_hps_",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "a__p__vpaltgedal_ad_sAaippantrc_hps_",
+        "doc" : "Translated Avro Schema for a__p__vpaltgedal_ad_sAaippantrc_hps_",
+        "fields" : [ {
+          "name" : "key",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "eulva",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "allaen__ap__phiss_pir_tqadad_p_dvgp",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "g__h_atridsva_dipasnplpa_ap_dexpl___",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "pltpdpa___sed_hi_mp_isa_sgn_aapurln_av",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "e_aar_erm_ckdmsepy_pedno_",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "e_aar_erm_ckdmsepy_pedno_",
+        "doc" : "Translated Avro Schema for e_aar_erm_ckdmsepy_pedno_",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "luvea",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "suagpsicdgpnlte_po__f_t_rse__ehdacf_a__s_t_ni_t_nneoiaappeearmpml_rneo",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "suagpsicdgpnlte_po__f_t_rse__ehdacf_a__s_t_ni_t_nneoiaappeearmpml_rneo",
+        "doc" : "Translated Avro Schema for suagpsicdgpnlte_po__f_t_rse__ehdacf_a__s_t_ni_t_nneoiaappeearmpml_rneo",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "uavel",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "euonr_efp_lacpmin__sno__eogertrcase_lpna___qrsaa_thdgtd_ee_ftiens",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "euonr_efp_lacpmin__sno__eogertrcase_lpna___qrsaa_thdgtd_ee_ftiens",
+        "doc" : "Translated Avro Schema for euonr_efp_lacpmin__sno__eogertrcase_lpna___qrsaa_thdgtd_ee_ftiens",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "vauel",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "psr_agnn_s_icf_oelauseynta_gaedh___cievnloi__tpuofp",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "psr_agnn_s_icf_oelauseynta_gaedh___cievnloi__tpuofp",
+        "doc" : "Translated Avro Schema for psr_agnn_s_icf_oelauseynta_gaedh___cievnloi__tpuofp",
+        "fields" : [ {
+          "name" : "key",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "aeuvl",
+          "type" : {
+            "type" : "array",
+            "items" : {
+              "type" : "record",
+              "name" : "aeuvl",
+              "doc" : "Translated Avro Schema for aeuvl",
+              "fields" : [ {
+                "name" : "eky",
+                "type" : [ "null", "string" ]
+              }, {
+                "name" : "ealvu",
+                "type" : [ "null", "double" ]
+              } ]
+            }
+          }
+        } ]
+      }
+    }
+  }, {
+    "name" : "c_etepiavrs_ur_rnsacgn_intpa_e_t_foodo_unoai",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "c_etepiavrs_ur_rnsacgn_intpa_e_t_foodo_unoai",
+        "doc" : "Translated Avro Schema for c_etepiavrs_ur_rnsacgn_intpa_e_t_foodo_unoai",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "lauev",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "tdeoarcivor__pseifauo_no_g__nnscianoae_t_tu_pglr_",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "tdeoarcivor__pseifauo_no_g__nnscianoae_t_tu_pglr_",
+        "doc" : "Translated Avro Schema for tdeoarcivor__pseifauo_no_g__nnscianoae_t_tu_pglr_",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "aeluv",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "_rt_daaesenfwurut_an_g_pioct_uacpon",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_rt_daaesenfwurut_an_g_pioct_uacpon",
+        "doc" : "Translated Avro Schema for _rt_daaesenfwurut_an_g_pioct_uacpon",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "uevla",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "odgpp_cuar_eo_cn__geauurtt_wf_satinna_ol",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "odgpp_cuar_eo_cn__geauurtt_wf_satinna_ol",
+        "doc" : "Translated Avro Schema for odgpp_cuar_eo_cn__geauurtt_wf_satinna_ol",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "luvea",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "_scuaayu_rd__hdaoo_f_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "__e_or__ducskaao_ehfuw",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "itc_n_s_nd_itaee_dicldli_",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "itc_n_s_nd_itaee_dicldli_",
+        "doc" : "Translated Avro Schema for itc_n_s_nd_itaee_dicldli_",
+        "fields" : [ {
+          "name" : "key",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "lueva",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "slltna_ha_uli_nt_ac_aoienrrslcitdfcposiob_sl",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "srl_cctllo_tdlhipdairtaaeable_au_nnis_b_iinsootcsl_crfa",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ps_iaan__a_rsnuosbiihcslttdlllelc_os",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "pc__ddaamtsa_eisae_oitttecnrn_o",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "d__tdasneoataanmpcdm_trtco_esrtin_eo_iniaoe",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_arausmnrcsodiaa__e_ctanorttetiem__opnetd",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "sdatpttxe__tiaomda_setro_ice__etncna",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "mtt__yead_od_eerntpiancatcst_o_pasie",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "mdon__olcis_svadoerne",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "aenyvr__eisontpcosd_",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "ceun__vi_ot_natd_a_gpyligi_aa_oroszpectlsy_oyn_dct_",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "ceun__vi_ot_natd_a_gpyligi_aa_oroszpectlsy_oyn_dct_",
+        "doc" : "Translated Avro Schema for ceun__vi_ot_natd_a_gpyligi_aa_oroszpectlsy_oyn_dct_",
+        "fields" : [ {
+          "name" : "key",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "uleav",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "i__oendurggsn_eannutie_mocn_tQatr_anvepa_dt_g_t_",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "i__oendurggsn_eannutie_mocn_tQatr_anvepa_dt_g_t_",
+        "doc" : "Translated Avro Schema for i__oendurggsn_eannutie_mocn_tQatr_anvepa_dt_g_t_",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "velau",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "_hi_ie_merstrrra_icctctadaai_",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_hi_ie_merstrrra_icctctadaai_",
+        "doc" : "Translated Avro Schema for _hi_ie_merstrrra_icctctadaai_",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "auelv",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "_fuaurce_ccodneiny_crd_eorn_y_csr",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "c_cdnt_r__mt_a_eieuiaac_arier_diherltattsi_birsitat",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "c_cdnt_r__mt_a_eieuiaac_arier_diherltattsi_birsitat",
+        "doc" : "Translated Avro Schema for c_cdnt_r__mt_a_eieuiaac_arier_diherltattsi_birsitat",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "auvle",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "edeciced__s__rraraiv",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "_iyct_acinsoepe__vdetoe_ncnd",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "ue__rtyvicdaeo_sn_dc",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "nvtc_goischerlriss_ende_euni_c_s_tnie__afenaoti_n_afe_vporeet_lmddgcgd_eae_",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "nvtc_goischerlriss_ende_euni_c_s_tnie__afenaoti_n_afe_vporeet_lmddgcgd_eae_",
+        "doc" : "Translated Avro Schema for nvtc_goischerlriss_ende_euni_c_s_tnie__afenaoti_n_afe_vporeet_lmddgcgd_eae_",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "lueav",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "e_ucge_iaadisd__tevf",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "escenrd_ea_ev_ddig_",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "i_diae_ds_cv_defv",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "ir_ase__i_svidadod_cend",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "i_v_asescs_i_oedd_i",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "gue_a_dsien__cavdegla",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "e_siidei_doccvb_leevdieam__d_",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "vo_sddsie_e__cneavs_ior",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "edye_dsetvai_c_p_",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "_td_ye_reiirasdacb_o__vehf",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "pn_tnveio_cec____yesecdytnoietpad",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "pn_tnveio_cec____yesecdytnoietpad",
+        "doc" : "Translated Avro Schema for pn_tnveio_cec____yesecdytnoietpad",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "ulave",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "oaepndnxr__f_a_mpeirsocddeea_sveidwr_ai",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "oaepndnxr__f_a_mpeirsocddeea_sveidwr_ai",
+        "doc" : "Translated Avro Schema for oaepndnxr__f_a_mpeirsocddeea_sveidwr_ai",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "aevul",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "a_iapodpsalltsy__s_n_iandya_ocdtoicolli",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "a_iapodpsalltsy__s_n_iandya_ocdtoicolli",
+        "doc" : "Translated Avro Schema for a_iapodpsalltsy__s_n_iandya_ocdtoicolli",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "evlua",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "mn_ttfeegeagpes__tt_uea_aynegpeh_gldcnanitr__e_an_ignnmfl_eot",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "mn_ttfeegeagpes__tt_uea_aynegpeh_gldcnanitr__e_an_ignnmfl_eot",
+        "doc" : "Translated Avro Schema for mn_ttfeegeagpes__tt_uea_aynegpeh_gldcnanitr__e_an_ignnmfl_eot",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "veaul",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "tm_aubitge__wntnocgsehi_ead",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "some_ed_naeaa__szr_tn_cvg_c_aoesicdeor_endsetnnvseorv_rfidic_eoyss",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "dcn_pr_ce_s_sne_olapvtsoflscdnaazoetnime___rnei_snr_etossoerdsiva",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "nsaaatncnr_nsnol__e__a_itloieYrrsszf_d_tls_sotcnvisyssovdmed__e_ncobraeie_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "o_lce_ysr__is_cdaestmansvsalnened_rnii_tev_nsos_ps__etaztsc_iordolnfrn_ao",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "fosrc_sysc_ve_naer_ie_diolats_voorisarit_tdnlaea__snlndnenez_smnsc__ost",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ezils_vescarnmonseia__cid_tesdfirssvceto_e_it_s_nnt_saomse_rlnl_ernstnouona_c",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "oln_nniaiep_enpeeots_lr_cveosmzamscni___aeartsnedrlc_o_ntevtorsdesrf_sctoy__sd",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "nlde_o_stsev__itrssrcsnns_deod_isenvc_ercapelny_fneo_tr_oi_ezmeasocrplntaa",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "egdnsrade__",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_d_das_eidnshla",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "ocsdnesh_arasdel__",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "ocsdnesh_arasdel__",
+        "doc" : "Translated Avro Schema for ocsdnesh_arasdel__",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "alveu",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "ci_astmeals_rhisylodrand_ie_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ecacmiakigdscsaan_nrnr___v_hostot",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "noigk_sioecraatocchta_vs__nsr_dn",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "eecbrdsitig__asoaa_",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "i_ntsdimtnssoiipneo_rno_oseriasi_p",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_st_nai_ieoo_nnnrs__iooinitipsnseitdrooispt",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_st_nai_ieoo_nnnrs__iooinitipsnseitdrooispt",
+        "doc" : "Translated Avro Schema for _st_nai_ieoo_nnnrs__iooinitipsnseitdrooispt",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "lueav",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "ual_tcntp_daopsial_iamcd___tnpes",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "sinadttis__rese_d",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "_ttnignie_ara__etieedtrsttses_gnr",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_ttnignie_ara__etieedtrsttses_gnr",
+        "doc" : "Translated Avro Schema for _ttnignie_ara__etieedtrsttses_gnr",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "vluae",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "_sie_deuc_sivxsal",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "ic__nin_elsmapetdi__ais",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "o___sednd_gapnieadrranli_lebe",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "grh_oin_r_rtreoompsd_leiaigdle_pxaeal_n",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "idluatvactotnees_iltamrb___",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "ain_irttc_at_miodbusdwonwt_a",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "edvvaci___svdsaeeegsrcsosmeo__ytncdrr__itsaneno_e_eicosad_n",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "eeatpensendnsod__vecasarns_emnsalo_iitsrv__p_orcdcssi_lo_t",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "_m_d_nasoebvtnrls_sicsrdccissnet_ydansv_ea_eioostri_Ullan_ta_n__seo",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ni_liiscsd_a_so__v_rync_esrastta_eoBtsdecio_lneosavnelrnm__d_asstn",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "eetstmnyd_eeiiddl_anvnsvnsatrss__o_s_ilo_nc_ato_lsc__cosieararns",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "t_n_mtcodste_l_enssrasuen_cenln_tiaos_osv_roa_sieresinm_tivialscnd_ces",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "odpcmsi_naenictoeoti_mesrvtvnclsse_dlloadna__t_eoste_y_rancesr_rps__esn",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "riedoaol_sss_ndsdiacycsverts_tsnancnoe_epaolvee_st_tp____ncmnerlrei",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "ay_rvnk_cs_tecaeidsymo__opetn",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "e_pmcutpyd_astro_d_act",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "oeaw_rbmtr_aaictdttnttuiit_s_",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "__mcagaapn_isdgph_ci_sr_i",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "osacsdamp__icpa___",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "_ltpae_ncasuapi__r_dvmsefag",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "itmasn__os_aitdndeanao",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "itmasn__os_aitdndeanao",
+        "doc" : "Translated Avro Schema for itmasn__os_aitdndeanao",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "evlau",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "po_ola_b_en__ifvon__a_srscemiiafielhddpl",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "po_ola_b_en__ifvon__a_srscemiiafielhddpl",
+        "doc" : "Translated Avro Schema for po_ola_b_en__ifvon__a_srscemiiafielhddpl",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "lueav",
+          "type" : {
+            "type" : "array",
+            "items" : {
+              "type" : "record",
+              "name" : "lueav",
+              "doc" : "Translated Avro Schema for lueav",
+              "fields" : [ {
+                "name" : "kye",
+                "type" : [ "null", "string" ]
+              }, {
+                "name" : "aevlu",
+                "type" : [ "null", "double" ]
+              } ]
+            }
+          }
+        } ]
+      }
+    }
+  }, {
+    "name" : "tmo_sfp_unesoaew_d__lyle",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "tmo_sfp_unesoaew_d__lyle",
+        "doc" : "Translated Avro Schema for tmo_sfp_unesoaew_d__lyle",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "evalu",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "eeittnaemaenmud_irctt_aaigs_hlgtrr__cs__dai",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "eeittnaemaenmud_irctt_aaigs_hlgtrr__cs__dai",
+        "doc" : "Translated Avro Schema for eeittnaemaenmud_irctt_aaigs_hlgtrr__cs__dai",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "euval",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "ibu_o_c_ntdiasd__t",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "se___tods_rgi_penoknlcrna_kocxi_iva_tydeic",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "__pcond_o__tktnsoiavc_eesreyy",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "r_sbudl__ctutioraaab_tetn_ues",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "retsodbiioat_i_do__iginr_dnctgcatrb_us",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "nvte_orsttaldeu_ial_i_tcbo",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "a_btioisin__wnowd_udtarttco",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_on__c_islrcptvi_saoniotdencdragixke_",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "e_ensntic_o_odrpyta_ocsv",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "a_dcdprout_to_ycpte_s",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "atatlgiohir_diipnmoo_sm_atz",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "epzri___itmcriadeeanosoftnep",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "ieranibli__oabtpoytarcgghs_o_mp_eadrnsegn_nfse",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "esspftneac_trgpat_osgo_O__io_ogdiuluncmesipnoerann",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "esspftneac_trgpat_osgo_O__io_ogdiuluncmesipnoerann",
+        "doc" : "Translated Avro Schema for esspftneac_trgpat_osgo_O__io_ogdiuluncmesipnoerann",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "alveu",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "pditaa__prdysdesetrs__eteait__sev_vn",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "pditaa__prdysdesetrs__eteait__sev_vn",
+        "doc" : "Translated Avro Schema for pditaa__prdysdesetrs__eteait__sev_vn",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "alveu",
+          "type" : {
+            "type" : "array",
+            "items" : "string"
+          }
+        } ]
+      }
+    }
+  }, {
+    "name" : "tw_neeeddegeentnav__ryve_gtmei_ttreapdisi_ar_i_ssaingtfsn_ap_hde",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "tw_neeeddegeentnav__ryve_gtmei_ttreapdisi_ar_i_ssaingtfsn_ap_hde",
+        "doc" : "Translated Avro Schema for tw_neeeddegeentnav__ryve_gtmei_ttreapdisi_ar_i_ssaingtfsn_ap_hde",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "lvuea",
+          "type" : {
+            "type" : "array",
+            "items" : "string"
+          }
+        } ]
+      }
+    }
+  }, {
+    "name" : "cascvsrlrk_idc_ai_indtea_msdrofeeepr_",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "tpnc_ddrpecckmaieraalpm_ess_f_iro_opdo_",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "_pfi_uoi_m_otnwho_e_d___dagsnabrwr_econnc",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_pfi_uoi_m_otnwho_e_d___dagsnabrwr_econnc",
+        "doc" : "Translated Avro Schema for _pfi_uoi_m_otnwho_e_d___dagsnabrwr_econnc",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "aevul",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "nsliio__n_toc_yppt_gunnd_lceaatuts",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "nsliio__n_toc_yppt_gunnd_lceaatuts",
+        "doc" : "Translated Avro Schema for nsliio__n_toc_yppt_gunnd_lceaatuts",
+        "fields" : [ {
+          "name" : "key",
+          "type" : "string"
+        }, {
+          "name" : "uelva",
+          "type" : {
+            "type" : "array",
+            "items" : {
+              "type" : "record",
+              "name" : "uelva",
+              "doc" : "Translated Avro Schema for uelva",
+              "fields" : [ {
+                "name" : "kye",
+                "type" : "string"
+              }, {
+                "name" : "ualve",
+                "type" : "double"
+              } ]
+            }
+          }
+        } ]
+      }
+    }
+  }, {
+    "name" : "ipwnloan_it_osss_nd_is_natgiiin_d",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_rdp_l_mseiruilatdnso_die_aimloio_vradle",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "eaft_oaeuanstctoredatgsva_irogeru__efdunn_ipe_gi_g",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "eaft_oaeuanstctoredatgsva_irogeru__efdunn_ipe_gi_g",
+        "doc" : "Translated Avro Schema for eaft_oaeuanstctoredatgsva_irogeru__efdunn_ipe_gi_g",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "eauvl",
+          "type" : {
+            "type" : "array",
+            "items" : {
+              "type" : "record",
+              "name" : "eauvl",
+              "doc" : "Translated Avro Schema for eauvl",
+              "fields" : [ {
+                "name" : "eky",
+                "type" : [ "null", "string" ]
+              }, {
+                "name" : "lauve",
+                "type" : [ "null", "double" ]
+              } ]
+            }
+          }
+        } ]
+      }
+    }
+  }, {
+    "name" : "iao___ryittame_ealtr_tcangesdgger",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "iao___ryittame_ealtr_tcangesdgger",
+        "doc" : "Translated Avro Schema for iao___ryittame_ealtr_tcangesdgger",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "uavle",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "dc_dfleye_id_hetns_oe_u_taofccwr_aaflllson_e",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "dc_dfleye_id_hetns_oe_u_taofccwr_aaflllson_e",
+        "doc" : "Translated Avro Schema for dc_dfleye_id_hetns_oe_u_taofccwr_aaflllson_e",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "uvael",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "t_t_a_ssirf_aaemedri_dnts",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "d__n_lica_torsa",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "a_tl_suino_das_darexd_uis_mi_aayrp_aelisscri_pcnionl",
+    "type" : {
+      "type" : "array",
+      "items" : "long"
+    }
+  }, {
+    "name" : "ed_ftees_anct_ilid_eoas___elipe_nurcnatnam_stascr",
+    "type" : {
+      "type" : "array",
+      "items" : "double"
+    }
+  }, {
+    "name" : "a_oeensroatpsidr___ieraf_tfmlcmiecl_se_s_tnen_i",
+    "type" : {
+      "type" : "array",
+      "items" : "double"
+    }
+  }, {
+    "name" : "a__ps__airtd_tlp_ysdtol_use",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "a__ps__airtd_tlp_ysdtol_use",
+        "doc" : "Translated Avro Schema for a__ps__airtd_tlp_ysdtol_use",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "elauv",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "id_addtars_mieb__",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "_qay__redescr_ttxhsaue_",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "pl_dcaer_vla_ntemoacolre_es_horbe_eas_rv_",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "mvc__teheaceaer_ls_a_rebown_pdervor__sla",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "_h___asstdbuwtrcar_ieatpte",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_h___asstdbuwtrcar_ieatpte",
+        "doc" : "Translated Avro Schema for _h___asstdbuwtrcar_ieatpte",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "ulvae",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "aeyedqsy_s_wpcerottp_a_in__ruesepppexoytsy__aq_n_nunhae_rix",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "aeyedqsy_s_wpcerottp_a_in__ruesepppexoytsy__aq_n_nunhae_rix",
+        "doc" : "Translated Avro Schema for aeyedqsy_s_wpcerottp_a_in__ruesepppexoytsy__aq_n_nunhae_rix",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "aeluv",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "__we_aad_vpuwetr__seleythei_es_ncebcutrrr_eattqat",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "__we_aad_vpuwetr__seleythei_es_ncebcutrrr_eattqat",
+        "doc" : "Translated Avro Schema for __we_aad_vpuwetr__seleythei_es_ncebcutrrr_eattqat",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "laevu",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "mrae_ie_p_maatetdn_rsr_gsngool_tn_ss__met__aitterdgcaheitsttrhua_",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "mrae_ie_p_maatetdn_rsr_gsngool_tn_ss__met__aitterdgcaheitsttrhua_",
+        "doc" : "Translated Avro Schema for mrae_ie_p_maatetdn_rsr_gsngool_tn_ss__met__aitterdgcaheitsttrhua_",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "uvael",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "s_riica_Dd_srveladssr_stsvvefecrtm_e_o_ua",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "s_riica_Dd_srveladssr_stsvvefecrtm_e_o_ua",
+        "doc" : "Translated Avro Schema for s_riica_Dd_srveladssr_stsvvefecrtm_e_o_ua",
+        "fields" : [ {
+          "name" : "key",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "eavul",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "ma_edivteoafhssvc_orsre_wu_scrllstro_e_dli_s",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "ma_edivteoafhssvc_orsre_wu_scrllstro_e_dli_s",
+        "doc" : "Translated Avro Schema for ma_edivteoafhssvc_orsre_wu_scrllstro_e_dli_s",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "ulaev",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "da_id_neerntvti_oee_rmlovurs_sislmb_ean_et_rdstriecvsies__sd",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "d_iros__ftsekodsvr_m__uniell_Kc_smoerenwnrsv_irodsvaae_t",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "srn_ttasnasmevvorcmr_fskd_ricdessu_e_l_w_e_oori",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "srn_ttasnasmevvorcmr_fskd_ricdessu_e_l_w_e_oori",
+        "doc" : "Translated Avro Schema for srn_ttasnasmevvorcmr_fskd_ricdessu_e_l_w_e_oori",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "avuel",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "cdrkv__moftsvcsnrlrowuoolc_rs_d_ssi__Poemuanecs_t_em_an_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "__re_r_eriutdvut_se_tllmodcoaumcm_lnsci_scssss",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "eotaurm___cnroc__v_ss_oo_ffu_dscooemsssd__taruucsk_pckvoe_lren_sri_mavnrdew_trcl",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "s_lor_o_rnuorvfstst_en_cewssciuvp_loemw__r_dmeemon_drforc_slssuk_ccc_tuoaao_l__dorb",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "cc_nOcstseo_dssumasir__a__rv_ouote_mf_luersvrc_esml",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "cwa_nsitseceroeo_c_od_cl_sm__so__rsmssolfv_Uurultleurm",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_r_ahn_vbUcltu_aVooi__hdema__tssssds",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "cnsusdd_l__ofettrecr_csve_rontiamttg_oed_upis_v_seard_s_i",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "oddtscevi_s__d_nrweeliceesfpc_smtro___oit_srrotoll_tnudu_saJ",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "dnrreoresl__secd__stosura_emtive_liesv_fptic_v_n_qsaa",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "dnrreoresl__secd__stosura_emtive_liesv_fptic_v_n_qsaa",
+        "doc" : "Translated Avro Schema for dnrreoresl__secd__stosura_emtive_liesv_fptic_v_n_qsaa",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "vleua",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "_o_sncmiditemp_ssar_lsuoie__sl_rlatvwnf__ceversoerlod_te",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_o_sncmiditemp_ssar_lsuoie__sl_rlatvwnf__ceversoerlod_te",
+        "doc" : "Translated Avro Schema for _o_sncmiditemp_ssar_lsuoie__sl_rlatvwnf__ceversoerlod_te",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "aevul",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "es_td_wsitr_vmsaien_edle_atido_r_oilnevsf_us_cuscs_rtreu_nssrkn",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "ieutasmrvs__vas_scr_oelf_e_sc_disru",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "ieutasmrvs__vas_scr_oelf_e_sc_disru",
+        "doc" : "Translated Avro Schema for ieutasmrvs__vas_scr_oelf_e_sc_disru",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "uvlae",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "rccesoo_mureXi__wletaso_rsls_ds_suf_lv",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "rccesoo_mureXi__wletaso_rsls_ds_suf_lv",
+        "doc" : "Translated Avro Schema for rccesoo_mureXi__wletaso_rsls_ds_suf_lv",
+        "fields" : [ {
+          "name" : "key",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "lavue",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "cdio_risetlldserass_miur_e_er_evmr_tev__snuedits_onsn_",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "osvor_n__dusldkn_rseeu_m_wemlnioss___ovrmcti_faers",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "icfn___swstdvms_ln_eeeokos_usrQrsc_rar_ou",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "icfn___swstdvms_ln_eeeokos_usrQrsc_rar_ou",
+        "doc" : "Translated Avro Schema for icfn___swstdvms_ln_eeeokos_usrQrsc_rar_ou",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "aleuv",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "_fda_tnesaesavru__kt",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_fda_tnesaesavru__kt",
+        "doc" : "Translated Avro Schema for _fda_tnesaesavru__kt",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "eulva",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "o__a_avosdbsterds__uerdrgklceaite",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "e__egatywsderdod__tsdiark",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "dlfroa_i_stipco_esp_",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "teo_letxra_tc_rapsso_ed",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "islrd_aas_o_oicyriselmattt_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "olayfrlctf_tr_sde_fri_asit_eianuqa",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "oeme_ta_nyp__teisecwat_nt_edtd",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "oeme_ta_nyp__teisecwat_nt_edtd",
+        "doc" : "Translated Avro Schema for oeme_ta_nyp__teisecwat_nt_edtd",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "leuva",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "tewca_tostdr___enac_tned",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "tewca_tostdr___enac_tned",
+        "doc" : "Translated Avro Schema for tewca_tostdr___enac_tned",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "vueal",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "s_ra_raa_t_e_edt_wvtsdpiepetn_ecnodit",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "_sadcam___tetw_linaydsnetiet__eod_hpsa",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "dlewuona__t_yaethp_aed_isst__lc_srtn",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "eespin_awisd_uscln_nttlsctao_ta___edtl_y",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "_tnettoi__ecneds_wlxspteyd_tel_tahn_a_tg",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "a_wpnosdet__e_ehpn__kitaenctt_spadel",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "_p_atrrwapnoctname_e__dpcd___titseoso",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "tidwdieic_ns_r__sunteotloma_l_indtaoe_vte_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "py_isattwey_eedtpliapad_ysl__e__tspdy",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "py_isattwey_eedtpliapad_ysl__e__tspdy",
+        "doc" : "Translated Avro Schema for py_isattwey_eedtpliapad_ysl__e__tspdy",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "leuva",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "s_teanduitu_ro_witeaftdag__e",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "s_teanduitu_ro_witeaftdag__e",
+        "doc" : "Translated Avro Schema for s_teanduitu_ro_witeaftdag__e",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "aeulv",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "wt_x_t_dteeaset",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "see_sgad___rua",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "ol_aorlterposdunias__swlz_iae_ans",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "a_p_ndpt_titsr_aknsr_apruy_gtrcr_nier_ceusst_seawiea",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "vnatadtpnayske_rssliapnu_g_a_ru_a_cr_ecerp",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_a__ursrsridrseec_a",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "_unys_roeuad_cst_n___clreieodct",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "rrair_nrusr_ceutsa__dce_re",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "ndrssgsaorruy_ec__tiup_d__",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "r_suresw_d__akdeyo",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "assee___sdm_akn_dtgtsyrstgneae_uea__",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "assee___sdm_akn_dtgtsyrstgneae_uea__",
+        "doc" : "Translated Avro Schema for assee___sdm_akn_dtgtsyrstgneae_uea__",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "uealv",
+          "type" : {
+            "type" : "array",
+            "items" : {
+              "type" : "record",
+              "name" : "uealv",
+              "doc" : "Translated Avro Schema for uealv",
+              "fields" : [ {
+                "name" : "yke",
+                "type" : [ "null", "string" ]
+              }, {
+                "name" : "evaul",
+                "type" : [ "null", "double" ]
+              } ]
+            }
+          }
+        } ]
+      }
+    }
+  }, {
+    "name" : "te__vie_agnr_dkeinseg__jtetve___botasmnrcaetuysa_roecs___ksegdtd",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "te__vie_agnr_dkeinseg__jtetve___botasmnrcaetuysa_roecs___ksegdtd",
+        "doc" : "Translated Avro Schema for te__vie_agnr_dkeinseg__jtetve___botasmnrcaetuysa_roecs___ksegdtd",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "vealu",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "crnen_uslv_teept_iy_s_d_seeta",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "crnen_uslv_teept_iy_s_d_seeta",
+        "doc" : "Translated Avro Schema for crnen_uslv_teept_iy_s_d_seeta",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "avule",
+          "type" : {
+            "type" : "array",
+            "items" : "string"
+          }
+        } ]
+      }
+    }
+  }, {
+    "name" : "agarensleg__u_sadu",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "_usgnfes_rsp_fntn_nerr_gaht_metgoecdeaoana_ci_se_u__eoselidnr_lit",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_usgnfes_rsp_fntn_nerr_gaht_metgoecdeaoana_ci_se_u__eoselidnr_lit",
+        "doc" : "Translated Avro Schema for _usgnfes_rsp_fntn_nerr_gaht_metgoecdeaoana_ci_se_u__eoselidnr_lit",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "euvla",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "dtocss__re_aini_y_tac_ltebo_ca_si_g_uic_aenpdynleosehfpedf_te__ne_srjveedrruto",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "dtocss__re_aini_y_tac_ltebo_ca_si_g_uic_aenpdynleosehfpedf_te__ne_srjveedrruto",
+        "doc" : "Translated Avro Schema for dtocss__re_aini_y_tac_ltebo_ca_si_g_uic_aenpdynleosehfpedf_te__ne_srjveedrruto",
+        "fields" : [ {
+          "name" : "key",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "valeu",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "n_onnarissc_teirsdvyesi_twiaeenugid__elwdsnect_t__pc_poder_ur_nt_jgob__ioso",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "n_onnarissc_teirsdvyesi_twiaeenugid__elwdsnect_t__pc_poder_ur_nt_jgob__ioso",
+        "doc" : "Translated Avro Schema for n_onnarissc_teirsdvyesi_twiaeenugid__elwdsnect_t__pc_poder_ur_nt_jgob__ioso",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "ueval",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "o_l_be_sluwdf_Ava__mind_giamve_d__eaeds",
+    "type" : {
+      "type" : "array",
+      "items" : "double"
+    }
+  }, {
+    "name" : "__bu_m_Bdevgd_ews_eo___fdaadnmiislelva_",
+    "type" : {
+      "type" : "array",
+      "items" : "double"
+    }
+  }, {
+    "name" : "wss_rddeb_ovesevm_ngdaidli_eno_i__mAf__a_",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "ai_ddn_sr_f_odi_meio_s__vw_nsbmvgla_dBeee",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "euo_c_gansntee_d_osengiadmvt",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "euo_c_gansntee_d_osengiadmvt",
+        "doc" : "Translated Avro Schema for euo_c_gansntee_d_osengiadmvt",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "alvue",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "gaetgtivtdos_nmeceun_eso_niga_edrmns_a",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "gaetgtivtdos_nmeceun_eso_niga_edrmns_a",
+        "doc" : "Translated Avro Schema for gaetgtivtdos_nmeceun_eso_niga_edrmns_a",
+        "fields" : [ {
+          "name" : "key",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "auvel",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "ep_tpa_nteoip_pe_t_rgromtwt__bop_ttiewlli__sg_etd_imd_tracapeadiadadocau_ecw_e___etstenmtekeagtsre",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "__meilage_ita_tois_cttgitieeptslweek_dr_aa_tattetpp_mcwsrt_e_pgmpr_emed_atannbae_pcuo",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "isln_p_s_pumtait_acknaeapeo_pno_rtltatbwy_rdcekcat_iib___i_are_tDcidue_r_ukttp_uueo_re_italccw_icsl_ea_ma_srrfop_tggtg_bcp_dsoeie_aomnp_eten_aptte__Tu_t_rlettnaiaa__ge_togea_ng",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_toedta_iidmtsdaralesawpeop_oa__ttppg_eism_dgrw_eepetwt_te_tins__dle_pratewaaol_mre_tc_eeg_e_ertd",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "t_ewdp__ioemw_raew_lrtrt_a_eimagilaaettpenl___poapgteetae_e_stgt_aemptcsddiemptssr_e",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "i_ae_cmus__esoryedpas_tm__aarrgd_eriseprTets_wtrwap_wpegni_npielawglaalt__eeb_toid_tde_lpte_s_prdl_uer_gcneepdra_a___l_o_lt_woDolott__ottig_leruaasa_nsat_pmet_g_teea_lper_p_eaie",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "crt_isropr_ouptpa__teriw__dla_lag_eeer__ateao_ssesatnt_gi_g_pl_r_awmolgarea_ued_p_le_egoetwdp_wbaaanpaeelt_T_ateipDel_gmws_o___ldsptutdsea_ar_ee_r_rests_pnerlm_tl_ieetmipd__yi",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "er__ato_uhciouopsrnnd__ow_ruc_ecetet",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ttinghiat_oetdna_tr_oe_gira_mrscs_l_dcl_hnryr_ieenutbaigi_hemev_sseemueeeiu_o_agaeeeogt_us_rtae_rt",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "in_m_agedetreumneatseo_ie_e_lvaibnmmtaate_geapetu_ee_armigrms_ry_l_hsi_t_tc_gertsatogeh",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "en__J_eiaea_ci_mt__imqg_uhrrr_atailnoameraestgecyeeen_oeersninmv_ges_nergeaogenag_uhtmie_tat_ge_ymiitse__vforo__gwhet_srztshr_tpdentw_a_e__relueag_meibt_t_oeres_etu_aeut_ru_atlt_uantdiei_atu_lg",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_grims_niu_aohrgeoshgmteme_mt_tnmtdiginen_asu_oiyctabtene_fc_a_iulgeet_e_egrtTlpatr_eetusae___y_t_urauaeoage_iae_g__ea_D_r_ranmr_deitve_ro___aw_ettugre_utehn_eilnteteesatveoh_r_apFgwiiraoleqtn_os",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ieege_gtll_stmaeteean_eger_eele_tttrrm__ei__eo_Qtsl_s_asgXldeim_neoa_h_mopnagi_isser_etemvunfrnb_ta_krg___iv_ieemaguy_i_d__rneayr_uhuc__eggni_rhaiteecrtanaumt_neu_tEigota_ccasa",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ra_ooeeae_agum_t_k_Ntd_ri_aalttuacriaaioletam_ie__se__l_ggriu_ni_rtn_ugtansaevg_ediDnr_e_ege_afn__ttas_roeorartne__ynepeeac___mrnm_Tgbsnuseitiegre_tme__pvmcleec_ghl_hhygteseoitui",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "a_re__eyr_gti_notet_e_nvFeeg_eunmr_eidmumgat__hte_liaseml_ectmci__ur_ee_gna_rrsoetftsg_as_anao_rsal__rgtgat__pgiweitme__a__i_un_neaneshyet_hr_ieviuiki_t_bltsemeeoBtaelaogugnreadn",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ihntn__egeu_bt_tteeftTDmv_ieoga_ria_pvaggutmnor_nrgasa_ty_laoeeo__mghreiateg_atueeuZes_ulin__atoe_aii_eat__g__oearyolireemmtnpnd_mee_r__snksuieict_d___eels_rratgerasg_linarhnct__e_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_bgeg_rg_mg_lotr_eaytieedt__nige_et_auimegae_e_ogir_se_aa_n_ggniniairetmnl_Pmt_eyfde_eseiwercuatcisueluae_tlgnats__sWms_rn_h_hrv_huro_av_h_rdem_planme_la_eete_oar_esutet_teiatn",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "r_eeaetsislgths_tiD_y__besca_aa_ampntei_Titonrs_p_rtige__vegtu_ttdeddlelealifrlDr_vwree_itre_eae_enctugoogiaag_eoteauy_eslm_narnr__tuanm___etgemh_giagnou___eanonu__gre__mmehrae_i",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "eae_iegni_ra_fstpnl_tttsfeaa_vae__taauKsa_ggg_he__eeoet_nenegsgggeemmuhel_cvivtm_ee__rdbuesgioesoi_emtgte_amgye_a_erratiu__cernurh_mit_rrtmiasny_r___tiinittoe_n_nrola__alad_uerr_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "vr_ati_et_tggDare_ngdatbgg_n_agasturmi_ihtertnriiruenfe_gTecrnao_ir__t_tvsyvaot_onhega_eneua__a_hamru__rip_guealseyaefoc__e_e_es_enemilmetisn_sd_tutgo_tiopreanmle__rae_elime_teo__a",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "lnsueeegme_raoieesg_l__amy_twsnaittcvIeia___lmur_epaui_ty_ueotegigoA_isddoB_u_norgtm__ngg_e__auofsaegtm_l_iee_nei_g_rerttcnervrh__r_erahmrat_stmanean_leetifees_ltteaa__heig_anb_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "uetaoecreeDneiie__nlegeieva_turt_nmafsa_bldTrrmoavuuat_egy_ls_ann_me_uera_letttr_gea__nmatste_g_rpa_gtie_a_yetrtig_oiswomge__hhgrcen_n__e_m_s_nisfi_gl_oiooa__o_ptet_Euaelhairgdeer",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "apee__iegevti_esnnutai_t_g__r_rseeee_ar__iragamgek__imeintetmgielarfrcaesgepadentutsttLrgiotcysu_l__ig_moahgoeno_ansrv_nmhniate_yha_ueedlble_s__uar_gtee__rutel____m_a_ngmni_nEoe_te",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "crsbo_slg_heemue____m_geaen_te_ehu_rioi_lontZeniko_yrs_rrt_gcinrTaanriettnn_gim_ohaaerosgge_ingmltese___ote_teeie____lftauiyper_Daa_uaepm_tee_paasgmu_dnaav_elnrvtat_iet_enige_gru_tda",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ietepefogeiigrptgummreyetyieeaegtaoQnt__bogstmdsie_ttvtv_semt_i_e_nee_atngaeigerda__ueip_mnlnum_a__rh_han_raasxe_hlegner_at_sa_rca_tiun_u_n_e_reet__gaa___er_yuoasihdnop_geelrts_co_m_l",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "epaoe__l__aicaari_onue_ahiaa_eamrtDett__ift__aegihonmtnvugm_erarsgsenxeei_mtgu_nnt_m_un_pgdtm_uh_pnbe_gian_treht_yat_egnigroeee_spdae_tiTtBae_odetagcgereeyv_su_oe__e_r_l_ltr_osoarrlis_e",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ieaei__ilyganyr__eenrrssaur_f_c__rmbtsguleeogpgedsdh_rtaeee_hmira_eter_aiieeaociuvf_e___togate__lnieuuntcgctat_tlsahpk__mei___a__nt__eegonmatl_iag_grsmTnW__eoie_milmnetutsev_a_rtenmerg",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_s__rainriutilsnumgsglluo_hestmrteorra_afr__p_a_tuaogatse_teag__lAD__etttiuabea_cn_reta_iagek_nee_e__l_gteoeee_ni_clrttrciemi_eiegumans_demr_eeeg__aicTeo__hr_ogyrd_ominneih__aeaftpgnpyvv",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "eaaeneadmuhie_lecau_ers_h_ai_otenuieneatg_il__erl_n_sbmlnsror_gq___tatumesrim_gotoeng__md_tg_eu_e_reeygi_rie__sgBh_fueem_vtayag_avtteitnmtna_r__feco__eta_iaeetntstsangrr_egpui",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "eioga_omb_etligmyreednirgiiu_tui_hil_vpay_re_sge_ge__ioeueTaing_lecitu_eerrse__av_nrae_t_fetotsademg_uo_m_Dstn_o_urpunrnlatteca_nrn_emeseta_ah_ethe_arag___noet_t__vagetsrgama_tq",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ugsaratneh_evni_e_agie_nafenste__getrtrgheangdmneD__aotmegim_aahuiycl__atmlo_geig_is_eetey__e__eLe__prirras_eo_ieu_rnu_rg_esvtmo_eutlaVig_e_aitrudibs_e_t_letsratmntpcea_lrn__me",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ie_teirahivgaoege_gomrturTosuainr_iimtedch__n_y_ayr_a___tvl_getugrl_tnitt_spgauon_el_pofsmse_ran_Dyeeelsib__eiett_grola_rpt_regtenaeamidcnt_sa___merna_geegemuaeain_u_r_heee__et_a",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_ine__etgeye_d_tal_tdne__ovesicene___r_of_eemnceh__e__mhgnnb_rgau__ar_esreewgt_egelln_imrvsmm__mmettgeo_toy_ig_ssautim_auirtea_eie_lseug_tttaaaarinuaeuaetneriegweRs_pttarrtigahr_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_g__glZlitaeten__n___ndpetit_tnne_c_vi_rngute_te_urtahumr__eueosggayu_re_antymlia_r_asameap_n_artrt__Trtnihviseaee_do_g__emoeisfeeDsaeatmagirsereoo_gtiaw_he_ge_ru_baleemti_egrtoeec",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "nrtg_ledglteaa_ntttvet_rsrgydefiouhtisig__mptn_beter_egm_run_ega__i_e_nitrcguueT__e_ca_e__enoie_esa_q__rgae_heineerc_maage_sittute_es_mu__mown_tersm_adlseir__ia_aalmyareeoemag_kcv_hhstteenila",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "lgteit_tnrsosmaue_a_bashnlhT_llg_vnierrteiyrtgmu__a_te__mgcanoiteacrrega__paro_nl_et_t_hee_r_eied__ganmntrgirsear_t_giaamgaoee_nkset_ot_oc_t_geeewcedaayet_eu_fvipdnu__Bi_ee__t_esmrauemisuDh__ei",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ntgo__eeeraetiecad_enigi_iteieetgugslsessaaar_n_arsg_lunt_una_aerevegso_riseitrtcnrmh_eo__h_egatmry_dt__een__g_e___usgh__tubsneittm_me__a_gseaeatlv_la___zmmhtehnypwrt_mtrfu_aemeen_ae_tiroi",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "egeathnepTt_pgetti_tadilntstyneaitoro_ure_ee__gtgg__n_n_mDss_mogere___lueeregfartroas_annavm_e_te_boeesgi_u_nmrmtiheia_caaahmugo_ay_eeui_deesr__hstl_i_r_tedwm__nr_lr_arsti_cvutgi_t_aeaee_nae",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ru__akig_inva__e_e__duustiesgaeutgh____uggnadmatbreer_eincnivytrttY_k_paitueh__arelllf__ei_ergv_p_mtstgem__t_v_e_ttsaem__emeganerWiyhr_annbmeceea_oig_tnryoieaglarso_sooleaeai_asc_m_etren",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "b_cu_T__ce_ni_enmguenrrntltmhpel_fttaas_g_eae___drMarniumlrnie_re_ie_ta_eari__elusm_atgaoeo_tri_iran_v_puOaegooeeetc_O_veia_th_eotdssnyyta_milgk_Dyebrtehiupnot_agoe_ggai_ae_gsmsva__rteeg_a",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "nse_air_e_rye_d_ase_ee_nw_itiia_enivieotaeg_g_agtneeoelt_xs_l_g_aauah_ineilmetrate_fay___rsgueervh_am_cu_itel_ots_m_trrg_eh_ensdpytmae_rege_nerglbmauio_vts__tiaei_nutergucv_iuaevotqgdnitm_m",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "g_gtemaer_sger_cd_ssi_noayteunuvoteiDa_gvd_v_hige_aaTee_easeilon_tsratgntmerltited_iueut_w_mgo_e__e_sglirtri__nneabmai_nogt_i_l_eet_I_ceaian_f_eti_raat_r__mrqulemuponuoey_ereatgae_rpiy_h_haev",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "vgtciteyasnt__os_eo_agaeotaiiteiBheend_iummtt_i_eeg_ferlri__nglatie_eJiun_v_vaseereeh_lrdgmat__gstvteau__rpne_nggraeninrimenhee__qtegrl__o__mrbyaeda_aeimus_ts___asego_wturac_me___eu",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_tgr_ogDsam_is__tcb_rir_ihan__gTro_tt_mthtsgoahu_eeoipue_pe_l_aan_rgmaaeeuavadelri_nemgde_ngtvetregeofda_gy_eniadusa_eat_eiat_uleuiw_yelr_meneeo_o__tngvim__erer_inet_sinr__ceitst_eeav",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_tcniso_rtul_saln_e_crcogpms_u_eecehrrhomat_etrdenmm__eieeutrfoorsroer_eaanonru_userntti_c_a_d",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_tcniso_rtul_saln_e_crcogpms_u_eecehrrhomat_etrdenmm__eieeutrfoorsroer_eaanonru_userntti_c_a_d",
+        "doc" : "Translated Avro Schema for _tcniso_rtul_saln_e_crcogpms_u_eecehrrhomat_etrdenmm__eieeutrfoorsroer_eaanonru_userntti_c_a_d",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "aluev",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "_eavattd__tg_tces_isv_aoitceemeee_rraignseva_ri_ueyshatgMcc_dumy_remefrseu_ranaegor",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "eutsreey_hdrceaavatietgaemsr_dos__t_rseo_fiuesiarvvaiecotU_fuegre_r_i_ecyvcata__r",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "re__rgsreitswrecv_seEatarey_i_yge_corefmt__reventattrehv_is_ucuiuodeead_asce_taa",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "nem__avtoee_u_cre__u_dt_e_tmriscfsiotitcgserc_stystahsee_itwyaul_areduaarn",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "vmae_e__ourecui_e_yarctoeius_atryag_Usngmt_ea_d_d_tsehfetamgnireacucsrieevr_nst",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "triaudca_avri__tsmcBueid_niretvseish_eeaau_to_ee_r_evse_o_aoyryf_gtsrQtrcfmcu",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ardt_r_u_aymstevvycs_a_uu_frieterhst_eicien__etatgiderset_c_aweoo_rmctsreaue",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "fueoueter_m__cxy_gerenvwceatnesiaohsri_t_akamte_rusi_s_tc_asrtt_y_rsedtu",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "es_c_fee_cirtyreaorehu_dyuv_asawrni_sit_teuitoa_amyur__tg_sctsemt",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "sgyteirfrr_aarcar_teaste_cset_uhcume_o__sitr_vuoestiutea_",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "rroecmrnlds___ttocshreeo_areeupo_t_aur_nstrf__imer_desargo_elaeuonc",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "rroecmrnlds___ttocshreeo_areeupo_t_aur_nstrf__imer_desargo_elaeuonc",
+        "doc" : "Translated Avro Schema for rroecmrnlds___ttocshreeo_areeupo_t_aur_nstrf__imer_desargo_elaeuonc",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "vlaue",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "eo_sncrat_ieu_uataoatn_ud_fetsc_ractdedcdri__rnobi_srf",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "dan_cno__eda_saccouidrsiea__rrusbi__ot_enrfdtueftctr",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "_d__tebte_rauesrtfaourdaitf_serotdn_anipces_yurdcc__",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "errifcc___edi_cd_eptacn_ru_oerrdfurts_ed_tdsyaaaa",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "smto__p_ef_disadroaactarnecd___rerneuct_feypdsiuen_roct",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "__tiuos_issotnaateaddrae_s_uf_rtrectaceelrcdrdd___fndiin",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "eua_it_dtrr_npnrn_f_r_e_t_aiadcdctyrfddeaesecstos_iiasoeu",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "_u_n___yaee_ddsedicieaom_detn_crcv_i_eirretabea__tmtdnftfrdrrosataaeiui",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_t__rdidduneartud_uieea_demayeodm_rilve_cmio_tnts_idtarf_nee_cfrisni_arslaca_io",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ryedo_darnsenrocci_ned_trsdtff_ti_emetativrru_ec_teuera_ssoaiadie_dib__t_a",
+    "type" : {
+      "type" : "array",
+      "items" : "long"
+    }
+  }, {
+    "name" : "sireu_e_tn_ctlo_tcaaio_disedardrnotr_yaissdciueteimf_artsa_inr_ruo_me_ed_denidfvl_",
+    "type" : {
+      "type" : "array",
+      "items" : "long"
+    }
+  }, {
+    "name" : "eetueidcdes_t_fra__ra__peycidaa_t_fcdnsir_madsruero",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "ncfriieese__a_duarbedf__no_rdu_mss_tuacottrutrd_cna",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "fucdrnrttudeodme_sofcanrre_pc_r_a_riadacomsui_s_a_tncee_dn_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "__irrusafu_tdrteereaenrnra_imncef_sd_udd_eiaticemcasoad_i_cdt__",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "pfcrcnoat_ntfyc_ra_tesudtder_eku_e_as_re_ddc_eaarioriid_dze",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "d__un_cstdedrrnsuorceptaeaofkte_anren_iyea_estri_e_sto__zfiaddiitdc",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "ecefscdrndreu_oiiau_tateri_ndcanopasc_vtrd_rtyf_t__s_d_eeeo",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "ponfctc__i_e_ao_ddetuesneira__ddup_eseridrcoa__adtrrgiasfacr_ra",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "cdds_criasco_ycdsrnaaif_up_ra_eecrrr__e_tduonnt_ed_deod__orifatpua",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "aaa_deid__ee__rurtep_nuaegtdi_asataiorfsrdpc_p___rirsc_cfdeco",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "u_feandacii_prrodc_e_paopu_ier_yotcanetd_cdfsrs_u_tsrdrce__daa__",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "t_t_di_irusnigrsu_ceh___teace_fnrsiaopr_fpoao__deeacceap_reddar",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "_rtd_eu_srcra_nh_tystap_aio_ioe_se_rfeedd__pprdiodnc_cceuraan_ofcu",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "aadeotrrafeciu_d_tcred_sy_puepasn___aerdpic_frs_t",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "es_rrda_s_uulcsseardet_c_aoeacp__adnftcoi_dia_esearotrruifc_tr",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "es_rrda_s_uulcsseardet_c_aoeacp__adnftcoi_dia_esearotrruifc_tr",
+        "doc" : "Translated Avro Schema for es_rrda_s_uulcsseardet_c_aoeacp__adnftcoi_dia_esearotrruifc_tr",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "aluve",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "ed_csa_d_tcsretu_u__irtiffcnpsaaeeuiscl_rarstietdorod_rrc_o_raae_af",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "dctohdadfnrar_isirielesr_e_rtottf_aicehuuecesrc_e_ta_auad___yiir_eg_fdtsnm",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "d_le_udcr___oui_fnsaresy_iatshotw_ad_cit_adftrmrrd_iece_efaetiidcrausrtne",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "rdrlcntuua_cc_dh_eurrcsi_iasroot_aga_hede_dee_f_rasiesft",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "rdrlcntuua_cc_dh_eurrcsi_iasroot_aga_hede_dee_f_rasiesft",
+        "doc" : "Translated Avro Schema for rdrlcntuua_cc_dh_eurrcsi_iasroot_aga_hede_dee_f_rasiesft",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "alevu",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "rr_snsad__fofedrai_vl__t_eue_ac_dioeerec_iuuicdssatrardoc",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "rr_snsad__fofedrai_vl__t_eue_ac_dioeerec_iuuicdssatrardoc",
+        "doc" : "Translated Avro Schema for rr_snsad__fofedrai_vl__t_eue_ac_dioeerec_iuuicdssatrardoc",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "vuale",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "recd_ddus_ait_xeaa__rcfdes_tul_aiecurotoafrs_e__rnaecmria_tbr",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "recd_ddus_ait_xeaa__rcfdes_tul_aiecurotoafrs_e__rnaecmria_tbr",
+        "doc" : "Translated Avro Schema for recd_ddus_ait_xeaa__rcfdes_tul_aiecurotoafrs_e__rnaecmria_tbr",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "lvuea",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "n_tcar_aid_ecmex_fatmrbcsd__r_roalifdttueadee__rnnrura_icss_oauoneae__liam",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "n_tcar_aid_ecmex_fatmrbcsd__r_roalifdttueadee__rnnrura_icss_oauoneae__liam",
+        "doc" : "Translated Avro Schema for n_tcar_aid_ecmex_fatmrbcsd__r_roalifdttueadee__rnnrura_icss_oauoneae__liam",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "ueavl",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "d_l_ei_ursco_etnreeod_arenabiut_r_fdcaarucs_ieicf_tm_rrsa_tda",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "d_l_ei_ursco_etnreeod_arenabiut_r_fdcaarucs_ieicf_tm_rrsa_tda",
+        "doc" : "Translated Avro Schema for d_l_ei_ursco_etnreeod_arenabiut_r_fdcaarucs_ieicf_tm_rrsa_tda",
+        "fields" : [ {
+          "name" : "key",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "euvla",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "dodr_ua_aroens_e_evrf_cfsstca_a_unsuoricdtrodiirtaeedaemi__u_lcd_r",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "dodr_ua_aroens_e_evrf_cfsstca_a_unsuoricdtrodiirtaeedaemi__u_lcd_r",
+        "doc" : "Translated Avro Schema for dodr_ua_aroens_e_evrf_cfsstca_a_unsuoricdtrodiirtaeedaemi__u_lcd_r",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "aluev",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "e_ctcfrcddrt_e_uad_iworcree_uhiarundrlia_adasfos__sts_e",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "e_ctcfrcddrt_e_uad_iworcree_uhiarundrlia_adasfos__sts_e",
+        "doc" : "Translated Avro Schema for e_ctcfrcddrt_e_uad_iworcree_uhiarundrlia_adasfos__sts_e",
+        "fields" : [ {
+          "name" : "key",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "vulae",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "u_scsddter_a_ergr_oced_mcasin_ue_iirdoa_feha_htspit_roadh_tef",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "u_scsddter_a_ergr_oced_mcasin_ue_iirdoa_feha_htspit_roadh_tef",
+        "doc" : "Translated Avro Schema for u_scsddter_a_ergr_oced_mcasin_ue_iirdoa_feha_htspit_roadh_tef",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "uveal",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "r__edrrfommacsct_fspieacocnuts__heu__ddaii_oxesomraraei_pi_arte__daeddatat__",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "sntaodgsurhniet_r__ac__coamoreh_p_ee_maisef_e_udci_atitrdfdadr_eh",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "o_e_trdadaten_hdesus_iac_id__mfdrc_eoraaaseodotmfpa__srm_ic_riaa_turn_eiptcee",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "adta_tene___eiurfurmncfido_ed_asacor_orusiaiapdc_sl_etteo_o_ndrrhe_ms",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "nctdeera_c__p__efao_dehdfra_i_wt_ttmnradiraedodi_o_sismcru_aeush",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "naa_rsotded_ua_e_rid_epficmsircsomdrtcurdtnra_aaioed_e_teita__t_h_c_yseif_sopeat",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "naa_rsotded_ua_e_rid_epficmsircsomdrtcurdtnra_aaioed_e_teita__t_h_c_yseif_sopeat",
+        "doc" : "Translated Avro Schema for naa_rsotded_ua_e_rid_epficmsircsomdrtcurdtnra_aaioed_e_teita__t_h_c_yseif_sopeat",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "ueval",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "fr_a_rred_iam_sdt_mo_scdm_tais_uecirpi_oeedh_fae_iiedotrnc_taesautadon__capr",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "etedrhwtr_ied_icaisefdfa__a_costcn_rs_douu_amph_dorsaerid_t_",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "etedrhwtr_ied_icaisefdfa__a_costcn_rs_douu_amph_dorsaerid_t_",
+        "doc" : "Translated Avro Schema for etedrhwtr_ied_icaisefdfa__a_costcn_rs_douu_amph_dorsaerid_t_",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "uvlae",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "hsrdtuuo_treaedemedvig_c__ierts_ocfdaia_nh__fiddri__aeacses_r",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "hsrdtuuo_treaedemedvig_c__ierts_ocfdaia_nh__fiddri__aeacses_r",
+        "doc" : "Translated Avro Schema for hsrdtuuo_treaedemedvig_c__ierts_ocfdaia_nh__fiddri__aeacses_r",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "value",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "dreaeaxrodusddest_ai_prfu_aacfes_md_rtoi_done_dtt___e_saimariica_rcev_cima_e",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "____eoe_mdfr_fnesadg_cmttdid_eui_oua_ara_inacrcdretsidarsveheihe_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "d_dea_eoomaocr_cr_ea_uiiateaea____r_dcpesmnrssfdraiteisc_dfnredu_aetia_t_ivmd",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_eaudefm_f_rvonsa_oucrt__de_taucren_asaridted_rldircisdea_i_eisoomne_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "tdaedte_sc_ree_aa_medaanriufi__rsadirfuodi__ichvon_etd__ercm_dws",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "dti_ea_cnadiaecam_supis_a_raee_rcrateo_di_sne_odievfrmdus_trd___dsotfectiiy_reta",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "dti_ea_cnadiaecam_supis_a_raee_rcrateo_di_sne_odievfrmdus_trd___dsotfectiiy_reta",
+        "doc" : "Translated Avro Schema for dti_ea_cnadiaecam_supis_a_raee_rcrateo_di_sne_odievfrmdus_trd___dsotfectiiy_reta",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "eauvl",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "eremmraasddncoar_iue_sft_cdida_aercet_ddine_sed_i__raotf__er__autaip_mcvsiio",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "iauccostdaewei_fmt_aier_dfsu__aec_odd_i_ise_shrrer_tadnddv_r",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "iauccostdaewei_fmt_aier_dfsu__aec_odd_i_ise_shrrer_tadnddv_r",
+        "doc" : "Translated Avro Schema for iauccostdaewei_fmt_aier_dfsu__aec_odd_i_ise_shrrer_tadnddv_r",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "auvle",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "eoc_e_sadp_tcoiup_ae_cregd__dddlheppemab_eosec_ansdsavfintokty_ettsopirisrdrraou_huaet_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "iaa_topoaidol__ercptesa__cctap_paeumenruduaectmp__lvebhansphfpiihrtedcdt_yaarviddo_r_e_ossgstnot_l_saek_ds",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "d__raeerouestipese_aiaoi__k__seotetvapl_ciuapaovbysgo_recbr_m_olthaeisltiddpdsdfl_bshppcyp_nat_dtdrriaapan",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "a_ieacnts_dlrefetuacahbtltuipasepdvr_i_haop_r_icepaospo_det_ariipdnsr_rotms_eadd_tdsaeypk_l_osoe",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "akhpidn_tuh__rst_apedtooirm_hcieplopaeterud_lousiianepad__ed_csostsantcrifdbpt_aplvt_ecasd_ewyaos_r_e",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "akhpidn_tuh__rst_apedtooirm_hcieplopaeterud_lousiianepad__ed_csostsantcrifdbpt_aplvt_ecasd_ewyaos_r_e",
+        "doc" : "Translated Avro Schema for akhpidn_tuh__rst_apedtooirm_hcieplopaeterud_lousiianepad__ed_csostsantcrifdbpt_aplvt_ecasd_ewyaos_r_e",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "laeuv",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "she_thce_eetsgestovoep_parfe_e_en_mh_ddaesais_idvc_ia_dp_ryurve_o_ac",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_v_givamsepvrpb_roc_rota_ose_teh_aeep__tt_ear__si_idsdpfqdhcaee__pudaseyorphea_",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_v_givamsepvrpb_roc_rota_ose_teh_aeep__tt_ear__si_idsdpfqdhcaee__pudaseyorphea_",
+        "doc" : "Translated Avro Schema for _v_givamsepvrpb_roc_rota_ose_teh_aeep__tt_ear__si_idsdpfqdhcaee__pudaseyorphea_",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "eavlu",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "h_seaQyec_vrsfopeitbdmu_ppap_tva_poa_grveo_d_sria_rYatce_h_isPh_rd__eseeo_edetp_",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "h_seaQyec_vrsfopeitbdmu_ppap_tva_poa_grveo_d_sria_rYatce_h_isPh_rd__eseeo_edetp_",
+        "doc" : "Translated Avro Schema for h_seaQyec_vrsfopeitbdmu_ppap_tva_poa_grveo_d_sria_rYatce_h_isPh_rd__eseeo_edetp_",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "eaulv",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "_tspaab__s_risoahfet_rrpghyehp_eeriiusteoos___map_oh_vaerc__d_cv_de_eadvtpjpdee",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_tspaab__s_risoahfet_rrpghyehp_eeriiusteoos___map_oh_vaerc__d_cv_de_eadvtpjpdee",
+        "doc" : "Translated Avro Schema for _tspaab__s_risoahfet_rrpghyehp_eeriiusteoos___map_oh_vaerc__d_cv_de_eadvtpjpdee",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "vleua",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "eusea_p__ep__sfpp_vr__ehymb___spedtrdiooe_atUaa__hspr_ao_scdhhdvveahervtesid",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "eusea_p__ep__sfpp_vr__ehymb___spedtrdiooe_atUaa__hspr_ao_scdhhdvveahervtesid",
+        "doc" : "Translated Avro Schema for eusea_p__ep__sfpp_vr__ehymb___spedtrdiooe_atUaa__hspr_ao_scdhhdvveahervtesid",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "auevl",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "eappdtrssrpabaheev___tss__pee_odv_oh_isric_fevsarhpde__taed_mddhsp__eoay__phu",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "eappdtrssrpabaheev___tss__pee_odv_oh_isric_fevsarhpde__taed_mddhsp__eoay__phu",
+        "doc" : "Translated Avro Schema for eappdtrssrpabaheev___tss__pee_odv_oh_isric_fevsarhpde__taed_mddhsp__eoay__phu",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "aulve",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "ebeaddt__s_fce_shpv_oq_mpp_h_eaedarap_hisors_sr_e_dt_hapaeis__deuhviprto_yev",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "ebeaddt__s_fce_shpv_oq_mpp_h_eaedarap_hisors_sr_e_dt_hapaeis__deuhviprto_yev",
+        "doc" : "Translated Avro Schema for ebeaddt__s_fce_shpv_oq_mpp_h_eaedarap_hisors_sr_e_dt_hapaeis__deuhviprto_yev",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "ealuv",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "dprspeepprerasdvsfabvhm_t_deiae_esh_ev_e_tiaete__e_d_o____rohs_haesopuhddc_ivCylor",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "dprspeepprerasdvsfabvhm_t_deiae_esh_ev_e_tiaete__e_d_o____rohs_haesopuhddc_ivCylor",
+        "doc" : "Translated Avro Schema for dprspeepprerasdvsfabvhm_t_deiae_esh_ev_e_tiaete__e_d_o____rohs_haesopuhddc_ivCylor",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "levua",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "eededstb_o__avr_algpahy_duecs_D__eeX_ovfeepmrstrdsdaiio_evse__p__vhrsrdh_pehpthoa_e",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "eededstb_o__avr_algpahy_duecs_D__eeX_ovfeepmrstrdsdaiio_evse__p__vhrsrdh_pehpthoa_e",
+        "doc" : "Translated Avro Schema for eededstb_o__avr_algpahy_duecs_D__eeX_ovfeepmrstrdsdaiio_evse__p__vhrsrdh_pehpthoa_e",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "uvela",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "_vht_ah_oay__ai_roeeevr_sd_sve_perbhsseh_pie_psmtefadsdpdrrapdldouee_ta_h__cle_oev",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_vht_ah_oay__ai_roeeevr_sd_sve_perbhsseh_pie_psmtefadsdpdrrapdldouee_ta_h__cle_oev",
+        "doc" : "Translated Avro Schema for _vht_ah_oay__ai_roeeevr_sd_sve_perbhsseh_pie_psmtefadsdpdrrapdldouee_ta_h__cle_oev",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "evaul",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "apyd___eeodm_eitouoavrme_t_dr_nashticlseftste__ees_Rpha_pieecnv_scth__esaisnrv_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "iao_se____fpc_or_repeeeaiodeguta_srt",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "gpsua_ozaoirptrfeia_ototnn__e__segiei_nr_a",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "ifeoirsie_ots__irgr____eneo_tgaat_enasknpupztooan",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "p__yegaipiisfcu____rteett_eoro",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "iou__ctfoe__itde_os_gatre_iper_pyec",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "eipoetepogratcie_s___y__ei_u_docientrfnfc",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "c__ngeent_seir_oiniceo_r_doet_s_utpfaeeppo",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_enret_crioe_tsgftci_u_tipnapo_eoeone__d",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "up_t_r_pntaoiceee___ehfuployago_rpr__tsia",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "urtu_spct_poinypgh_eearp_or_fee_aila_o__t",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "nde_oseor_icuf_oynef__ciopetrirptntguceea___",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "neti__cafueripgens__oo_ett_rpmuyo_ei_ucrr",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "dt_i_aprdeosv_o_psfig_se_ebute_oe_ertr",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "futei_gegrpt__ftp_otsaeeo___io_rfmes",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "_a_epo_s_rad_et_rii_iviilpt___usevgdfpeo_",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "i_aoifleegpda_tg__s_gfeutepr__nu_oeiepstiaier_irn",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "_po_iietaurtt_nzs_p__aopa_s_gfooreineiiger",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "oigg_orokt_tsppi_reren_zisftsn_iaae_entoeu_apoi__",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "tm_g___eo_roo_pieeuaetficr_ps_erodte",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "_eiiiap_fobrpigroual_eeeroe__m_et__crsrt",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "i_bo_o_etoprfadrtmreeeu_p_ie_cerleoigs__cira_",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "yerpirta_ue_cn_toiodefeeulc__trs_opigbeoo_m__",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "trlor__rmteeeaiekegofio_eow_p_si_ndt__ecob_pu",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "duosor_opp_eereiegaec_tl_pat_fs_to_i_",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "ictild_out__seepfooiaen___fn_ee_pgoserctarp",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "s_xa_prpefno_cget_rteroyirpe_e_mpdio_e_istioa_nu",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "ade__poxt__efengvreyo_epiuro_rn_ria_epsotm_",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "mnntdxe_y___p_eeasruroevf____eofrnpedigptr_adsoeiiieo_",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "_g_titeare_efriug_s_n_ooierep_op",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "eeepsretgaodpfgu__i_tr_ioonicereo____",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "cpfa_noeicggt_fd_psieio_rortneniuee_or_e_e_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "enpei___oepzitre_nsogrtof_me_aee_uta_mi",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "iecuegagsidao_stemstrenietetmsoaeoonn____a_dean_taiaadrdu_rtiyddfr_nmin",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "neimer_nteurcitmnanee_yatspa_fiddireigobtltana_diedd_snb_m_o_ag_rraoisteoosaaiute",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "neimer_nteurcitmnanee_yatspa_fiddireigobtltana_diedd_snb_m_o_ag_rraoisteoosaaiute",
+        "doc" : "Translated Avro Schema for neimer_nteurcitmnanee_yatspa_fiddireigobtltana_diedd_snb_m_o_ag_rraoisteoosaaiute",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "evlau",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "eaidfouinreae_d_aenasdstrya_iudgmeteenmt_te_o__aoimega_ecdriitmtinasnyo_rnta_dtn",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "iei__ndiniaaigioeusyera_seedet_i_tarndtoomdakt_fmnatrmnm_su___neaaddede",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "mna_oiistnme_iaslsgrdndnoeudm_eearmse_dianedcbgttiafun_srii_m_dtacigeeeda_fe_dbedi",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "mna_oiistnme_iaslsgrdndnoeudm_eearmse_dianedcbgttiafun_srii_m_dtacigeeeda_fe_dbedi",
+        "doc" : "Translated Avro Schema for mna_oiistnme_iaslsgrdndnoeudm_eearmse_dianedcbgttiafun_srii_m_dtacigeeeda_fe_dbedi",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : "string"
+        }, {
+          "name" : "vuale",
+          "type" : "double"
+        } ]
+      }
+    }
+  }, {
+    "name" : "ua__mee_cpiapsnpdieticrptsge__etnrbuae_iby_itota_a_mlsorlseitoalssrorpuo_di_r_rhe__mssidfoit",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "hrre_mhb_drsfc_reet__aare_p__foaiitodpslluoapseeaso_itmtep_er_s__pdbro_otpu",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "rp_po_padarae__tpiheo_tbeapoemieantsths_mrup_n___c__shoibvhpt_stsd__rlorecaeofaolpuu_rses_r",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "isbrpoimsdtodeo_ttsm__erpptrsiaa_ch_sye_lisemr__conaaaiopep__ee__titryfrruaogsuc_ell",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "rei__tstoar_onotipc_usol_r_ccdplouepsipdre_rass_hmlei__e_nasmimousfr_aebtyryttip_ea",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "yarcop_a__sdssniyserllace_e_ottputtocui_srtrrfe_e__earmsiiemooncsrhpi_peulmp__rdai_b",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "rnst_obsai__t_lu_dms__pe_cibdeezpct_peanoreocwedrroie_affrrduyeeld_sisoef_spnarottleht_p_s_pemae",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "eeutoa__cc_ilrusrioyb_tpfr_addi_rtto__psmdenrt_aam_tiposshsiauresie_eirosiob_lnn_mgperdselepit_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ssau_esptitmoegniirdgneto_iee_a_ria_yelfaupobltcahsa_ed__sruop_l_p_l__sertimprmcraos",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "utadsa_s_taris_bdptrbn_lagllmoi_p_icpeageyeieer_pu_hotc__yiipsisehf__osapotfemsri_rrae_enncenuo_s_do_torgmllt",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "hraa_psnt_cirsssmtgbf_neeltfre__pum_esema_eafcneu_lnoi__rc_d_p_ri_eioordepctphpofdoetees_ia_rdrptxolte",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "eoemr_tab_olpgnidre_e_teu_pe_rmcscsi_s_randftc_tpdhv_appop_oaetohel_sytreursluioamr_",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "ptfmise_smes_hplnpi__soo_poreru_so_pcom_rdrdlh_svbltetuag_riceerdeea_ptatea_a",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "arspdosf_br_mimes_ilgp_pmoreutsaecelpapoit_pnoorentissr_e_emuos_dih___a_rarct_tguhsp",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "mvmnclrti_aedhraa_ttpop__rstr__opocliceod_etys__eghilo_n_liapotbbca_fma_sipeeuut_esrrios",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "ddc_n_oipst_roatmarbe_tlcitclpo_alsteahpioe_t_p_bhu_giyesmi__wutmie_mtecrfasaar_phrspo",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "ter_diutcactrmpeyslemoi_amfob_lnescsiiauopyslssre_ni_uplrgmt___uerr_a_sn_sho_apt_aa_eedgepritersbbo_e_hosof_n",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "etooodbilrderaptsueasce__mxeouofi_bes_tatemerl_t_u_psa__nnpnnreafcfrepos_decseserpmhe_rtmsir__fhr_c__p",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "mamsss_t_lpsrneieam__rpd__areioofuseacspt_nypsie_bp_roidosp_trcheeiuio_eitu_rrlosmpsioglt_r_a",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "___cu__e_uhms__osraesferigp_epotdpscdarrmep_tiaetrslopeimsralee_tosbot_aa",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "aoco_i_eete_tmt_ehs_ripe__egtt_issmuosrl_aeuoo_sapanmattprpcnlrdf_rs__daenpbr",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "ict_lso_pdo___anartsppalseuepdeerom_ee__caoetrrsb_eim_fsuatipmr__surshto",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "r_leebams__uapfcecu_eo__re_rdosamopansspuetre_tseipro_eartcdtris__shi_mlp",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "odt_uadaeptoemls_r_imtanatscrerhag__assspr_e_puee__epb_slalufor_p_sgeomi",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "srmi_mr_mreiteap_r_atapota_arshpepury__raedyotplss_cdfiec_agbso__ut_oeom_rseepl",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "eompeoleshdep_m__sdla_c_slilcidtr_ia_nns_an_ee_erbeotprtr_erleeao_o_sttsutpatcsapipruffftr_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "a_daeapwo_cp_pitaetlymo_s_o_fCremiuccp_r_htrontiee_usenead_ds_iee_brme_ntaerpisopadr_elusssffe_ot_dsrds_lt",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "utsr_osd_pa_e_mm__t_st_eifaatoomd_lgrtutadaeie_ope_rvbpiipren",
+    "type" : {
+      "type" : "array",
+      "items" : "double"
+    }
+  }, {
+    "name" : "aabldpn_ad_at_ce_eZ_pm__oflrrm_patoalas_vevi_e_ipuois_ttesernuroiet",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "pdr_oadmvpeeernt_e__rtgoittapmssrafgteeN__u___aarpa_evlai_o",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "rtpsrfraeyrrgvs__rpo_odtoe_yt_ti_s_mmbel__aatope__aeevugn_i_pauntdcaea",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "rtpsrfraeyrrgvs__rpo_odtoe_yt_ti_s_mmbel__aatope__aeevugn_i_pauntdcaea",
+        "doc" : "Translated Avro Schema for rtpsrfraeyrrgvs__rpo_odtoe_yt_ti_s_mmbel__aatope__aeevugn_i_pauntdcaea",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "luaev",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "nroonaori_m_esstudcnloesappepepfi_r_a_m_e_grdvtf_trdcgcayt_or_tpeaa_ii_tenal",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "nroonaori_m_esstudcnloesappepepfi_r_a_m_e_grdvtf_trdcgcayt_or_tpeaa_ii_tenal",
+        "doc" : "Translated Avro Schema for nroonaori_m_esstudcnloesappepepfi_r_a_m_e_grdvtf_trdcgcayt_or_tpeaa_ii_tenal",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "luave",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "auldogroast_e_s_oorve_maaes_cjid_er_peepimp_at_tt_eftrp",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "rotnrnfmcr_oib_toua_aatssnddpttm_etet_ipvp_eer_le_a_pea_og_",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "tontoilspmetdtnmer_dzd_et_____aoctarouiaparlg_ef_irmo_nLeeprapnaest__v",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "t_ts__ieum_po_papr_s_aeoaeetrettdaiel_cdvnurspm__ofrVo",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "_osdSmfise_n__orpirted_u_toecprepelasp_re__vautmcaeat_r",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "fe__epdral_spstppee_ipem_as_aodt__aevu_idrpytaln_da__taeecrsetosm_ro",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "aadr_pdp_maae_dmattsfuriss__lptpee_vceo_isesyto_peto_n_rod_eu_dl_aat",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "td_madue_tvr_y_dmdocotpryr_ceee_el_fe__ost_eapoopt_rerovupan_eplsai",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "dftoelt_mneav_dedpapteemD___aepere_rt_seiravr__lupaosopmo__",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "napldemtvendeeree_a_sovtpiros_fea_pzilopsl__mametd_to_r_a_u_aroemdper_",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "t___dzoeaeopet_dtels_wyrumtd_aapfsdslmea_oi_rnrabp_epwoio__tes_v",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_ttnv_m_p_ce_aa_Ipdrepsoremoipeaaadepm_foftultest_lr__eee_r",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "osrd_i_e_etipatirme_ds_grmabreule__veedoaaoto_ertd_nitp_snptup_f",
+    "type" : {
+      "type" : "array",
+      "items" : "double"
+    }
+  }, {
+    "name" : "pa_ps_rastdep_odfse_thts_pr_r_eetva_m__mo_aoeadiualW",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "ppshpuieia_ytsep_te_afig_adcocosrd_a__et_oah_t_tlromronXre_tvm_pe",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "__i_rh_opodepatesttadiepnaQ__e__tpcavaso_pe_shp__em_lusrurasramfp",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "_omsie_atpttogtacdo_doevshle_ra_vm__e_rorunptpsafp__ei_loar_ec",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "ioastv_lto__rOesm_p_ere_sfoeripaeat_edertmp__d_fa_pu",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "psot_ao_e_lmplti_eJabmoreccmdatavpwt__hsre_dotaeaf_peps_r__it_iu",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "g_r_tamkem__euaoatvir_dl_peaptsoe_rlg_s_usoep_fdaaetnp",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "a_ousonhtteoemlp_v__auof_esadcpfpn_dggtriare__ogbm__elnpriai_rya_se_ldp_etrtte",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "a_ousonhtteoemlp_v__auof_esadcpfpn_dggtriare__ogbm__elnpriai_rya_se_ldp_etrtte",
+        "doc" : "Translated Avro Schema for a_ousonhtteoemlp_v__auof_esadcpfpn_dggtriare__ogbm__elnpriai_rya_se_ldp_etrtte",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "evlau",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "seimdte_dh__piimepp__ve__per_on_arlgfu_eoxeat_to_catm_awsronptlfdrosat",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "z_tcrsaot_pdgmd_aeasal__oeu_l_atteeppedrfomu_apilnagl_soe_vDie_r",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "epaZv_ra_fs_eame_oee_tatll__pstm_n_purdct_ap_reopitmdereo",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ratm_t_od_ubrmoeo___fuvdteref_pa_gormpbpatpsto_cierrnayi_b_ulnnssea_e__yt",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "ratm_t_od_ubrmoeo___fuvdteref_pa_gormpbpatpsto_cierrnayi_b_ulnnssea_e__yt",
+        "doc" : "Translated Avro Schema for ratm_t_od_ubrmoeo___fuvdteref_pa_gormpbpatpsto_cierrnayi_b_ulnnssea_e__yt",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "luave",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "__dmroomsstrnaevtab_usetol_gy_ebrfucepe_e_lpthonds__i_eagnmarot_t_a_s_preeapuf",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "__dmroomsstrnaevtab_usetol_gy_ebrfucepe_e_lpthonds__i_eagnmarot_t_a_s_preeapuf",
+        "doc" : "Translated Avro Schema for __dmroomsstrnaevtab_usetol_gy_ebrfucepe_e_lpthonds__i_eagnmarot_t_a_s_preeapuf",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "vlaue",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "__nupaivrentfes_sattxd__fosoah___etue_p_am_mmsl_eotooeeasbr_prpcrrmedm",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_c_amegeta_dtous_ovpe_DfaadpepcmegpetrakL_le___anirL_teoe__pr_sottr",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "enpd_eKerpyoav_tt_l_gee_tcBs_toalee_fe_ear_amogtt_Yiapu_sr_ppdmra_o",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "papgemse_cordd_v_eefpm_nar__e_t_cpocuaoitettatlteWp_roearas_o__R_eg",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "Aagt__taaeteta_ppsoroa_mnVe_alur__dTgfp_mosgpc_eoprte__vir__etdeeae",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "p_oeetee_lpseept_tf_a_Qgcro_idgddlraoprtam__eaeeDrra_suvat_nomned__tpa__",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_asppem_fptsrgsoerorru_asorouvma_meinod_s_epBeaptdtip_it_el___",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "pimpioyeyoepVadrl__bu_trc_tmcettfr__pve_ed_a_o_pau_tarreso_ns",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "pimpioyeyoepVadrl__bu_trc_tmcettfr__pve_ed_a_o_pau_tarreso_ns",
+        "doc" : "Translated Avro Schema for pimpioyeyoepVadrl__bu_trc_tmcettfr__pve_ed_a_o_pau_tarreso_ns",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "eualv",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "_rdoiiipeedr_gf__iayn_naepav_q_ppsecccr_omey_sgolp_uortrrttarmfta_trapitean_lmn_eoa",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "r_dlaeee__eydtmsaf__im__osadEirut_pav__yotemac_io_rtgprparetpopr",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "urpd_td_dtopvoe_sQuarifpp___maelar_terscadoeeimse__pt_es_eotpv",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "f_sMapaal_oa__ttv_o_l_saptrenuropepamttetdmitilsrod__le_se_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "vtac_leprn_oioo_ldrS_crdtusdpt_frdl___pau_taa_wlstissnaloes__nrppaet__yonaffesvs_imtaoes_di_oed_etmeee",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "t_r_lsit_pestl_vf_rrasn_iuaat_ptpoeao_Imaeopdtm_rgea_oe_dt",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_spmdiaev_latoda_t_mea_easopyssioerd__Pld_Qtap_ouX__t_wesmeftnp_rtsudr_oae",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "riebepbid_uri_e_u_m_f_eteovdtnfpahtrrttao_ls_pua_geassslaiip__",
+    "type" : {
+      "type" : "array",
+      "items" : "double"
+    }
+  }, {
+    "name" : "_is_t_fio_m_aeaevtol__nsa_iveeipuprta_h_sNeiledabrtue_c_sbaurlprlpna",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "bs_rithepusaaalu_m__eadtnperft_l_g_iaetrae_gevras_pvp_ti_ore",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "nugrnlyp__pot_paso_g_iltrspra_cfree_e_tiarbuaauavtme___erad_bres_etvihy",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "nugrnlyp__pot_paso_g_iltrspra_cfree_e_tiarbuaauavtme___erad_bres_etvihy",
+        "doc" : "Translated Avro Schema for nugrnlyp__pot_paso_g_iltrspra_cfree_e_tiarbuaauavtme___erad_bres_etvihy",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "vauel",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "_ipfimusenrp_lbprtr_eneragnr_eefae_cactpdgist_vlatart_p__o_oln_ucsahisy_oiear",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_ipfimusenrp_lbprtr_eneragnr_eefae_cactpdgist_vlatart_p__o_oln_ucsahisy_oiear",
+        "doc" : "Translated Avro Schema for _ipfimusenrp_lbprtr_eneragnr_eefae_cactpdgist_vlatart_p__o_oln_ucsahisy_oiear",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "evaul",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "r_oaa_eri__ptsci_pgt_vopmesa_sharplbr__iefeuXesuttaedl_e",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "retalev_looh_ioimsu_e_padnct_eiaergpfpn_u_at__tttrna_pbse_rs",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "vr_uedn_laorpilauttbn__ca_t_nplmse_n_hiaigaiponredr_fortz_tpe_see_stmae",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "_t_sretfsspelappibeo_aopec_vhlnimiYe_uru_etut_sdr__r_aa",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "_e_cmitsr_ppnautetclrpead_ra_lrea_lui_i_sou_s_rvbsfheeep",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "re_p_p_jdsearoeaavpt_pe_estmest_saelcrslbeusd_firila__h_ni_eapdy__pua",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "usuarodsabaapmafeeietsy_ndlet_h_p_a_lec_pl_ptseuestitvad_rdi_s__rp__l",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "lTe_et_lr_ap_e_v_a_um_pdtpcudilonosipb_tr_reruehoreespecfeaavd_oyts_",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "eoanpu_tpdrl_ea_prviatsrebe_ahapdluivem_pms_o_lereu_t__fe_se",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "_madaal_ri_lbovo_tst__neezrap_emiesoiuufpeh_erpd_d_lseeerlr_pjavaem_npt",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "r_u_t_ll__sheid_dop_ei_brbaanieaupsadart_w_vtf_etmeyspops_soeyzel",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ssilpa_pmf_p_niepea_tb_er_rcmaseoturtdlveeheafaelu_tpTr_e___",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ti_dsrippthdrebomauDl_stgeeaanba_eetsru_s_itref_uriovpnl__dp_ei__",
+    "type" : {
+      "type" : "array",
+      "items" : "double"
+    }
+  }, {
+    "name" : "eh_psosbtaehC_plp_aa__t__raaeu_udfrvseretpi_smsd__ail",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "rroKthg__ee__aeumefsdrli_tos_toaiieu__phstsht__lpe_nrp_viayapacpbc",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "__rbtis_rhp_sna_tslsmpqehsa_sdi_e_afaa_p_rupe_pt_iuverloe_euhpcapa",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "eeo_hylesecabtdutt_lni_vetl_foopa_ca___au_sa_iv_erso_rpshrpmrip",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "sppditlifseohefapvmia_etr___brit__e_lasse_u_ur_eer_ap",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "tie__ts__uz__t_pppwuloelaoeeaste_pahiptmsrsdf_riacvbrac_h_baem_li",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "pstgueevlNpf_hprs_tdlanauaregl__ee_as__ui_srpmo_t_eaaib",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "fo_petsabrgmv_b_gapfpunytelne___sihueY_aclsdeor__dp__it_ernelpaltir_i_hgaauetos",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "fo_petsabrgmv_b_gapfpunytelne___sihueY_aclsdeor__dp__it_ernelpaltir_i_hgaauetos",
+        "doc" : "Translated Avro Schema for fo_petsabrgmv_b_gapfpunytelne___sihueY_aclsdeor__dp__it_ernelpaltir_i_hgaauetos",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "lueav",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "s_oefsnprutsohegecithipl_ulepfd_xavXa___me_rpitlrd_n_teo_es_pabramt_ai_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "lp_tiale_aep_abgzesn__lfo_tlr_he_ieelvodsaWiertar_aupg_up_casdums",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "tpstmienpr_aecfreu_lha_s__a__a_r_teeveubap_mspeitoxdlr_epl",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_nivi_detnyuutpau__ohsrf_unp____to_aiefpemlregtrmr_cbaabrobse_tsypres__alu",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_nivi_detnyuutpau__ohsrf_unp____to_aiefpemlregtrmr_cbaabrobse_tsypres__alu",
+        "doc" : "Translated Avro Schema for _nivi_detnyuutpau__ohsrf_unp____to_aiefpemlregtrmr_cbaabrobse_tsypres__alu",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "ualev",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "bpi_dpbarttselbmrslevges__eutharmrr_o_ninal_geto___o_hne_uypfcpuna__ssesuaea_ef",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "bpi_dpbarttselbmrslevges__eutharmrr_o_ninal_geto___o_hne_uypfcpuna__ssesuaea_ef",
+        "doc" : "Translated Avro Schema for bpi_dpbarttselbmrslevges__eutharmrr_o_ninal_geto___o_hne_uypfcpuna__ssesuaea_ef",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "velau",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "m_s_krexf_oseipeebsvrph_a_l__epfsacaurtmeea_stbalo_srmid_eu_tuor_n_hnpt",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "tellert_vugcako_reiiepun___htppr_dpouEbef__sete__agMpstsmavaae_r__ae",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_p__rtroeteunac_D_teelglar_afai_bpd_eppsu_ji_abrgy__tehotpsvaeseEme_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "eenaolveeuppt_sltg_qocr_ustr_bt_spMmetpa_e_iagir_cae__npdee__hea_far",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_cuao_ihtt_apslrpi__sdef__eenp_yspoe_errvataeaJ_rtpehmsgualee_tg_bk_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "__f_cgddahrrae_nt_laet_Eresp_bprodgme_eeaueaes__enseali_uip__ptl_vtrowpar",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "rsslseuptrmdar_navmlosGes_up_iru_tpopi_b_ai_ippe___erfeeoha_tgs",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "_rtia_soe_trhp_omtsbee_p_fr__sayly_u_ncueqpdrvc_lripbapetuea_i",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_rtia_soe_trhp_omtsbee_p_fr__sayly_u_ncueqpdrvc_lripbapetuea_i",
+        "doc" : "Translated Avro Schema for _rtia_soe_trhp_omtsbee_p_fr__sayly_u_ncueqpdrvc_lripbapetuea_i",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "aulve",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "_gr_betepirespeocynp_pv__t_rtlat_maeolnacre_upmas_rfgi_dh_anncilaraeueo_fiasr_rpiyti",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "aibf__ipu__rca_ppaysdt_e_regmypreotpla_tedaeeomlrsS_iivrarts_uh__",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "as_felmre_srethpvtli_ea_pp_eud_eeae_tvpspicspro__uoidpudsb_ta_r",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "i_faeetlts_paova__trrhas_lnltble_pepde_aoa__ltp_iUusri_stsum",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "lsdp_r_ttsaq_sytld__yalewei_tntesvebfr_cndie_te_icaa_ld_esauos_aea__orn_sfu__ppspte_dronofdlasrheipmvul",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ib_lo_n_turap_e__uatpMaesi_haesltprt_fsstao_revte_rdgil_pam",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "t_ebfa_mvme_osim_s_dstrup_ahigprasld_neMduteo_uwdaallteas__ee_pys_topia_rs_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "__stc_ee__eerthe_o_o_eraoaruwrtefigtetnwte_su",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "hoe_oottuerte_s__ttr_wra_ueeaetie_wetcfr_d",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "foreeis_rat_sraw__te_oe__hneteauec_ttenwmttte_o",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "rew__f_thctsuaeoor__taeedete_ect_aersrtw_",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "tfwrh__ae_t_se_ret_fotecaeee_twoieu_tsgr",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "t_a_odre_mctetrw_e_esa_eie_uothe_ettferswa",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "w_ottp_heaewotats_oet_es_ereet_r_hercftu_o",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "tetv__etcertoeroe____ieeawrtaeoftsw__husde",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "er__seeue_l__ttucettoteea_wgf_agerwonrtae",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "ece_wuaf__teecirowrnuo_ls_dereget__aoctega_tnentfeet",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "etr_otoa_n_eteuwcfehu_earsrh_wa_e_g_mettetsst",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "toeerm_w_tatt_qauefe_e_u_to_nexoaherterwstti_kte_scrse_",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "toec__eetaeiwtutmtrtow_as_ux_emtn_enxretoeel_rce_tfa_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "nnteafe_eexit_orsmulr_tw_ws_wee_oeenttr_c__t_eteteu",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "mde_beues_dsp_retowdr_c_iei_mfgeietienruoj_pmattme_e_otoo_daajdneseep",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "mde_beues_dsp_retowdr_c_iei_mfgeietienruoj_pmattme_e_otoo_daajdneseep",
+        "doc" : "Translated Avro Schema for mde_beues_dsp_retowdr_c_iei_mfgeietienruoj_pmattme_e_otoo_daajdneseep",
+        "fields" : [ {
+          "name" : "key",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "avuel",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "e_ugter_t__twuce_oe_tarnfeet_c__owtearr_setn_oeemrsua__ec_otsa_twtecausrteei",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_ctcioasorrur_ueoenoe_r_ncnol__armeelesegru__msf_tea_semrnsdre_st",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_ctcioasorrur_ueoenoe_r_ncnol__armeelesegru__msf_tea_semrnsdre_st",
+        "doc" : "Translated Avro Schema for _ctcioasorrur_ueoenoe_r_ncnol__armeelesegru__msf_tea_semrnsdre_st",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "alveu",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "l_ilm_nuraas_a_cogmk_n_t_rod_neoeohr",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "nng___pdmclmoo_ih_eerr_ra_nsataou_eak",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_diloik_duc_hesia__anmnaraeonsnr_ed_frepe_ot_gm_",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "oadnk_rmhtl_rr_o__acna_nie_ouesm",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "tba_l_lyepe",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "tba_l_lyepe",
+        "doc" : "Translated Avro Schema for tba_l_lyepe",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "evlau",
+          "type" : [ "null", "boolean" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "ts_vsrpe_yetpelausc_inmiardwro_dejuoethme_dge_a_i_t",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "ts_vsrpe_yetpelausc_inmiardwro_dejuoethme_dge_a_i_t",
+        "doc" : "Translated Avro Schema for ts_vsrpe_yetpelausc_inmiardwro_dejuoethme_dge_a_i_t",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "leuva",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "o_ep_a_dcweiet_reymsaetthui_dndt_tljeegi_rm",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "o_ep_a_dcweiet_reymsaetthui_dndt_tljeegi_rm",
+        "doc" : "Translated Avro Schema for o_ep_a_dcweiet_reymsaetthui_dndt_tljeegi_rm",
+        "fields" : [ {
+          "name" : "key",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "ealvu",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "_t_atni_acomdd__euasc",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "smed_i__a_v_ideardasrett",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "la__iessaerditnetdx__p_mlma_e",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "mlt_syaepanbd_d__aaolae_tue",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "te_cgd___i_msiadaamapn",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_ei_em_aa_i_anmspitcatmgasimnr_d_tls_it_l",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "cernpemxoc_n____carvedao_f_etrhaosetdiaegm_ep",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "_cedeisnah__meva__ge_orovtdiaw_",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "__ame_vmctidinernea_s_tsoo",
+    "type" : [ "null", {
+      "type" : "long",
+      "logicalType" : "timestamp-micros"
+    } ]
+  }, {
+    "name" : "teali_m_imrtlgpsicaaeis_pnemm_dlcnse__ia_iatsdt_ne_s_a_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_a_o__id_maenantemtegitpeoglasen_bgln",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "egntmetmt_daen_gamsie_ea__",
+    "type" : [ "null", {
+      "type" : "long",
+      "logicalType" : "timestamp-micros"
+    } ]
+  }, {
+    "name" : "g_te_emaenadensmgeyp_tta__",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "eid__nieeadesmx_rmtatp__",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "d_sn__smdeaes_rmioi_apit",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "t_i_sie_aoaepmsds_nirm_emt",
+    "type" : [ "null", {
+      "type" : "long",
+      "logicalType" : "timestamp-micros"
+    } ]
+  }, {
+    "name" : "_eiadt_ees_rmn_aad_s",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "mp_natecnxed_getsa_geags_mihea_e_a_np",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "i_gdtsatsp__expaeiha_na_la_nlces_m",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "awdane_agmm_iao_pdp_n_smcsn_am_r_ieat",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "nmeesdda_eo_ivts_s_md_ardaa_sr_",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "_rasca_da__tap_isoteuih_spmde_lmtgnmtlraf__di",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "e_tbenaie_tldtciaevm_jmoi___es",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "mdmteatsnalii__e_ei_d_",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "me_s_tdoaanm_p__",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "iedtsenrm_a_voaiseccpe_rd_it_",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "madooonic__ta_rd_dpumesa_tce_t",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "sppaa___moeti_tdrp__dmedoa",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "_pmturdeeoc_oa_pstaett_myd__odpr",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "iod_deptte_dws_e_r_tma_mteoa",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "p___atat_g__siireeamdkdb_ynn",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "nai_bdidk_egmn__si__rnttau_a",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_dtsb__goaketoim_rt_nmae_arsn_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_hanage_b_yesct_mkiar_rnadg__",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_m_ctrsainonarund_acrg_e_s_ueoikstk_n_noa",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "yn__re_smftmq_enkeeucraa_agndit__r",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_i_iiskst_e__htamspa__nwgiergoaednnmr",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "tridn_ta_hn_tt_esrgsa_mfpa_n_eiceki",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "rac_d_ti_ar_ctgea_poaltk_snr_rheimnsn_kg_",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "ai_ankramre_admt__ed_enis_mgt_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "k__tcmerag_ornd_nan_i_eaask_rs",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "___nsdimwab__d_tna_irergkaa",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_er_maainetldvgsr_e_ksna_ium_ie_eprlrt",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "rs_ikr_m_dtser_rea_neag_aht_enunmveea_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "enpsrklui_m_a__s__aeo_gtlmaiteirpnld",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "gdek_m__en_tsnaaard_ptr_i_esan",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ts_rrargnec_tfkanhadam_eot_itlo_t__",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ncpmrekfegh__l_idatsrcgai_tena___itis_odurn_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "niucteaakrgi_m_es_sa__r_tlddn",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_c_af_e_erka_eqwyue_dtetamtossud__",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "qcer_taeuohsfrumdaso_utya_et_d____",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_iadase_eqrtdsmu__te_",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "oeum_etctesu_iaqd_rfu_ym_anat_esd_t_",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "fstyn___r_cl__tm_ign_et_sdiuqeeaeidamjadt_ousu",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "eat_eqtae___mutrmis_sed",
+    "type" : [ "null", {
+      "type" : "long",
+      "logicalType" : "timestamp-micros"
+    } ]
+  }, {
+    "name" : "a_ebsm_xc_tedg_r_atneah",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "rct_osi__ieaedeeleudm__ivm_bs__ad",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "_ntet_aliimd_ec",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "lnvoit_rt_csein_aeem",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "tic_vmedee_a",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "anedid_riti_v_e_msdea_co",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "ds_icot_a_emv_eiies_",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "ecvemreedd__edseii_a__z__ivoitc",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "emones_sriee__voaivtd__c",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "a_e_vi__er_nivmoe_nsjmeascrerotmduo_b",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_mne_i_nvirroesdebnstmmoro_cia_eu_ev_",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "de_ceevtmiy__peta_",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "e_aailolontm_dcp_atisy",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "c_lt_oltnlpnc_odseiedai_miayt_ia",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "n_et__emeaittmve",
+    "type" : [ "null", {
+      "type" : "long",
+      "logicalType" : "timestamp-micros"
+    } ]
+  }, {
+    "name" : "mltt_p_llrfm_c__spyutaud_o_cieedom_te",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "mltt_p_llrfm_c__spyutaud_o_cieedom_te",
+        "doc" : "Translated Avro Schema for mltt_p_llrfm_c__spyutaud_o_cieedom_te",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "vlaue",
+          "type" : [ "null", "string" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "psaue_lest_ttpppa__md_enylmtarhem_fco_tmsilto_",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "psaue_lest_ttpppa__md_enylmtarhem_fco_tmsilto_",
+        "doc" : "Translated Avro Schema for psaue_lest_ttpppa__md_enylmtarhem_fco_tmsilto_",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "uavel",
+          "type" : [ "null", "long" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "_temeoa_g",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "_has_mds_eeia_rut",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "__loutr_moie_a_gedustges",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "_aiedlui_omprer__tfes",
+    "type" : [ "null", "long" ],
+    "doc" : "personal-data-types:UserId"
+  }, {
+    "name" : "h_eogtdiet_m_ypere_wt_acr",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "h_eogtdiet_m_ypere_wt_acr",
+        "doc" : "Translated Avro Schema for h_eogtdiet_m_ypere_wt_acr",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "elvua",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "ue_tdsmeari__",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "ptoyepcii_m_nletr_dd_eo",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "ptoyepcii_m_nletr_dd_eo",
+        "doc" : "Translated Avro Schema for ptoyepcii_m_nletr_dd_eo",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "eluva",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "ol_dd_ars_gatud_sec_ap_pratmcam_onm_g_ooptp_le_eidsdktbrogircaiieraditetape_me____npop_ett",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "gdsmdpe_tmg___riat_tioie_acpeies_p_maain_tcdoe_unmb__tlera_pocraltpaokgrsetmtet",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "etbainyco_a_rngs_ituc_mreg_tg__atTrlg_p_t_ttreDa_msep__cn_loottt_laori_acci_aiec_sargsetrlepb_aratiuuardootnps_ken__t_cammepdtt__ui_pn_diu_oke_d__i_lkc__beogeniu_aeaafopp",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "rmerpataawnmiiapp__eeeoe__at_o_eors__itta_agcgep_poe_or__ddedspsplom_rga_dt_dpdsmlid_a_ertti_pdl",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "w_lrepe_palmcrr__nedarat_g_a_seipeits_a_o_topmpeasmp_de_otgideli_mstttpta_rdeogdaie_m",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "sessig__t_pt_c__rlpau_at_eobioirel_aprdd_t_p_l_ntped_ate_teprarean_w_woao_arpeae_pgeplragdiipo__De_trew_eee_eedocoma_emt__reas_ilglsTdpylgt_groustraadaitpma____ou__rlsldns__l_imn",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "e_tougaimlr_b_a_oas_leecte_p_tae_al_rwt__dodae_gm_p_amsdopstp_Telptetmaoegrgaspp_epapseglol___s__a_tianw_leudsgrt_eri_edD__rorp_e_enuwed_nr_i__rraamapldosiliret_a__spdlri_e_iyt",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "nw_roetveioecn__tuwt_rettstce_ouoef__atc_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ew_cu_q_tuweeu_c_o_et_oentosocrtntte_t",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ety_wtlnntte_usot__cer_towceocrp_uee__",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_ott_toeer_w_twcewtctutsunn_eo_rcet_ee_e",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ct_a__ur__cene_uttooaetsg_ttlomncnwote_eee_wtentg",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "nidaonme_ttiasewt_anote_",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "nidaonme_ttiasewt_anote_",
+        "doc" : "Translated Avro Schema for nidaonme_ttiasewt_anote_",
+        "fields" : [ {
+          "name" : "key",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "eavul",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "eihngb_wmaispwehdrto_lrl_nfo_usegd",
+    "type" : {
+      "type" : "array",
+      "items" : "double"
+    }
+  }, {
+    "name" : "tse_soi_ittuttrrres__h_anmltas_oerimiuu_rlu_g_ga_e_graeeeh_gcauueieeetano_edsgter_rtsha_o_en_nim",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "eememgrnetsetuim_msalasg___g__g__tolhnt_o_rtenauairaeirsa_etiph_atmea_geettume_usr_er",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "e_ti_ru_entas_omes_a_taturugtua_sg_gs_hs_ueeetiete_irraadla_rm_hr_orn_iemgem_legnee",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "as_aa__iautis__igd_yuhanertgees_ktcgu_eig_unmn_aryceaty_iatmta_aterfssaonotger_m_d_mDeletlor_venl_r__a_csu_ue_en__i_glrpstgt_e_geg_li_aieeir_hu_er__tnorenertherm_sgmeae__esaeu",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "mroe_ga__a_ancne_nuuurgmteeeUnat_lh_c_a__rrnruhag_aL_isas_eliigog_msenruatigs_trste_uanrii_a_n_e_eee__sdck_veeerrtgitot_miteh_uystu_strausl_letiapneen_mge___tim_a_oegtlee_rm_eefg_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "nnausndF_i__agyn_rg_g_m__eesreee_tieehi__arotw__afrtenngdemaltiealauoegu_voalrts_meediueertee_uaenealtmht_m_acstats_ae_rei___ugtrrtgishp__ul___arg__urnl_aer_osinyt_sege_ms_e_g",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ft__leu_eoitee__emaltnenueeh_n__tgasmoigratcen_e_rtuev__yaMis_s_asnw_ngnns_tertlm_a_td_eraaueeui_mhlgrrggdrurlinae_ta__t_ea_areXeiagi_ivssgr_uhloeoeeus_uet_r_m__etm_eme_arpi_tgs_g",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "igaaoga_l_eaneiyniregoha_e__i_ha_ahorr_dt_ureraeet_tt___siaggrrrmggsafe_n_sne_ueegr_etr_et_tee_mtiim_sisttevlufeutanras_y_ge_aergrucs_aand_limgeuvs_p_nnleu_eyomm_t___us_et__aoet",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "arigneaet___tn_taseaaa_t_gmaehdgm__aetoruufun__enoe_U_leam_ttmn_mmoe_snslea_iisstentge_h_iea_i_gti_g_ir__ssyger_vuegGemgetir_ptafas_oe_ir_urterrile_are_e_r_oegaunnhluru_e_sr_euvtthc",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "geut_ndraeer_euaiesese_hn_f_uie_reigr_uqdeeu_tigrneo_iettom_anssi_naiietotu_rr_eg_aoesnrna_teg_iv_e_ntgcv_saeam_mta_l_ge_elag___seagshnsme_ame_rl_u_gut_eteangrkrym_ayt_tfa_irbh__cbaeo_l_autpn",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "naiamgsg__tif_rvoektronguH_eeloesyaaetouetenam_mtanec_h_um____d_eeaneai_he_euag_niuaeaugrgvst_poa_ri_raee__ehtaataaargtslr_cne___gtnnset_rsrm__ielesiriu__tmegiie__ngib_reltt_emusu_ne_tse_fu_ng_er",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "mhecgi_eaunhatu_t_merst_u__gde_ngerttssogo_iu_msp_e_ensr_ter__a_eie_ga_eeiuoiargr_xpleeaua_gn_y_naotn_t_t_u__v_lalpr_ret__s_nraierha_ioin_hgeg__tueadtrymet_rmesagsndltmeaeeesaoaeKf_u",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "iysferu_heeauerrp___n___ietue_e_ar_gonted__unsa_l_mgego_fu_dniaphaoaareg_iecnr__ahn_rrm_i__eiatg_a_ttultmmeserosrlttpt_eengtmsmnaer_gxrtas__lneoee_gueee_i_t__uugnoseunhsgva_m_eittesi_aat",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "uarlras_nefth_nsa_euanieg_ham_c_u_suite_npga_rcrreneu_ugnytitanee_li_laaaa_eeae_imsee_itee_oh_r_ltmreteecls_toou_t_m_praa_s__rd_ofeirm_enet_is_gkrtmggdl_grggeestueiatiso___rvaZe__g__y",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_eega_ite_mit_ehp__rcf_lneoingrsrieo_fsaS__mlngnn_t_ee_gmufvielotp_artkeggtstnemieeuc__ttea_i___rltas_rut_n_surt_steuhoce_i__hwu_s__gganaueelrag_mmrest_eai_a__eeieasgmaord_a_ryrnluieuaeer",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "a_h_tre__oenhm_a_nCetea_eceilan__ml_s_aaeae_durmf__msonia_ita_ireamelueuareg_rpge_ayuetess_sneeueret_d__oi_eaaei__iite_t__ese_mtggug_lurgg_rhnos_ptyvtrtrst_n_gnrarflesu_g_tigr",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ersh_r_oltuca_uae_e_gmmsl__ut__si_ga_titm_atae_pirnee_g_enoguqrs__ghraalseieteeau_iltnreeem_r_gpre_feggaaa__rndru_e_grie_sealsne_ne_setta_rotva_su_NiCie__uymne_meimttigu_htrno_tne",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "aw_eet_ue__r_eeiuiiuteg_lnplmerd_g_tsves_do_itnhgg_rrxugs_ueueyau_e_aerta_rasm_th_tiemncttfreoa_aaaemlta_e_getetes_g_ateymelrs_rnn_an_r_ete__h_sme_ei__etrrnog_irers__igaou_nagas",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_stgeane_hhnouestio_giittsnmaeeareeseaeetiw_n_ugmrsgvt_u_iiyle__ttmDe_utgr_g_aei_gl_er_en_grmrfrqe_rtnoe_toe_tterr_teg_aei_her___m_c_suei_aemsua_etunemersapg_eanDdalura__u____alnsta",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_sy_nrrry_vnglmianeol_rit_Yhb_gesarstashg_p_xv__sai__eruucm_tu__i__alpt_seaie_auti__nie__etreescon_oeag_nduetTgu_ta_hsikri__eaag_l_r_msge_emtm_ugtoeeeoaea_aty_tge_dnlategaenurrafeeermn_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ousasefn_a__eihao__rgeema_eoae_i_n_sane_siitel_ngytiteehae_ggn__sae_rure_edaleau_aeg__sng_rmtpluy_eau_autu_taosgttirt_klgg_vub__ttneBrrmcm_Ksrueftgiolrrit_sprr_nieata_he_vegme_reemn_i__cm__",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "pd_raew_urntp_eeepe_rtr__iiogetcs__lslussgd_mtm_atae_etagmarrs__ldaa_teiospeemi",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "sedt_e_agmapasroretrsi_iestuaide_a_rldd_p_egomgtree_le_r_leun_iutes_pc__ra_sw",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "ooeae_t_r_psptnoet__stdsrd_irw_lgpe_rs_eren_labnpe___yedcsreeaod_egsu__Dsatoglaamel_gled__awu_oeipr__g__ta_puaatgimss_t_rilirw_cpdpm_t__ans__u_leeeiauTeerelpati_l_alrtorar_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "e__aidloa_at_e_ualaert_prerllsg_itaga_p__tr__ad_sln_egoTen_mt_trlmtops_cta_atrssdprue_es_leasense_aiwi__p__i_opeds_egu__roa_lga_dp_eessimwr_gboertDa_redyw_eupiplemlu__rre",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "e_ta_smeiegml_tsere_ae__teriiaaenrmseen_p__neertm_gmgsaglautstemti_u_g",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "et___sidam__es_e__ueeliase_nl_eugsigrn_tiea_emgetrnmeturgret_sermaga",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "__vra_eneeut_etaen___g_gmvetpgsnm_ga_rt_urso_ft__a_smeetg_elqteauune_ewe_situireyr_se_nsaisqa_oie__eurmrtu__gnigteheaatlswsmilneo_gatte_g_timem_etteieyg_ui__nranrc_leea_eedir",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "g__epssteiomleae__egvo_e_due__nt_r__e__vanateite_grmuiseneetoeeltestggitmhlneiir__emitilwi_n__a_tdw_ehgs_ueca_laua__neenruseem__emegusnes_r_g_r_lw__icteont_gnct_esmroroviasaet_e_ua_tetie_nmg_t_Iuietrasqgtro",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "eto_ireouo_tsg_neiwdsceenitt_h_ua_pr_eokneint_ime_a_reng_eivmrturgm_eso_stntaeogg_a_s__o__ecngnrvra_etlesgitgeimtwe___uuan_Hceq_tlgr_elpatnteelhlatu_m_mise_t_e_n_areelesetewigmts_tu_tuqt___ea_e_g_eie",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "leeanticagreeg__s__egenil__u_gletietrnuanoueni_pgras_ggsaem__ame_n_sn_m_m_kn_rentrlvufereirureDa__liesge__yctapdmsem_teu__t_etet_eig_es__asme_sregai_tciti_at",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_eeivetsi_el_uir_e_aemsotelgestanetrigvAnmum_takllute_r_tsi_mus_esgs___awp_aeOetegnrcs__l_t_cten_ee_em_in_agir_eodttego_icirvragnueenmsd_rgca_e_i_mlhni__gee__ulgen_ateoe_tesa__rr_mgcsen__ni",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "raggmg_ia__nov_eeomd_pimhnc_ttsslltse_tsne_iiuetg___sung_cett_UrkwJneetan_eets__eag_uugigi_o_teere_l_eearcl_ia_me_easrn_t_el_ena_mico_sl__cee_ttv_ei_uairitsen_e_r_onr_umetPlgmgetegpn",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "s_ers_a_iyiree_ssnemee_mo_rte_eseleetnulimmie_necin_a_gt___e_a_gdmsng__mvt_uaieote_tkeaa__narsgfugo_ptgu_geitlg_gerrytu_eltr_e_aenuentsHe_lrnra_a__t_gm_aienisi",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "tgea_etsrloshg_e_e_nne_nnpv_ge_s_aouiiaraalr_imc_u__tnr_gmotecen_utPe_isdi_imuens_tlng_e_eone___g__lmnesetri_ree_t_gi_nettitmmit_eeisnaareeo_am_wgevgtlscRkusl_g_m_etder__v_graiseeuei_ltesa__e",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_p_anrninury_itme_osem_r_uaemggaetiiigeeiniecwuantatghe_m__ee_arniloelotsl_gtesne_cepd_s_gtonhgv_u_s_meogrl_cetkotrvt_upe_ase_eglse__t_i_semeane__e_llra_e___u_t_nn_ngtr_tstgiimet_e__te",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_i_tgeenet_rsLg_rrluma_eeo_agesn__rnlsauei_g__mneser_ga_eu_eus_ttrteasdae__ne___eugimtaft__iet_mn_etenai__lm_limeeylialwemi_etsrgneas_pvdistvang__Mgec_rreeug",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "reraivm_smlmpgc_iees_ae_lur_reeit_neodsncndue_hn_mZinis_s__n_g_lgslm_ge_trca_lr_ngt__eegvt_eelg_xewitaaeuta_ess_snes_mogwmivamueetd_tit__itor_iruletmeee_ougtag__ie__etean__e_n_el_teraneges_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "em__eelntss_iewcc__etuy__tteGg_ss_o_es_loennlee_nd_ueemtha_tgstme_rialwageoaearr_novei_rru_unttg_nee_t__rtin_eiargn___gui_et_aeg_s_ieele_mlgipag_ns_a_lv_tttc__leepodemngsgeeciiu_trmm",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "s_eaiatenigpat_rmit_m_aeauue___m_nmusvltvuteigaf_grreae_gsnrfoinnna__si_segieecs_a__tydmrl_rtrltgtr__uitueeen_oigeee__eseete_aetl_sssgamgeir_a_mne_nte__r__seg_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "t_engg_n_rgnis_ems_m_gireeer_vrae_ngr_wts_n_re___a_rnestsme_qtp_n__vem_o_t__iumeitgleuei_emg_h_enrec_i_seoci_letieneoemgleg_imtla_ued_trefeol_gv_tcteg_tnrsteuaaasiidesa_leeusnottaaa__v_eiarsu",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "iattn__t_utm_v_l_u_at_t_cuaer_meu_t_neensnet_iai_ee_igaenploet_rsioitu_encenmg_grmrvwgotesg__daemmle_eseinott_a_e__i_eseuesc_ior__tsnggeieN_emrfr_ilasg_eepet_agnrslt__vgg_haoDr_ee_nolt",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_rnn_lltireroeual_aeentw_ilggmmg__sitggrer_ystastmse_e__sueenQgatgm_elf__amrtslu_tmtiecfi___na_oi_ei_uetasm_enaevueu_endasr_qti_gsgn_meore_eaeeg__ap_e__inre_e",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "tllswgtiigounaon_meum_e_e_redpaus_iev_lorh_g__es_c_sgieZttierne_ae_wnu_at_smse_ctgtese__t_vnseenmmtr__e_asn_a_nme_negrreeledlimsav_aigaonug_sfetgnr____t__tlliO_ee_e_geLoeiriroaemetluitcg__e_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "eten_toim_inialhgiegm_msu_eulna_r_o_ctiirtallscss_g_ie_mrion_e_me__rnslTe_se_t__eeloeetefa_ta_mlt_e_oneiteupln__a_go_vetteucomntdnlwnge_ege_rep_taeg_gesgsi__eetu_svg__rnwug_rr_tfaa_te",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ali_e_gymemnsuasggpi_rta_g__i_sot_snn_inreteee__meme___mi_sr_oges_ettraa_rnudtieule_e_atvrls____OegiguofeYeaepnnr_einungn_meickt_tnsese__emr_tagueei_eael_gr_taal",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "mzuae_e_mcinem_i_ttgse_ng_ig_l__tkre__eslule__g_lw_ade_ie_tneneeuae_s_r_aanor_ettvieua_t_eemhgtoavree_gpsgntonveenir_otl_e_nimgtetaeism_ri_ndrsiusnt__e_usapiegsl_etni_g_oeenme_l_va_rrca_s_smgec",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "__nhmlgcreutttg_uce_mpm_iuneneleelsn__gaepsn_vgeu__h_nttgsvieiuannaega_g_ottoalzrsnue_ip_drsseianal_ir_gteke_er_im_ttioeto__we_st_e_o__eleecietn_esn_glmoesiai_ertm_re_lan_tmeegg__e_t__r_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "iteg__o_retfo_e_tssgal__sati_r_l_nBeivmaea__r_emgyeum_rarege_ae_s_eeimaiuns_eochsardmungteagges_espsx_nee_lne_airngenr_itneipu____ntaet__tenma_egtger_ttur_duli_penm",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "tesglueeOs_tnnletgvr_dvtoeahsiiegce_smmpspgMines_wtuovmoeptcn_uste_etd_geletmineenaar__t___riel___ee__enaei_megten_isx_uiraoeggnedm______ns_ru_ueacsoTlasieel_agnt_e_o_raieaar_iegr_tn__rgem_m_t_h_t",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_e_l__e_s_mrieheet_ntmort_aepol_emsagmHeu_mine_og_n_a_p_eaheteaemtslsciviu__s_e_ttenceoYnmg__titttnuwnsmu__eetnnudegee_s_a_ng_ugeeeldi_r___tanorlcgetrtg_o_str_oaenrgiepvpag___lrxig_satieei_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "i_alaagsrneideieecitv__rlai_mua_sn__ptsnmng_eg_fteus_ileisle_lmee_ugn___re_gtftee___unrmrnergmpt_tk_tegcetirongoeeleeaeigers_a_gnmaEae___u_le__r_u_tyae_smsteiit_casr",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "r_seno_gs_c_i_teeimgnrvag__emggnuemea__epm_peZctu_nslksie_e_e_clhsdoiii__itvrnraesmegu_dmaetsaineateenttgeii_mee_n_egt_s_se_ftteaeo_ir_agvra___stmrtclrn_cu_n__goaiu_o__lw_l_ileereegle_nelJ__tutrsee",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "rmwiitrnRma__l_smtegrtt_e_loiivoreelg_c__rcurlaus_cln_steenl_co_tea_eito_ru_ee_tnnu__g__tp_igin_i_teeeipkmf__i_tner__gs_at_ae_gme_detrsma_tgecn_pegal_aeoeeemu_gnt_l_sueoehigam_sueiesensgenvt",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "imr_gss_nat_ic_gir_vtaseeeueeeln_euteea__emfgsi_tgg_em_i_gee__eaurg__a___Dnut_un_mertne_s_tGnr_ieCo_m_draies_tpra_ienqs_oer_g_tlas_uteytntlaaemnrgsueagmleie",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "t_gii_dr_gman_e_tp_g_tseetlr_ec__rcsite_geea_a__ola_mehums_iZimneg_sedm_o_arsus_la_eeug_rvlneernrie_g_itulimn___mc_ge_n_o_a_vsegtteelstaemrbooeriqnstns_eateug_nwne_e_u__uietsettgenetiv_aet",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "i_ntsl_c_drce__gtenne_p_uiumtse_m_ti_etrem__aeeinelpvlgmg_u_esssa__enetdn_n_o_wene_s_qr_rg__ei_n_aqrtmtea_sueg_tot_teil_e_h_iaaget_ugteemlvergerseggm__ehntgot_on_cteri_ueauialiooats",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ta_ev_o__rd_trti_eue_smetnree_gaii_urtsyr_eaee___a_ge_q_m_lugngt_r_tasuegm_is_teOeaplsureielin_ueeemnit_et_smmtpne_aesenlrarngnse_elms_gf_ar__eeiigaingg_c_ra",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_ederec_emt__hlsunastl_mtletgo_rs_gu___ire_etgeetaieme_m_y_msetese_pnlre_a_icna_w_aeucivinne_eeg_e_nrteriee_tnntt_lnga_ivgel_s___t__roou_igte___gssp_remeiso_metivimel_rsn_atieuansgagyregdua",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "itcrmn_itgutjgtae_n_ms__ecd__igoe_erllieearpsl__tinitn_eeet_sm_tge_eemareeon___taemeg_lgmeunsageegroo_t_i_u_sisn_itlet_tieeeu_elcr_aen_inmenhgsst__gDas_tr__puupvree__t_nor_e__ugvaalw",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "sitil_eegnsmi_s_eiau_gd_em_gret_n_p__ttutgaeye_tgrUsrmemfts_tmreeeagr__gemn_en_aengeQm_u_reaiewrle_a_rgsrenetia_ait_e_n_muaaoinsie_sur_ettc__aeelvgset___e_lenu",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "__iei__eosmma_ntgeetgeusn_a_eeheeegie__eaerg_e___lugp__ste_i___aiecatetueuree_vo_nleaoei_len_mterd_gramla_rc___eugt_ets_i_sm_rtrdstgtgn__Qamwentgn_ea_u_snlsotirgvnietlastminwrsienesitvcr__eem",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "a_o_ewt_u_egtnlew_ltco_m_v_aignnm_a_hasie_uee___nueemaada_mp__e_ngeteme_lr_t_onerag_stteygrtoie_rtc_ull_cmrgirrssteewvgmt_tengi_teeui__ieep__eri__t_setol_iene_n_ueangtss_seteitesirngge",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_egraestm_e_gig_nsmaetetP_si_setncugoeeug_t_gmntir_or__eresnelesuaala_tmtliteee__ateen_isweh__u_sn__n_imcaeiretakmfenmsr_imvegn_r__le_pg_uretrda_iesex_dca_ue_e_ry_ag_ti_lga",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "imegaruviei___lg_inwulnas_glggaaat_enlmreetane_e_he_dc_oueoerve_estdiatg_ri__teiitisu___loeeau_ett_opr__m_nmn_set_e__mgsdtae_stgrmmreis__tlciecntecgu_s_P_n___rveetetgslkstersr_nhnswe_ecagme__eaesme_ie_t_n",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ug__ea_imsgago__lec___hes_ttt__irieriai_e_elu___o_seiet_gtmsealislrmd_Ie_ka_nest_wbon_pgctaestunsue___i_letnvi_eegemeeengnceug_aaee_tmento_gemsrig_oe__n_emt_r_rlparcm_gateuehlndwtvnt__rseeitrncAtt_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ese_utr__tstse_lemame_erlasaatt__nuteegtf_as_ereoamerer_eue_g_ga_sssim_inmec__gtnumeiwmemge_shtisee__t_nuailgn_ghr__i_lrtxarnegserpente_an__ve_a_eiygt_d_in_u___itnersage",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "oe_gg_wie___mnrmc_aeeeh_neset___s_espctrglttae_nmetretrugtue_iim_e_lgv_eerto__gigeStue___nasgtsst_s_tennegmi_tae_le_aaetim_ennee_drgsd_uerneivn_geris__o__vcflm__lteaat_inecuehsomina_ae_sl_msaw__usrreti",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "aw__t_ett_ustneosrneagt_oS__osr_u_s_gnasettaa_tn_dm_e_amthtmgeiuggen_gtwe_ae_eacmjn_e_telr_scepvlsgtr___rgieneni_gmltons__ee__ilvee__e_entse_ee_umt_pesinie_oa_matsui_r_ueme_ltteihcrgisrei_e_gnlr",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "__grtu_gtalfokte_riedym_ahoetg_n_i_menElrbsutitmelgs_sn_aeg_rn_ta__eiyn__Xs_eraeea_c_rgeeagsegvsapmpce__pnuieenaameueeua__iresmtvgemnii__ruts___ens_agell_te__e_trie_ia",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "rme_tlee_ge_ntntlm_vivtlneisrei_t_nvags__g_oag_t_mrs___iieu_saoynimtnOmvse_emmliterreesoNc_pene_cei_eaunse_t_t_eggt_utira__e_bgnecarp_obwmnt_nguie_ahksslac_eeee_gsteIa_uR__ade_goedare_iir__e_gl_u_sal",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "gslsaggeei__ie__eTlgcn__pgee_tS_metes_stnav_cceeanr_l_egpgv_aruie_ltenigom_sgrunml_te_iaesek_Qngemrrelteb_roean_ee__oatpseoaoutnei_mtu__uiec_nlea_rwtaat_s__sig_itrtmt_oiineyt_t_e_en__v_d_mu_Th",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "nsms__s_ues_agerys_s_glcg__ui_qsgeieaegtleewa_a_r___deettoseileguutp_fIe_t_tre_nus_m_naga_ngieerv_ieie_evrtiyemia___i_inrmandnete_nnmvmertlmquea_setiagaee_o__ati_ueltr_gr",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_st_e_s_mgarrWrqavedue_ell_vu___minr___pnesinesye_ts_eeitcn_esigetas__nemtceaee_eitem_eeeit_e_n_sintncrgevteo_e_rsge_n_iei_v_ugmgw_alltr_eii_ueg_igieiismod_t__njrumegar_aut___mv_nadtl_asotoatlewguagelho",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "mt_nntinmuti_sieeue__vt_slugildesnseii__tgss_eme_o_oea__u_lemy_namn_gevJoee_enugge_aaised_tal__eeweeaut_giveetrtg_w_iilcgmroheguet_e_pt_lt_agtne_aiertn_or_r_eS_erpgv__atrls_oatirt____q_nnscieemec",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ds_nreaeuereg_teif__imee_eastgse_cteivsivllg__etmr_lraUeeneage_ute_ageme_m___udwrr__evretem_gine_ensnaagsoeas__iimunsu__et_rgota_iily_n_ieagrp_setntau__n_gm_ntr_i",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "gg_tsuel__ainmhet__eeicdrueesttlg_elext_aimgJsgmsaeeocsdgsen__re_nnonreu_eeapietiiotteg_a_e_s__e_deneua_ocnet_uveirmt_gma_rn__ss_ilom__vregn_ltuJ__sewsnitrv_irl_w__amiae__ig_vm__vnaeiee_geretet_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "l_e_siu_cto_ut__R__eno_o_igrvsquegaennmvegeieiee_rcegtgler__r__icesnttng_age_ntmog_lthns_streeuignig__epdtrtatr_sdi__eali_oe____alaw_etnua_peev_imls_o_aet_gimees_weUemtn_rmt_vtnimeuesaee_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "sahndeguiadmbrr_p_sgee_ds",
+    "type" : {
+      "type" : "array",
+      "items" : "double"
+    }
+  }, {
+    "name" : "eeligdd_edrsnb_umsa",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "eeligdd_edrsnb_umsa",
+        "doc" : "Translated Avro Schema for eeligdd_edrsnb_umsa",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : "string"
+        }, {
+          "name" : "eluav",
+          "type" : "double"
+        } ]
+      }
+    }
+  }, {
+    "name" : "eds_ugsemds_nuebrie",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "eds_ugsemds_nuebrie",
+        "doc" : "Translated Avro Schema for eds_ugsemds_nuebrie",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : "string"
+        }, {
+          "name" : "vleau",
+          "type" : "double"
+        } ]
+      }
+    }
+  }, {
+    "name" : "sd_va_m__wubn_l__ereiAm_dleiu_gevesfaos_d",
+    "type" : {
+      "type" : "array",
+      "items" : "double"
+    }
+  }, {
+    "name" : "Bvdmeulnb___s_wdesgd_feriluevmeasa_____oi",
+    "type" : {
+      "type" : "array",
+      "items" : "double"
+    }
+  }, {
+    "name" : "_rsfeld_eg_rs__wo__d_mevsn_eonbemAviu_iadsi",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "e_di_vosseueired_anr_s_w_i_gnmeB_oblf__dsvm",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "euowyoononc_ted_ytentt__eguaicrkptp_fgap_ettt_c__bytcpa__npeui___rip__",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "euowyoononc_ted_ytentt__eguaicrkptp_fgap_ettt_c__bytcpa__npeui___rip__",
+        "doc" : "Translated Avro Schema for euowyoononc_ted_ytentt__eguaicrkptp_fgap_ettt_c__bytcpa__npeui___rip__",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : "string"
+        }, {
+          "name" : "aevlu",
+          "type" : "double"
+        } ]
+      }
+    }
+  }, {
+    "name" : "ie_d_ewdoresulas_l_fos",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "o_n_uobuicteni___uc__rpcp_bcotmtn__wctiafeapero_kuktlgagcn",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "itnog_nut__nboeaoaccagooppc_kenic____utr_icufn_sruntmboee_tpvrw",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "cpnpnlooe_i_auergawtk_ce_wu__unfto_pttind___beo_rlmtcgubca",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "ononeft_k_wurernbacp__intie_itgacc__alop__itkcgpnucot_cut__",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_cn__r_ricsivnpcnpugurenuwb_aoc_nan_oc_tfti___etoei_kpgoanotteto",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "fugp_toere_adc_wpiot_pnc__an_ctaoutriolgnw_it___euecbnnklt_",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "ouou___krt_cccrf__elnipwa_u_ec_ie_tcpoattnpcgk_nogbttano_iut",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_nauntrvp_tt_fsiacoe_goork_o__pbncct__oanuwneeng_ituuceoio__rctpt",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "eeb_t_ogl_nnt_n_caw_naattpoue_ruultpcw_t_oiki_rc_et_cpgdoofu",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "e_ew_deov_iieim_e_hntavxcagas_ds_",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "baIhdtc",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "atbtthraSc",
+    "type" : [ "null", {
+      "type" : "long",
+      "logicalType" : "timestamp-micros"
+    } ]
+  }, {
+    "name" : "eeehsrtndae_g_uviasd_zd__tbghfsmei",
+    "type" : {
+      "type" : "array",
+      "items" : "double"
+    }
+  }, {
+    "name" : "dgade__hmeushi_eedtvntb_sgeArdaiscoe_snf_",
+    "type" : {
+      "type" : "array",
+      "items" : "double"
+    }
+  }, {
+    "name" : "slemai_rtodeg_nebmgoeseiddi_hvd_nsh",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "dlirt_eid_gegns_doadmdveesenhosmob_i_esnhc",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "segees_suuhgt_adtm_heerbivred_f_insU",
+    "type" : {
+      "type" : "array",
+      "items" : "double"
+    }
+  }, {
+    "name" : "suhcedve__t_sfdOroirieuene_shegtbnge_s_msda",
+    "type" : {
+      "type" : "array",
+      "items" : "double"
+    }
+  }, {
+    "name" : "evleigmedgit_urensedi__sobhmrnsh_oeds",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "snse__mdbehomoc_erri_snisdegluedinedvhotsge_",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "it_apnstualgordss_ntl_a_c_ien",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "it_apnstualgordss_ntl_a_c_ien",
+        "doc" : "Translated Avro Schema for it_apnstualgordss_ntl_a_c_ien",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "alvue",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "onee_bnmgcdt_adsn_diet",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "onee_bnmgcdt_adsn_diet",
+        "doc" : "Translated Avro Schema for onee_bnmgcdt_adsn_diet",
+        "fields" : [ {
+          "name" : "eky",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "velua",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "bgco_ttieds_e_uedrenmnn",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "bgco_ttieds_e_uedrenmnn",
+        "doc" : "Translated Avro Schema for bgco_ttieds_e_uedrenmnn",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "laveu",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "tnne_mtuad_sblore__gcdi_need",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "tnne_mtuad_sblore__gcdi_need",
+        "doc" : "Translated Avro Schema for tnne_mtuad_sblore__gcdi_need",
+        "fields" : [ {
+          "name" : "eyk",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "eluav",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "_srii_w__tdrseauetss_re_ut",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "_ad_nuye__elacilcrillkutdhtikosh_qs_s",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "urcerasetseern_istisrol_artomu_ci_ernsteet_rcfnosd__eene__trd_m__esu_udmusntilisv_se",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "igna__ta_ep_oizgasiirn__nop_o",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "ks_rozng_pos_aiapiei_i___annont_etog",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "_piip_i_eoas__l_v_ipgv_h_d_i",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "eupasapi_not_ig__lgn_e_diepfigiire__",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "ezpng_i__ig__po_noiti_piasrao",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "ios_o__nikaisgppzo_rine_agp_ot_inte_",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "nerdiymvi___p_n_re_pgx_e_opoao",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "_nr_noi_fpaoigmveyo_ien__d_dixdser_epe_p_",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "naierttum_igt_dgoc__sda_s",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "naierttum_igt_dgoc__sda_s",
+        "doc" : "Translated Avro Schema for naierttum_igt_dgoc__sda_s",
+        "fields" : [ {
+          "name" : "yek",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "uvlae",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "om_eccvnawag_tpio_ar__bsdceino_ns",
+    "type" : [ "null", "boolean" ]
+  }, {
+    "name" : "rt_ieigatornt_uatyfsoeseiimenn_edummdae_ien_n_dai_edondamtt_ieaa_intasd_rd",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "hib_tdac",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "mbt_ithrtsa_aetc",
+    "type" : [ "null", {
+      "type" : "long",
+      "logicalType" : "timestamp-micros"
+    } ]
+  }, {
+    "name" : "f_eevmb_dn__giescftnakaiatidre___",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "a_meehcr__olrsgceeifopdttotene_eustmsi_soanets_caeuc___otrsrosreun_rnoe_mrlin_de__urrrrua_",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "mrseusti__nl_eeeznou_c_eeaiodoeg_ftastr_r_ume_r_aen_soaolhstrrrie_etri_cntn",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "re_fnsterme_eruo_naceriorhr_mt_s_ec_ooreuoduaastlrsmat_g_eneo_nlcs_",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "re_fnsterme_eruo_naceriorhr_mt_s_ec_ooreuoduaastlrsmat_g_eneo_nlcs_",
+        "doc" : "Translated Avro Schema for re_fnsterme_eruo_naceriorhr_mt_s_ec_ooreuoduaastlrsmat_g_eneo_nlcs_",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "ueval",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "_m_rirlroelaeu_eneo_eo_nfeossoagrsttm_tr_ctusnaee_o_thtraacd__lr",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_m_rirlroelaeu_eneo_eo_nfeossoagrsttm_tr_ctusnaee_o_thtraacd__lr",
+        "doc" : "Translated Avro Schema for _m_rirlroelaeu_eneo_eo_nfeossoagrsttm_tr_ctusnaee_o_thtraacd__lr",
+        "fields" : [ {
+          "name" : "key",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "laeuv",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "tecss_erhagolmcunfo_neumncrres_strd_oe_ure_ue_eusreantsater_ntco__oiimo_ar_selst__oenr_imr",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "_sst_crgoatrtro_emcre_mud_ir_lo_na_rroe_euufedsncsnsoepeeerlr_e_a",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "_sst_crgoatrtro_emcre_mud_ir_lo_na_rroe_euufedsncsnsoepeeerlr_e_a",
+        "doc" : "Translated Avro Schema for _sst_crgoatrtro_emcre_mud_ir_lo_na_rroe_euufedsncsnsoepeeerlr_e_a",
+        "fields" : [ {
+          "name" : "kye",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "vaule",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "atcelr_otars_rs_o_tsgrrsamer_fcsit_e_oeotured_nl_len__eanueemo",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "atcelr_otars_rs_o_tsgrrsamer_fcsit_e_oeotured_nl_len__eanueemo",
+        "doc" : "Translated Avro Schema for atcelr_otars_rs_o_tsgrrsamer_fcsit_e_oeotured_nl_len__eanueemo",
+        "fields" : [ {
+          "name" : "yke",
+          "type" : [ "null", "string" ]
+        }, {
+          "name" : "vauel",
+          "type" : [ "null", "double" ]
+        } ]
+      }
+    }
+  }, {
+    "name" : "eo_trmosnt_ra_cipareemeu_qstt",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "hmdvic_iebaa_lithmtdemcde___oa__sdae_se",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "_sb_dv_eidh__shstelmmraudi_a_eeaeie_ocd_",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "ssr__de_tdmaiss_rehdhaa_eu__u_e",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "gee__anatsnortertwta_utocu_iwter_m_w_ete_t_cr_etsoucescee____ea",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "esneeidom_mil_nonesr_uiessrsse_v_te_usmruc__rc_ntsd_i_rtcu_aVtetl_esrdi",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "ti___etegddleswstrcataiawtoiiciprtrtopeeawbgn_sne_e__mtmr_atde_gd__tee_ae_e_ptpe_ml_o_atdtckuo_",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "ase_gbeetpnco_rie_wdmtemp_t_epa_seeiitia_tora_tewmdeacit_at__rgpgs_uctetmla_tlnk_t",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_es_nrimattr_uu__tan_apybwaTiupc__dtltdaiag_b_ldoat_eekr_roaeenfot_l__sknrm_m_ricceakltoslancpictcib_aunee_ateogeeeps_o_tg_t_eeipi_ctpp_nes_t_tu_ctoratiagDg_t__aw__tig_e_u_r",
+    "type" : [ "null", "double" ]
+  }, {
+    "name" : "ubeiesReuvbpictATmde",
+    "type" : [ "null", {
+      "type" : "long",
+      "logicalType" : "timestamp-micros"
+    } ]
+  } ]
+}

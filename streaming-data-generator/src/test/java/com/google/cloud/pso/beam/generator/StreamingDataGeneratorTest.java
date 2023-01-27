@@ -15,10 +15,15 @@
  */
 package com.google.cloud.pso.beam.generator;
 
+import com.google.cloud.pso.beam.generator.formats.AvroDataGenerator;
 import com.google.cloud.pso.beam.generator.formats.ThriftDataGenerator;
 import com.google.cloud.pso.beam.generator.thrift.CompoundEvent;
 import com.google.common.math.Quantiles;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import org.apache.avro.file.CodecFactory;
+import org.apache.avro.file.DataFileWriter;
+import org.apache.avro.generic.GenericDatumWriter;
 import org.apache.thrift.TSerializer;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.junit.Assert;
@@ -55,9 +60,37 @@ public class StreamingDataGeneratorTest {
         throw new RuntimeException("Error while creating a TSerializer.", e);
       }
     }
-    System.out.println("Gen size percentiles (bytes): "
+    System.out.println("Thrift gen size percentiles (bytes): "
             + Quantiles.percentiles().indexes(50, 90, 95).compute(sizes).toString());
-    System.out.println("Gen time percentiles (ns): "
+    System.out.println("Thrift gen time percentiles (ns): "
+            + Quantiles.percentiles().indexes(50, 90, 95).compute(times).toString());
+  }
+
+  @Test
+  public void testMakeAvroMessage() throws Exception {
+    var sizes = new ArrayList<Long>();
+    var times = new ArrayList<Long>();
+    var gen = AvroDataGenerator.createFromSchema("classpath://complex-event.avro");
+    gen.init();
+    var schema = gen.getSchema();
+    var datumWriter = new GenericDatumWriter(schema);
+    var fileWriter = new DataFileWriter(datumWriter);
+    fileWriter.setCodec(CodecFactory.snappyCodec());
+    for (int i = 0; i < 1000; i++) {
+      var start = System.nanoTime();
+      var obj = gen.createInstance(true);
+      times.add(System.nanoTime() - start);
+      Assert.assertNotNull(obj);
+      var out = new ByteArrayOutputStream();
+      fileWriter.create(schema, out);
+      fileWriter.append(obj);
+      fileWriter.close();
+      var serialized = out.toByteArray();
+      sizes.add((long) serialized.length);
+    }
+    System.out.println("Avro gen size percentiles (bytes): "
+            + Quantiles.percentiles().indexes(50, 90, 95).compute(sizes).toString());
+    System.out.println("Avro gen time percentiles (ns): "
             + Quantiles.percentiles().indexes(50, 90, 95).compute(times).toString());
   }
 

@@ -5,15 +5,14 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.channels.Channels;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.apache.avro.Schema;
-import org.apache.avro.file.DataFileReader;
 import org.apache.avro.file.DataFileStream;
-import org.apache.avro.file.SeekableByteArrayInput;
 import org.apache.avro.generic.GenericDatumReader;
 import org.apache.avro.generic.GenericDatumWriter;
 import org.apache.avro.generic.GenericRecord;
@@ -45,6 +44,10 @@ public class AvroDataGenerator implements DataGenerator {
     this.filePath = filePath;
   }
 
+  public Schema getSchema() {
+    return schema;
+  }
+
   synchronized private void initFromFile() throws IOException {
     if (!DATA_CACHE.isEmpty()) {
       return;
@@ -70,14 +73,16 @@ public class AvroDataGenerator implements DataGenerator {
     if (schema != null) {
       return;
     }
-    var chan
-            = Channels.newInputStream(FileSystems.open(
-                    FileSystems.matchNewResource(
-                            dataSchemaPath, false)));
-    var dataFileReader = new DataFileReader<>(
-            new SeekableByteArrayInput(chan.readAllBytes()),
-            new GenericDatumReader<>());
-    schema = dataFileReader.getSchema();
+    InputStream iStream = null;
+    if (dataSchemaPath.startsWith("classpath://")) {
+      iStream = this.getClass().getResourceAsStream(dataSchemaPath.replace("classpath://", "/"));
+    } else {
+      iStream
+              = Channels.newInputStream(FileSystems.open(
+                      FileSystems.matchNewResource(
+                              dataSchemaPath, false)));
+    }
+    schema = new Schema.Parser().parse(iStream);
   }
 
   GenericRecord modifyTimestamps(GenericRecord record) {

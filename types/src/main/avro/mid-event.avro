@@ -1,0 +1,306 @@
+{
+  "type" : "record",
+  "name" : "midschema",
+  "namespace" : "org.apache.beam.sdk.io.gcp.bigquery",
+  "doc" : "Translated Avro Schema for midschema",
+  "fields" : [ {
+    "name" : "niitc_ardontsa",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "dsrapdi_es",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "epsmtmmi_tas",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "_foeshtt",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "e_kucegdotsiio",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "othetseq_sur",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "dqmut_otserhee",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "saqhrtpet_ue",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "qtpsrrectuoeolo_",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "r_sechslpi",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "despnceroeo_s",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "rp_ssonzeeise",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "eeorm_spsns",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "srcnsegpodinn_eoe",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "lcutieduin_",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "eclsrtu",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "aes_rdiadsp",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "cd",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "mi_irtleat",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "mi_irtleat",
+      "doc" : "Translated Avro Schema for mi_irtleat",
+      "fields" : [ {
+        "name" : "xlrtmmliiaite_ti__",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "iiin_agmnlrit_txer_ema",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "rt_xt_ie_seitrlema",
+        "type" : [ "null", "string" ]
+      } ]
+    } ]
+  }, {
+    "name" : "aunhtitineoact",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "aunhtitineoact",
+      "doc" : "Translated Avro Schema for aunhtitineoact",
+      "fields" : [ {
+        "name" : "otc_elserud",
+        "type" : [ "null", "long" ]
+      }, {
+        "name" : "huetapt_y",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "eurs_di",
+        "type" : [ "null", "long" ]
+      }, {
+        "name" : "uonsetgke_t",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "taadoictne_lpcni_ilpi",
+        "type" : [ "null", "long" ]
+      }, {
+        "name" : "tpnd__licpaapieraitno",
+        "type" : [ "null", "long" ]
+      }, {
+        "name" : "su_datutinaceeitedr_h",
+        "type" : [ "null", "long" ]
+      }, {
+        "name" : "eore_nsutk",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "iaaopln_ktiopcnet",
+        "type" : [ "null", "string" ]
+      } ]
+    } ]
+  }, {
+    "name" : "dreehas",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "dreehas",
+      "doc" : "Translated Avro Schema for dreehas",
+      "fields" : [ {
+        "name" : "geta_eunsr",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "errrefe",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "npliogl",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "stweqdex__itheru",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "fwd_axofrdorr_e",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "_e_trwrinaextittnl",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "lunitdeic_u",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "ittta__ex_tirwgps",
+        "type" : {
+          "type" : "array",
+          "items" : "string"
+        }
+      }, {
+        "name" : "sept_etf_ryxue_",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "dcenaon_tiecpcg",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "egftuaa_sxt__",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "eortcodpxlteot__fpd_lno_ifr",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "nhc__oosninetchax",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "al_tused",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "_rsesuesma_ntgtye",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "cnocxntrnne_nftpioigier_",
+        "type" : [ "null", "string" ]
+      } ]
+    } ]
+  }, {
+    "name" : "g_qeoresaerucytt",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "ocoslpo_lrst",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "rrpiaoo__dreec",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "ot_nicanlecntonocio",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "rauespmt",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "esnnttaidio",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "esnnttaidio",
+      "doc" : "Translated Avro Schema for esnnttaidio",
+      "fields" : [ {
+        "name" : "zoen",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "relo",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "ven",
+        "type" : [ "null", "string" ]
+      }, {
+        "name" : "jbo",
+        "type" : [ "null", "string" ]
+      } ]
+    } ]
+  }, {
+    "name" : "eesd_ahztiqereeusr_",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "__dpisreoaneeeershsz",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "eqeer_zsutis",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "trrleqe_aasupsr_um",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "elrp_aedvaeefrh_u",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "r_atexttce_itvwi",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "ntspte_teeetqyu_ocnr",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "n_cdeyorctuo",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "a__tedeweigxtir_pt",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "s_qlsutnrntcaeieha_coo",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "_ypcorexplood_etx_rpt_achro",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "d_hfosne_rotnt",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "corijtnonresa_ee",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "nteegetmaasdii_trip_",
+    "type" : {
+      "type" : "array",
+      "items" : "string"
+    }
+  }, {
+    "name" : "orui_ted",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "_g_lraocuhaeyesth",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "dpess_cl_riaednit",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "dpess_cl_riaednit",
+      "doc" : "Translated Avro Schema for dpess_cl_riaednit",
+      "fields" : [ {
+        "name" : "arsdesd",
+        "type" : [ "null", {
+          "type" : "record",
+          "name" : "arsdesd",
+          "doc" : "Translated Avro Schema for arsdesd",
+          "fields" : [ {
+            "name" : "Vv",
+            "type" : [ "null", "long" ]
+          }, {
+            "name" : "vh",
+            "type" : [ "null", {
+              "type" : "record",
+              "name" : "vh",
+              "doc" : "Translated Avro Schema for vh",
+              "fields" : [ {
+                "name" : "iBhgtihser",
+                "type" : [ "null", "long" ]
+              }, {
+                "name" : "rloBisetw",
+                "type" : [ "null", "long" ]
+              } ]
+            } ]
+          } ]
+        } ]
+      }, {
+        "name" : "nas",
+        "type" : [ "null", "long" ]
+      } ]
+    } ]
+  }, {
+    "name" : "ik_edisegudaocto_s",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "t_csgrikmo_nduekieotgiae",
+    "type" : [ "null", "long" ]
+  }, {
+    "name" : "bvTAdiebetseueumpiRc",
+    "type" : [ "null", {
+      "type" : "long",
+      "logicalType" : "timestamp-micros"
+    } ]
+  } ]
+}

@@ -21,8 +21,19 @@
       <artifactId>javax.annotation-api</artifactId>
     </dependency>
   </dependencies>
-
+  
   <build>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/main/thrift</directory>
+        <filtering>false</filtering>
+      </resource>
+      <resource>
+        <directory>${basedir}/src/main/avro</directory>
+        <filtering>false</filtering>
+      </resource>
+    </resources>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
