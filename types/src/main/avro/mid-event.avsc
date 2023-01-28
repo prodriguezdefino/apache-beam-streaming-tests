@@ -2,7 +2,7 @@
   "type" : "record",
   "name" : "complexschema",
   "namespace" : "com.google.cloud.pso.beam.avro",
-  "doc" : "Translated Avro Schema for complexschema",
+  "doc" : "Translated Avro Schema for mid-schema",
   "fields" : [ {
     "name" : "eibbuwngbrbxjc",
     "type" : [ "null", "string" ]
