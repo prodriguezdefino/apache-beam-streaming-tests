@@ -92,7 +92,7 @@ source ./execute-ps2bq.sh $1 $2 $3 "\
 
 Similarly, to use avro as part of the tests the data generator can use data from an already generated Avro file or a schema file, in the first case it will cache the entries of the file in memory and randomly send them to the configured streaming infrastructure (making the data generation super fast) and in the case of using the schema file the generator pipeline will use the schema definition to generate random data (useful for quick tests). 
 
-To use avro schemas as the input for generation the following configuration would be enough: 
+To use avro schemas as the input for generation the following configuration on the example [script](https://github.com/prodriguezdefino/dataflow-streaming-generator/blob/main/execute-ps2bq-suite-example.sh#L20) should be sufficient: 
 
 ``` bash
 echo "starting data generator"
@@ -121,4 +121,4 @@ For schema files, most of the known file location protocols are supported (local
 
 ## Upcoming Improvements
 
-Soon, infrastructure generation should also be available, generated using Terraform. The test suite script should be capable of creating, given a GCP project and a service account key with enough permissions to execute resource creation, the needed resources (enable GCP services, Service Account for Dataflow run, BigQuery dataset, PubSub and PubSubLite topics and subscription and a simple Kafka cluster). Check on the `/infra` folder for progress.
+Soon, infrastructure generation should also be available, generated using Terraform. The test suite script should be capable of creating, given a GCP project and a service account key with enough permissions to execute resource creation, the needed resources (enable GCP services, Service Account for Dataflow run, BigQuery dataset, PubSub and PubSubLite topics and subscription and a simple Kafka cluster). Check on the [infra](https://github.com/prodriguezdefino/dataflow-streaming-generator/blob/main/infra) folder for progress.
