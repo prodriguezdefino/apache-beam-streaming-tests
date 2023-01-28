@@ -126,7 +126,7 @@ Included there are startup scripts for each of those available streaming infrast
 
 * PubSub suite     - [`execute-ps2bq-suite-example.sh`](execute-ps2bq-suite-example.sh)
 * PubSubLite suite - [`execute-pslite2bq-suite-example.sh`](execute-pslite2bq-suite-example.sh)
-* Kafka suite      - [`execute-kafka2bq-suite-example.sh`](execute-pskafka2bq-suite-example.sh)
+* Kafka suite      - [`execute-kafka2bq-suite-example.sh`](execute-kafka2bq-suite-example.sh)
 
 ## Upcoming Improvements
 
