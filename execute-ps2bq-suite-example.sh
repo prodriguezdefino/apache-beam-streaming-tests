@@ -22,7 +22,7 @@ pushd streaming-data-generator
 
 source ./execute-ps2bq.sh $1 $2 $3 "\
   --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
-  --generatorRatePerSec=200000 \
+  --generatorRatePerSec=250000 \
   --maxRecordsPerBatch=4500 \
   --compressionEnabled=true \
   --completeObjects=true "$MORE_PARAMS
