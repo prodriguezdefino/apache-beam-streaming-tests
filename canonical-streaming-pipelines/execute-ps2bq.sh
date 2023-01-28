@@ -8,12 +8,9 @@ if [ "$#" -ne 3 ] && [ "$#" -ne 4 ]
     exit -1
 fi
 
-SAN_SUBS=`echo "$2" | tr _ -`
-JOBNAME=ps2bq-${SAN_SUBS}-${USER}
 PROJECT_ID=$1
 BUCKET="gs://${3}"
 
-REGION="us-central1"
 PIPELINE_NAME=StreamingSourceToBigQuery
 TOPIC=`echo $2 | awk -F "-sub" '{print $1}'`
 SUBSCRIPTION=$2
@@ -27,20 +24,13 @@ STAGING_BUCKET=${BUCKET}
 STAGING_PATH=${STAGING_BUCKET}"/.staging/"
 OUTPUT_TABLE=${BQ_PROJECT_ID}:${BQ_DATASET_ID}.prefix_${BQ_TABLE_NAME}
 
-echo bucket=${BUCKET}
-echo bqinfo=${OUTPUT_TABLE}
-echo jobname=${JOBNAME}
-
 LAUNCH_PARAMS=" \
- --jobName=${JOBNAME} \
  --project=${PROJECT_ID} \
  --runner=DataflowRunner \
  --streaming \
- --region=${REGION} \
  --stagingLocation=${STAGING_PATH} \
  --tempLocation=${BUCKET}/.temp \
  --gcpTempLocation=${BUCKET}/.temp \
- --subscription=projects/${PROJECT_ID}/subscriptions/${SUBSCRIPTION} \
  --outputTable=${OUTPUT_TABLE} \
  --numWorkers=1 \
  --maxNumWorkers=400 \
@@ -48,11 +38,12 @@ LAUNCH_PARAMS=" \
  --workerMachineType=n2d-standard-4 \
  --createBQTable \
  --autoscalingAlgorithm=THROUGHPUT_BASED \
- --experiments=num_pubsub_keys=2048 \
- --experiments=use_pubsub_streaming \
  --enableStreamingEngine \
  --experiments=streaming_engine_job_setting=asymmetric_for_large_loadtest \
  --usePublicIps=false "
+
+#  --network=some-network \
+#  --subnetwork=https://www.googleapis.com/compute/v1/projects/some-project/regions/us-central1/subnetworks/some-subnetwork \
 
 if (( $# == 4 ))
 then

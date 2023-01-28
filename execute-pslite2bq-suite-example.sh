@@ -20,18 +20,20 @@ BEAM_VERSION=2.45.0-SNAPSHOT
 PROJECT_ID=$1
 TOPIC=$2
 REGION=us-central1
+ZONE=us-central1-a
 
 echo "starting data generator"
-pushd streaming-data-generato
+pushd streaming-data-generator
 
-JOBNAME=datagen-ps-`echo "$2" | tr _ -`-${USER}
+JOBNAME=datagen-pslite-`echo "$2" | tr _ -`-${USER}
 
-source ./execute-ps2bq.sh $1 $2 $3 " \
+source ./execute-ps2bq.sh $1 $2 $3 "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
-  --outputTopic=projects/${PROJECT_ID}/topics/${TOPIC} \
+  --outputTopic=projects/${PROJECT_ID}/locations/${ZONE}/topics/${TOPIC} \
+  --sinkType=PUBSUBLITE \
   --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
-  --generatorRatePerSec=250000 \
+  --generatorRatePerSec=50000 \
   --maxRecordsPerBatch=4500 \
   --compressionEnabled=true \
   --completeObjects=true "$MORE_PARAMS
@@ -42,14 +44,13 @@ echo "starting processing pipeline"
 pushd canonical-streaming-pipelines
 
 SUBSCRIPTION=$2-sub
-JOBNAME=ps2bq-`echo "$2" | tr _ -`-${USER}
+JOBNAME=pslite2bq-`echo "$2" | tr _ -`-${USER}
 
 source ./execute-ps2bq.sh $1 $SUBSCRIPTION $3 "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
-  --subscription=projects/${PROJECT_ID}/subscriptions/${SUBSCRIPTION} \
-  --experiments=num_pubsub_keys=2048 \
-  --experiments=use_pubsub_streaming \
+  --subscription=projects/${PROJECT_ID}/locations/${ZONE}/subscriptions/${SUBSCRIPTION} \
+  --sourceType=PUBSUBLITE \
   --useStorageApiConnectionPool=true \
   --bigQueryWriteMethod=STORAGE_API_AT_LEAST_ONCE \
   --tableDestinationCount=1 "$MORE_PARAMS

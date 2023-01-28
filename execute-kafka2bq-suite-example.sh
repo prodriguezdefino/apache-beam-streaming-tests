@@ -3,7 +3,7 @@ set -eu
 
 if [ "$#" -ne 3 ] && [ "$#" -ne 4 ]
   then
-    echo "Usage : sh execute-suite-example.sh <gcp project> <topic name> <staging gcs bucket name> <optional params>" 
+    echo "Usage : sh execute-suite-example.sh <gcp project> <a string containing topic/bootstrap-servers> <staging gcs bucket name> <optional params>" 
     exit -1
 fi
 
@@ -18,20 +18,22 @@ fi
 BEAM_VERSION=2.45.0-SNAPSHOT
 # Other manual configurations
 PROJECT_ID=$1
-TOPIC=$2
+TOPIC_AND_BOOTSTRAPSERVERS=$2
 REGION=us-central1
+ZONE=us-central1-a
 
 echo "starting data generator"
-pushd streaming-data-generato
+pushd streaming-data-generator
 
-JOBNAME=datagen-ps-`echo "$2" | tr _ -`-${USER}
+JOBNAME=datagen-kafka-`echo "$2" | tr _ -`-${USER}
 
-source ./execute-ps2bq.sh $1 $2 $3 " \
+source ./execute-ps2bq.sh $1 $2 $3 "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
-  --outputTopic=projects/${PROJECT_ID}/topics/${TOPIC} \
+  --outputTopic=${TOPIC_AND_BOOTSTRAPSERVERS} \
+  --sinkType=PUBSUBLITE \
   --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
-  --generatorRatePerSec=250000 \
+  --generatorRatePerSec=50000 \
   --maxRecordsPerBatch=4500 \
   --compressionEnabled=true \
   --completeObjects=true "$MORE_PARAMS
@@ -41,15 +43,15 @@ popd
 echo "starting processing pipeline"
 pushd canonical-streaming-pipelines
 
-SUBSCRIPTION=$2-sub
-JOBNAME=ps2bq-`echo "$2" | tr _ -`-${USER}
+JOBNAME=kafka2bq-`echo "$2" | tr _ -`-${USER}
 
 source ./execute-ps2bq.sh $1 $SUBSCRIPTION $3 "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
-  --subscription=projects/${PROJECT_ID}/subscriptions/${SUBSCRIPTION} \
-  --experiments=num_pubsub_keys=2048 \
-  --experiments=use_pubsub_streaming \
+  --subscription=${TOPIC_AND_BOOTSTRAPSERVERS} \
+  --experiments=use_unified_worker \
+  --experiments=use_runner_v2 \
+  --sourceType=KAFKA \
   --useStorageApiConnectionPool=true \
   --bigQueryWriteMethod=STORAGE_API_AT_LEAST_ONCE \
   --tableDestinationCount=1 "$MORE_PARAMS

@@ -119,6 +119,15 @@ source ./execute-ps2bq.sh $1 $2-sub $3 "\
 
 For schema files, most of the known file location protocols are supported (local filesystem, classpath, GCS should work fine).
 
+## Streaming Infrastructure
+This suite can run the same load tests sending the generated data to PubSub, PubSubLite or Kafka. Since there are considerable differences between the mentioned streaming infrastructure components, is important from Apache Beam perspective and even Dataflow perspective how the execution scales on each case. 
+
+Included there are startup scripts for each of those available streaming infrastructure components, needing no changes in the code, only making sure the infrastructure is created in the project where the tests are going to run. 
+
+* PubSub suite     - [`execute-ps2bq-suite-example.sh`](execute-ps2bq-suite-example.sh)
+* PubSubLite suite - [`execute-pslite2bq-suite-example.sh`](execute-pslite2bq-suite-example.sh)
+* Kafka suite      - [`execute-kafka2bq-suite-example.sh`](execute-pskafka2bq-suite-example.sh)
+
 ## Upcoming Improvements
 
 Soon, infrastructure generation should also be available, generated using Terraform. The test suite script should be capable of creating, given a GCP project and a service account key with enough permissions to execute resource creation, the needed resources (enable GCP services, Service Account for Dataflow run, BigQuery dataset, PubSub and PubSubLite topics and subscription and a simple Kafka cluster). Check on the [infra](https://github.com/prodriguezdefino/dataflow-streaming-generator/blob/main/infra) folder for progress.

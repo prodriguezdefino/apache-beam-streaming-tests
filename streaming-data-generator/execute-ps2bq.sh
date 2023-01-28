@@ -11,7 +11,6 @@ fi
 PROJECT=$1
 TOPIC=$2
 STAGING_BUCKET=$3
-REGION="us-central1"
 
 LAUNCH_PARAMS=" \
   --project=$PROJECT \
@@ -22,10 +21,7 @@ LAUNCH_PARAMS=" \
   --maxNumWorkers=1000 \
   --runner=DataflowRunner \
   --workerMachineType=n1-standard-4 \
-  --usePublicIps=false \
-  --region=${REGION} \
-  --outputTopic=projects/${PROJECT}/topics/${TOPIC} \
-  --jobName='streamingdatagen-`echo "$TOPIC" | tr _ -`-${USER}' "
+  --usePublicIps=false "
 
 #  --network=some-network \
 #  --subnetwork=https://www.googleapis.com/compute/v1/projects/some-project/regions/us-central1/subnetworks/some-subnetwork \
