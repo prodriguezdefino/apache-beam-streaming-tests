@@ -25,16 +25,17 @@ ZONE=us-central1-a
 echo "starting data generator"
 pushd streaming-data-generator
 
-JOBNAME=datagen-pslite-`echo "$2" | tr _ -`-${USER}
+JOB_NAME=datagen-pslite-`echo "$2" | tr _ -`-${USER}
 
 source ./execute-ps2bq.sh $1 $2 $3 "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
+  --workerZone=${ZONE} \
   --outputTopic=projects/${PROJECT_ID}/locations/${ZONE}/topics/${TOPIC} \
   --sinkType=PUBSUBLITE \
   --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
-  --generatorRatePerSec=50000 \
-  --maxRecordsPerBatch=4500 \
+  --generatorRatePerSec=10000 \
+  --maxRecordsPerBatch=100 \
   --compressionEnabled=true \
   --completeObjects=true "$MORE_PARAMS
 
@@ -44,11 +45,12 @@ echo "starting processing pipeline"
 pushd canonical-streaming-pipelines
 
 SUBSCRIPTION=$2-sub
-JOBNAME=pslite2bq-`echo "$2" | tr _ -`-${USER}
+JOB_NAME=pslite2bq-`echo "$2" | tr _ -`-${USER}
 
 source ./execute-ps2bq.sh $1 $SUBSCRIPTION $3 "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
+  --workerZone=${ZONE} \
   --subscription=projects/${PROJECT_ID}/locations/${ZONE}/subscriptions/${SUBSCRIPTION} \
   --sourceType=PUBSUBLITE \
   --useStorageApiConnectionPool=true \

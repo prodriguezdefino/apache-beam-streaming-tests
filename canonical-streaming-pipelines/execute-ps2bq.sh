@@ -39,7 +39,6 @@ LAUNCH_PARAMS=" \
  --createBQTable \
  --autoscalingAlgorithm=THROUGHPUT_BASED \
  --enableStreamingEngine \
- --experiments=streaming_engine_job_setting=asymmetric_for_large_loadtest \
  --usePublicIps=false "
 
 #  --network=some-network \
