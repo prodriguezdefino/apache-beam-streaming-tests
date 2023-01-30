@@ -27,7 +27,7 @@ After the command finishes 2 Dataflow pipelines will be created, one in charge o
 
 ### Apache Beam version 
 
-By default the suite uses the configured Apache Beam version present in the [`pom.xml`](https://github.com/prodriguezdefino/dataflow-streaming-generator/blob/main/pom.xml#L17) files (2.44.0 or newer). This can be overrided by setting the proper value in the `BEAM_VERSION` variable defined in the [`execute-ps2bq-suite-example.sh`](execute-ps2bq-suite-example.sh)  script. Most Apache Beam versions are available in Maven Central, including some of the latest SNAPSHOT versions, but this configuration may come handy when building Apache Beam natively and wanting to test things at scale. 
+By default the suite uses the configured Apache Beam version present in the [`pom.xml`](https://github.com/prodriguezdefino/dataflow-streaming-generator/blob/main/pom.xml#L17) files (2.44.0 or newer). This can be overriden by setting the proper value in the `BEAM_VERSION` variable defined in the [`execute-ps2bq-suite-example.sh`](execute-ps2bq-suite-example.sh)  script. Most Apache Beam versions are available in Maven Central, including some of the latest SNAPSHOT versions, but this configuration may come handy when building Apache Beam natively and wanting to test things at scale. 
 
 ### Other Libraries versions 
 
