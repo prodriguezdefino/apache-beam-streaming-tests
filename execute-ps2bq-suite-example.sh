@@ -31,9 +31,9 @@ source ./execute-ps2bq.sh $1 $2 $3 " \
   --region=${REGION} \
   --outputTopic=projects/${PROJECT_ID}/topics/${TOPIC} \
   --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
-  --generatorRatePerSec=100 \
+  --generatorRatePerSec=250000 \
   --maxRecordsPerBatch=4500 \
-  --compressionEnabled=false \
+  --compressionEnabled=true \
   --completeObjects=true "$MORE_PARAMS
 
 popd
@@ -54,6 +54,7 @@ source ./execute-ps2bq.sh $1 $SUBSCRIPTION $3 "\
   --useStorageApiConnectionPool=true \
   --bigQueryWriteMethod=STORAGE_API_AT_LEAST_ONCE \
   --usingAvroToStore \
+  --dataflowServiceOptions=enable_google_cloud_profiler \
   --tableDestinationCount=5 "$MORE_PARAMS
 
 popd
