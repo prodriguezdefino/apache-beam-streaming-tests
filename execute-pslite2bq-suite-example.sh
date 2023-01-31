@@ -15,7 +15,7 @@ then
 fi
 
 # Beam version var is unset, this will default in the pom.xml definitions
-BEAM_VERSION=2.45.0-SNAPSHOT
+BEAM_VERSION=
 # Other manual configurations
 PROJECT_ID=$1
 TOPIC=$2
