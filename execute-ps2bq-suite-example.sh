@@ -26,15 +26,15 @@ pushd streaming-data-generator
 
 JOB_NAME=datagen-ps-`echo "$2" | tr _ -`-${USER}
 
-source ./execute-ps2bq.sh $1 $2 $3 " \
-  --jobName=${JOB_NAME} \
-  --region=${REGION} \
-  --outputTopic=projects/${PROJECT_ID}/topics/${TOPIC} \
-  --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
-  --generatorRatePerSec=250000 \
-  --maxRecordsPerBatch=4500 \
-  --compressionEnabled=true \
-  --completeObjects=true "$MORE_PARAMS
+#source ./execute-ps2bq.sh $1 $2 $3 " \
+#  --jobName=${JOB_NAME} \
+#  --region=${REGION} \
+#  --outputTopic=projects/${PROJECT_ID}/topics/${TOPIC} \
+#  --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
+#  --generatorRatePerSec=250000 \
+#  --maxRecordsPerBatch=4500 \
+#  --compressionEnabled=true \
+#  --completeObjects=true "$MORE_PARAMS
 
 popd
 
@@ -42,7 +42,7 @@ echo "starting processing pipeline"
 pushd canonical-streaming-pipelines
 
 SUBSCRIPTION=$2-sub
-JOB_NAME=ps2bq-`echo "$2" | tr _ -`-${USER}
+JOB_NAME=ps2bq-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
 
 source ./execute-ps2bq.sh $1 $SUBSCRIPTION $3 "\
   --jobName=${JOB_NAME} \
@@ -55,6 +55,6 @@ source ./execute-ps2bq.sh $1 $SUBSCRIPTION $3 "\
   --bigQueryWriteMethod=STORAGE_API_AT_LEAST_ONCE \
   --usingAvroToStore \
   --dataflowServiceOptions=enable_google_cloud_profiler \
-  --tableDestinationCount=5 "$MORE_PARAMS
+  --tableDestinationCount=1 "$MORE_PARAMS
 
 popd
