@@ -47,3 +47,10 @@ struct CompoundEvent {
    10: optional list<Carrier>        carriers
 }
 
+struct MapCompoundEvent {
+   1: required map<string, CompoundEvent>     eventMap,
+}
+
+struct ListMapCompoundEvent {
+   1: required list<map<string, CompoundEvent>>        listOfEventMaps,
+}

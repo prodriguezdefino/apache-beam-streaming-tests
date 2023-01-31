@@ -15,7 +15,7 @@ then
 fi
 
 # Beam version var is unset, this will default in the pom.xml definitions
-BEAM_VERSION=2.45.0-SNAPSHOT
+BEAM_VERSION=2.46.0-SNAPSHOT
 # Other manual configurations
 PROJECT_ID=$1
 TOPIC=$2
@@ -31,9 +31,9 @@ source ./execute-ps2bq.sh $1 $2 $3 " \
   --region=${REGION} \
   --outputTopic=projects/${PROJECT_ID}/topics/${TOPIC} \
   --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
-  --generatorRatePerSec=250000 \
+  --generatorRatePerSec=100 \
   --maxRecordsPerBatch=4500 \
-  --compressionEnabled=true \
+  --compressionEnabled=false \
   --completeObjects=true "$MORE_PARAMS
 
 popd
@@ -47,11 +47,13 @@ JOB_NAME=ps2bq-`echo "$2" | tr _ -`-${USER}
 source ./execute-ps2bq.sh $1 $SUBSCRIPTION $3 "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
+  --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
   --subscription=projects/${PROJECT_ID}/subscriptions/${SUBSCRIPTION} \
   --experiments=num_pubsub_keys=2048 \
   --experiments=use_pubsub_streaming \
   --useStorageApiConnectionPool=true \
   --bigQueryWriteMethod=STORAGE_API_AT_LEAST_ONCE \
-  --tableDestinationCount=1 "$MORE_PARAMS
+  --usingAvroToStore \
+  --tableDestinationCount=5 "$MORE_PARAMS
 
 popd

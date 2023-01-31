@@ -55,4 +55,11 @@ public interface BigQueryWriteOptions extends PipelineOptions, EventPayloadOptio
   Integer getNumStorageWriteEOStreams();
 
   void setNumStorageWriteEOStreams(Integer value);
+
+  @Description("Enables the use of Avro GenericRecords to store in BigQuery")
+  @Default.Boolean(false)
+  Boolean isUsingAvroToStore();
+
+  void setUsingAvroToStore(Boolean value);
+
 }
