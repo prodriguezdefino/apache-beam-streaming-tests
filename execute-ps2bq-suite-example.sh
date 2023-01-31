@@ -22,9 +22,9 @@ TOPIC=$2
 REGION=us-central1
 
 echo "starting data generator"
-pushd streaming-data-generato
+pushd streaming-data-generator
 
-JOBNAME=datagen-ps-`echo "$2" | tr _ -`-${USER}
+JOB_NAME=datagen-ps-`echo "$2" | tr _ -`-${USER}
 
 source ./execute-ps2bq.sh $1 $2 $3 " \
   --jobName=${JOB_NAME} \
