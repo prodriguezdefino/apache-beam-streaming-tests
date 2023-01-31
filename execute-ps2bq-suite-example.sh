@@ -42,7 +42,7 @@ echo "starting processing pipeline"
 pushd canonical-streaming-pipelines
 
 SUBSCRIPTION=$2-sub
-JOB_NAME=ps2bq-`echo "$2" | tr _ -`-${USER}
+JOB_NAME=ps2bq-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
 
 source ./execute-ps2bq.sh $1 $SUBSCRIPTION $3 "\
   --jobName=${JOB_NAME} \
