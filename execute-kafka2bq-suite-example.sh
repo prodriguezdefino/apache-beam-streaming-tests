@@ -15,7 +15,7 @@ then
 fi
 
 # Beam version var is unset, this will default in the pom.xml definitions
-BEAM_VERSION=2.45.0-SNAPSHOT
+BEAM_VERSION=
 # Other manual configurations
 PROJECT_ID=$1
 TOPIC_AND_BOOTSTRAPSERVERS=$2
@@ -25,7 +25,7 @@ ZONE=us-central1-a
 echo "starting data generator"
 pushd streaming-data-generator
 
-JOBNAME=datagen-kafka-`echo "$2" | tr _ -`-${USER}
+JOB_NAME=datagen-kafka-`echo "$2" | tr _ -`-${USER}
 
 source ./execute-ps2bq.sh $1 $2 $3 "\
   --jobName=${JOB_NAME} \
@@ -43,7 +43,7 @@ popd
 echo "starting processing pipeline"
 pushd canonical-streaming-pipelines
 
-JOBNAME=kafka2bq-`echo "$2" | tr _ -`-${USER}
+JOB_NAME=kafka2bq-`echo "$2" | tr _ -`-${USER}
 
 source ./execute-ps2bq.sh $1 $SUBSCRIPTION $3 "\
   --jobName=${JOB_NAME} \
