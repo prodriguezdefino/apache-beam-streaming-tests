@@ -1,27 +1,17 @@
 package com.google.cloud.pso.beam.pipelines.transforms;
 
-import com.google.api.services.bigquery.model.TableFieldSchema;
 import com.google.cloud.pso.beam.common.transport.CommonTransport;
 import com.google.cloud.pso.beam.generator.thrift.Carrier;
 import com.google.cloud.pso.beam.generator.thrift.CompoundEvent;
 import com.google.cloud.pso.beam.generator.thrift.SimpleEvent;
 import com.google.cloud.pso.beam.pipelines.options.EventPayloadOptions;
-import com.google.common.collect.Lists;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import org.apache.beam.sdk.extensions.gcp.util.Transport;
-import org.apache.beam.sdk.io.gcp.bigquery.BigQueryUtils;
 import org.apache.beam.sdk.schemas.Schema;
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.thrift.TBase;
 import org.apache.thrift.TException;
 import org.apache.thrift.TSerializer;
