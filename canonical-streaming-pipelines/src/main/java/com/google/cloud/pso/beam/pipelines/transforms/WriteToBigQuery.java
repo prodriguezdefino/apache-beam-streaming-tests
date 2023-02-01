@@ -16,6 +16,7 @@
 package com.google.cloud.pso.beam.pipelines.transforms;
 
 import com.google.api.services.bigquery.model.TableSchema;
+import com.google.cloud.pso.beam.common.Utilities;
 import com.google.cloud.pso.beam.pipelines.options.BigQueryWriteOptions;
 import com.google.cloud.pso.beam.pipelines.options.EventPayloadOptions;
 import java.util.Random;
@@ -59,13 +60,18 @@ public class WriteToBigQuery extends PTransform<PCollection<Row>, PDone> {
       var tableSchemaString = retrieveTableSchema(options).toString();
       var tableCount = options.getTableDestinationCount();
       var tableSpec = options.getOutputTable();
+      var shouldSkew = options.isDestinationTableLoadSkewed();
       write = write
               .to(new DynamicDestinations<Row, Integer>() {
                 private final Random rand = new Random();
 
                 @Override
                 public Integer getDestination(ValueInSingleWindow element) {
-                  return rand.nextInt(tableCount);
+                  if (shouldSkew) {
+                    return Utilities.nextSkewedBoundedInteger(0, tableCount, 80, 0);
+                  } else {
+                    return rand.nextInt(tableCount);
+                  }
                 }
 
                 @Override

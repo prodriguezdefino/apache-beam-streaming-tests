@@ -55,4 +55,8 @@ public interface BigQueryWriteOptions extends PipelineOptions, EventPayloadOptio
   Integer getNumStorageWriteEOStreams();
 
   void setNumStorageWriteEOStreams(Integer value);
+
+  Boolean isDestinationTableLoadSkewed();
+
+  void setDestinationTableLoadSkewed(Boolean value);
 }
