@@ -15,6 +15,8 @@
  */
 package com.google.cloud.pso.beam.pipelines.transforms;
 
+import com.google.cloud.pso.beam.common.transport.CommonErrorTransport;
+import com.google.cloud.pso.beam.common.transport.ErrorTransport;
 import com.google.cloud.pso.beam.common.transport.EventTransport;
 import com.google.cloud.pso.beam.pipelines.options.EventPayloadOptions;
 import java.io.ByteArrayInputStream;
@@ -36,7 +38,10 @@ import org.apache.beam.sdk.transforms.DoFn;
 import org.apache.beam.sdk.transforms.PTransform;
 import org.apache.beam.sdk.transforms.ParDo;
 import org.apache.beam.sdk.values.PCollection;
+import org.apache.beam.sdk.values.PCollectionTuple;
 import org.apache.beam.sdk.values.Row;
+import org.apache.beam.sdk.values.TupleTag;
+import org.apache.beam.sdk.values.TupleTagList;
 import org.apache.thrift.TBase;
 import org.apache.thrift.TDeserializer;
 import org.apache.thrift.TException;
@@ -47,9 +52,14 @@ import org.slf4j.LoggerFactory;
 /**
  * Transform in charge of obtaining a Beam Row ready to be ingested into BigQuery.
  */
-public class PrepareBQIngestion extends PTransform<PCollection<EventTransport>, PCollection<Row>> {
+public class PrepareBQIngestion extends PTransform<PCollection<EventTransport>, PCollectionTuple> {
 
   private static final Logger LOG = LoggerFactory.getLogger(PrepareBQIngestion.class);
+
+  public static TupleTag<Row> SUCCESSFULLY_PROCESSED_EVENTS = new TupleTag<>() {
+  };
+  public static TupleTag<ErrorTransport> FAILED_EVENTS = new TupleTag<>() {
+  };
 
   PrepareBQIngestion() {
   }
@@ -59,15 +69,16 @@ public class PrepareBQIngestion extends PTransform<PCollection<EventTransport>, 
   }
 
   @Override
-  public PCollection<Row> expand(PCollection<EventTransport> input) {
+  public PCollectionTuple expand(PCollection<EventTransport> input) {
     var options = input.getPipeline().getOptions().as(EventPayloadOptions.class);
     return input
-            .apply("TransformToRow", ParDo.of(new TransformTransportToRow(
-                    options.getClassName(),
-                    options.getAvroSchemaLocation(),
-                    options.getEventFormat())))
-            .setRowSchema(retrieveRowSchema(
-                    input.getPipeline().getOptions().as(EventPayloadOptions.class)));
+            .apply("TransformToRow",
+                    ParDo.of(new TransformTransportToRow(
+                            options.getClassName(),
+                            options.getAvroSchemaLocation(),
+                            options.getEventFormat()))
+                            .withOutputTags(
+                                    SUCCESSFULLY_PROCESSED_EVENTS, TupleTagList.of(FAILED_EVENTS)));
   }
 
   static class TransformTransportToRow extends DoFn<EventTransport, Row> {
@@ -109,9 +120,19 @@ public class PrepareBQIngestion extends PTransform<PCollection<EventTransport>, 
 
     @ProcessElement
     public void processElement(ProcessContext context) throws Exception {
-      context.output(
-              retrieveRowFromTransport(
-                      context.element(), eventFormat, thriftClass, beamSchema, avroSchema));
+      try {
+        context.output(
+                SUCCESSFULLY_PROCESSED_EVENTS,
+                retrieveRowFromTransport(
+                        context.element(), eventFormat, thriftClass, beamSchema, avroSchema));
+      } catch (Exception ex) {
+        context.output(
+                FAILED_EVENTS,
+                CommonErrorTransport.of(
+                        context.element(),
+                        "Error when trying to transform the transport to the BigQuery format",
+                        ex));
+      }
     }
 
     static Row retrieveRowFromTransport(

@@ -65,11 +65,14 @@ public class StreamingSourceToBigQuery {
     // Run generator pipeline
     var pipeline = Pipeline.create(options);
 
-    pipeline
+    var maybeDecompressed = pipeline
             .apply("ReadFromStreamingSource", ReadStreamingSource.create())
-            .apply("MaybeDecompress", MaybeDecompressEvents.create())
-            .apply("MaybeExecuteUDF", ExecuteUDF.create(options.getUDFClassName()))
-            .apply("PrepIngestion", PrepareBQIngestion.create())
+            .apply("MaybeDecompress", MaybeDecompressEvents.create());
+    var maybeUDFExec = maybeDecompressed.get(MaybeDecompressEvents.SUCCESSFULLY_PROCESSED_EVENTS)
+            .apply("MaybeExecuteUDF", ExecuteUDF.create(options.getUDFClassName()));
+    var prepped = maybeUDFExec.get(ExecuteUDF.SUCCESSFULLY_PROCESSED_EVENTS)
+            .apply("PrepIngestion", PrepareBQIngestion.create());
+    prepped.get(PrepareBQIngestion.SUCCESSFULLY_PROCESSED_EVENTS)
             .apply("WriteIntoBigQuery", WriteToBigQuery.create());
 
     pipeline.run();
