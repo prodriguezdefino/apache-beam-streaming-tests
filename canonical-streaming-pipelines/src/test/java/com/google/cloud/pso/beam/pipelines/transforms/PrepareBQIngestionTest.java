@@ -105,7 +105,7 @@ public class PrepareBQIngestionTest {
     var thriftData = getBytesFromThriftObject(compoundEvent);
     var transport = new CommonTransport("someid", new HashMap<>(), thriftData);
 
-    var row = TransformTransportToFormat.TransformTransportToRow.retrieveRowFromTransport(
+    var row = TransformTransportToFormat.retrieveRowFromTransport(
             transport, EventPayloadOptions.EventFormat.THRIFT, thriftClass, beamSchema, avroSchema);
 
     assertNotNull(row);

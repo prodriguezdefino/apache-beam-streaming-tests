@@ -43,8 +43,15 @@ public class StoreInBigQuery extends PTransform<PCollection<EventTransport>, PDo
               .apply("WriteIntoBigQuery",
                       WriteFormatToBigQuery.writeGenericRecords());
     }
+    if (input.getPipeline().getOptions().as(BigQueryWriteOptions.class).isUsingTableRowToStore()) {
+      return input
+              .apply("PrepDataAsTableRow",
+                      TransformTransportToFormat.transformToTableRows())
+              .apply("WriteIntoBigQuery",
+                      WriteFormatToBigQuery.writeTableRows());
+    }
     return input
-            .apply("PrepIngestion", TransformTransportToFormat.transformToRows())
+            .apply("PrepDataAsRow", TransformTransportToFormat.transformToRows())
             .apply("WriteIntoBigQuery", WriteFormatToBigQuery.writeBeamRows());
   }
 

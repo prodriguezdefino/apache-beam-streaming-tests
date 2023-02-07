@@ -62,4 +62,10 @@ public interface BigQueryWriteOptions extends PipelineOptions, EventPayloadOptio
 
   void setUsingAvroToStore(Boolean value);
 
+  @Description("Enables the use of TableRow to store in BigQuery")
+  @Default.Boolean(false)
+  Boolean isUsingTableRowToStore();
+
+  void setUsingTableRowToStore(Boolean value);
+
 }

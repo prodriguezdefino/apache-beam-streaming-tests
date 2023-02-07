@@ -15,6 +15,7 @@
  */
 package com.google.cloud.pso.beam.pipelines.transforms;
 
+import com.google.api.services.bigquery.model.TableRow;
 import com.google.api.services.bigquery.model.TableSchema;
 import com.google.cloud.pso.beam.pipelines.options.BigQueryWriteOptions;
 import com.google.cloud.pso.beam.pipelines.options.EventPayloadOptions;
@@ -47,6 +48,10 @@ public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>
 
   public static WriteFormatToBigQuery<Row> writeBeamRows() {
     return new WriteBeamRows();
+  }
+
+  public static WriteFormatToBigQuery<TableRow> writeTableRows() {
+    return new WriteTableRows();
   }
 
   protected abstract BigQueryIO.Write<T> createBigQueryWriter();
@@ -129,6 +134,18 @@ public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>
     protected BigQueryIO.Write<GenericRecord> createBigQueryWriter() {
       return BigQueryIO
               .writeGenericRecords();
+    }
+  }
+
+  public static class WriteTableRows extends WriteFormatToBigQuery<TableRow> {
+
+    WriteTableRows() {
+    }
+
+    @Override
+    protected BigQueryIO.Write<TableRow> createBigQueryWriter() {
+      return BigQueryIO
+              .writeTableRows();
     }
   }
 
