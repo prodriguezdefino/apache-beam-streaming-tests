@@ -47,3 +47,26 @@ struct CompoundEvent {
    10: optional list<Carrier>        carriers
 }
 
+struct SimplerCompoundEvent {
+   1: required string                uuid,
+   2: optional string                name,
+   3: optional ExternalId            externalId,
+   4: optional Epoch	               clientEpoch,
+   5: optional string                createdTimestamp,
+   6: optional string                data,
+   7: optional string                source,
+   8: optional string                destination,
+   9: optional SimpleEvent           events,
+   10: optional SimpleEvent           events2,
+   11: optional SimpleEvent           events3,
+   12: optional SimpleEvent           events4,
+   13: optional SimpleEvent           events5,
+}
+
+struct MapCompoundEvent {
+   1: required map<string, CompoundEvent>     eventMap,
+}
+
+struct ListMapCompoundEvent {
+   1: required list<map<string, CompoundEvent>>        listOfEventMaps,
+}

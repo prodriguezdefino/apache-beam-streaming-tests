@@ -18,14 +18,14 @@ package com.google.cloud.pso.beam.pipelines;
 import com.google.cloud.pso.beam.common.compression.transforms.MaybeDecompressEvents;
 import com.google.cloud.pso.beam.options.StreamingSourceOptions;
 import com.google.cloud.pso.beam.pipelines.options.BigQueryWriteOptions;
-import com.google.cloud.pso.beam.pipelines.transforms.PrepareBQIngestion;
-import com.google.cloud.pso.beam.pipelines.transforms.WriteToBigQuery;
+import com.google.cloud.pso.beam.pipelines.transforms.StoreInBigQuery;
 import com.google.cloud.pso.beam.transforms.ReadStreamingSource;
 import com.google.cloud.pso.beam.udf.transforms.ExecuteUDF;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.options.Default;
 import org.apache.beam.sdk.options.Description;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
+import org.apache.beam.sdk.values.PCollectionList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,15 +62,26 @@ public class StreamingSourceToBigQuery {
                     .withValidation()
                     .as(StreamingSourceToBigQueryOptions.class);
 
-    // Run generator pipeline
+    // Create the pipeline
     var pipeline = Pipeline.create(options);
 
-    pipeline
+    // read from the streaming sources and maybe decompress payloads
+    var maybeDecompressed = pipeline
             .apply("ReadFromStreamingSource", ReadStreamingSource.create())
-            .apply("MaybeDecompress", MaybeDecompressEvents.create())
-            .apply("MaybeExecuteUDF", ExecuteUDF.create(options.getUDFClassName()))
-            .apply("PrepIngestion", PrepareBQIngestion.create())
-            .apply("WriteIntoBigQuery", WriteToBigQuery.create());
+            .apply("MaybeDecompress", MaybeDecompressEvents.create());
+    // possibly execute a configured UDF
+    var maybeUDFExec = maybeDecompressed.get(MaybeDecompressEvents.SUCCESSFULLY_PROCESSED_EVENTS)
+            .apply("MaybeExecuteUDF", ExecuteUDF.create(options.getUDFClassName()));
+    // store the data into BigQuery
+    var maybeStored = maybeUDFExec.get(ExecuteUDF.SUCCESSFULLY_PROCESSED_EVENTS)
+            .apply("StoreInBigQuery", StoreInBigQuery.store());
+
+    // process errors from the multiple previous stages
+    PCollectionList
+            .of(maybeDecompressed.get(MaybeDecompressEvents.FAILED_EVENTS))
+            .and(maybeUDFExec.get(ExecuteUDF.FAILED_EVENTS))
+            .and(maybeStored.get(StoreInBigQuery.failedEvents()))
+            .apply("StoreErrorsInBigQuery", StoreInBigQuery.storeErrors());
 
     pipeline.run();
   }
