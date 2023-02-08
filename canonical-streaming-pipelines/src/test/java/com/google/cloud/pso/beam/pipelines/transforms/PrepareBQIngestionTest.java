@@ -33,7 +33,7 @@ public class PrepareBQIngestionTest {
   @Test
   public void testRetrieveRowSchema() {
     String className = "com.google.cloud.pso.beam.generator.thrift.CompoundEvent";
-    Schema result = PrepareBQIngestion.retrieveRowSchema(className);
+    Schema result = TransformTransportToFormat.retrieveRowSchema(className);
     assertNotNull(result);
   }
 
@@ -43,7 +43,7 @@ public class PrepareBQIngestionTest {
   @Test
   public void testRetrieveAvroSchema() throws Exception {
     var className = "com.google.cloud.pso.beam.generator.thrift.CompoundEvent";
-    var result = PrepareBQIngestion.retrieveAvroSchema(className);
+    var result = TransformTransportToFormat.retrieveAvroSchema(className);
     assertNotNull(result);
   }
 
@@ -53,16 +53,16 @@ public class PrepareBQIngestionTest {
   @Test
   public void testRetrieveThriftClass() throws Exception {
     var className = "com.google.cloud.pso.beam.generator.thrift.CompoundEvent";
-    var result = PrepareBQIngestion.retrieveThriftClass(className);
+    var result = TransformTransportToFormat.retrieveThriftClass(className);
     assertNotNull(result);
   }
 
   @Test
   public void testTransformThriftToRow() throws Exception {
     var className = "com.google.cloud.pso.beam.generator.thrift.CompoundEvent";
-    var avroSchema = PrepareBQIngestion.retrieveAvroSchema(className);
-    var beamSchema = PrepareBQIngestion.retrieveRowSchema(className);
-    var thriftClass = PrepareBQIngestion.retrieveThriftClass(className);
+    var avroSchema = TransformTransportToFormat.retrieveAvroSchema(className);
+    var beamSchema = TransformTransportToFormat.retrieveRowSchema(className);
+    var thriftClass = TransformTransportToFormat.retrieveThriftClass(className);
     var random = new Random();
 
     var compoundEvent = new CompoundEvent();
@@ -95,7 +95,7 @@ public class PrepareBQIngestionTest {
     var thriftData = getBytesFromThriftObject(compoundEvent);
     var transport = new CommonTransport("someid", new HashMap<>(), thriftData);
 
-    var row = PrepareBQIngestion.TransformTransportToRow.retrieveRowFromTransport(
+    var row = TransformTransportToFormat.retrieveRowFromTransport(
             transport, EventPayloadOptions.EventFormat.THRIFT, thriftClass, beamSchema, avroSchema);
 
     assertNotNull(row);

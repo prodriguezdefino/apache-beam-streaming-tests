@@ -15,11 +15,13 @@
  */
 package com.google.cloud.pso.beam.pipelines.transforms;
 
+import com.google.api.services.bigquery.model.TableRow;
 import com.google.api.services.bigquery.model.TableSchema;
 import com.google.cloud.pso.beam.common.Utilities;
 import com.google.cloud.pso.beam.pipelines.options.BigQueryWriteOptions;
 import com.google.cloud.pso.beam.pipelines.options.EventPayloadOptions;
 import java.util.Random;
+import org.apache.avro.generic.GenericRecord;
 import org.apache.beam.sdk.io.gcp.bigquery.BigQueryHelpers;
 import org.apache.beam.sdk.io.gcp.bigquery.BigQueryIO;
 import org.apache.beam.sdk.io.gcp.bigquery.BigQueryUtils;
@@ -30,39 +32,51 @@ import org.apache.beam.sdk.values.PCollection;
 import org.apache.beam.sdk.values.PDone;
 import org.apache.beam.sdk.values.Row;
 import org.apache.beam.sdk.values.ValueInSingleWindow;
+import org.apache.commons.lang.NotImplementedException;
 
 /**
  * Writes to BigQuery using StorageWrite API.
+ *
+ * @param <T> The type to write into BigQuery, currently GenericRow and Row are supported.
  */
-public class WriteToBigQuery extends PTransform<PCollection<Row>, PDone> {
+public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>, PDone> {
 
-  WriteToBigQuery() {
+  WriteFormatToBigQuery() {
   }
 
-  public static WriteToBigQuery create() {
-    return new WriteToBigQuery();
+  public static WriteFormatToBigQuery<GenericRecord> writeGenericRecords() {
+    return new WriteGenericRows();
   }
+
+  public static WriteFormatToBigQuery<Row> writeBeamRows() {
+    return new WriteBeamRows();
+  }
+
+  public static WriteFormatToBigQuery<TableRow> writeTableRows() {
+    return new WriteTableRows();
+  }
+
+  protected abstract BigQueryIO.Write<T> createBigQueryWriter();
 
   @Override
-  public PDone expand(PCollection<Row> input) {
+  public PDone expand(PCollection<T> input) {
     var options = input.getPipeline().getOptions().as(BigQueryWriteOptions.class);
 
     var write
-            = BigQueryIO
-                    .<Row>write()
+            = createBigQueryWriter()
                     .withMethod(options.getBigQueryWriteMethod())
-                    .useBeamSchema()
                     .withoutValidation()
                     .withWriteDisposition(BigQueryIO.Write.WriteDisposition.WRITE_APPEND)
+                    .withSuccessfulInsertsPropagation(false)
                     .withExtendedErrorInfo();
 
     if (options.getTableDestinationCount() > 1) {
-      var tableSchemaString = retrieveTableSchema(options).toString();
+      var tableSchemaString = BigQueryHelpers.toJsonString(retrieveTableSchema(options));
       var tableCount = options.getTableDestinationCount();
       var tableSpec = options.getOutputTable();
       var shouldSkew = options.isDestinationTableLoadSkewed();
       write = write
-              .to(new DynamicDestinations<Row, Integer>() {
+              .to(new DynamicDestinations<T, Integer>() {
                 private final Random rand = new Random();
 
                 @Override
@@ -106,9 +120,45 @@ public class WriteToBigQuery extends PTransform<PCollection<Row>, PDone> {
     return PDone.in(input.getPipeline());
   }
 
+  public static class WriteBeamRows extends WriteFormatToBigQuery<Row> {
+
+    WriteBeamRows() {
+    }
+
+    @Override
+    protected BigQueryIO.Write<Row> createBigQueryWriter() {
+      return BigQueryIO
+              .<Row>write()
+              .useBeamSchema();
+    }
+  }
+
+  public static class WriteGenericRows extends WriteFormatToBigQuery<GenericRecord> {
+
+    WriteGenericRows() {
+    }
+
+    @Override
+    protected BigQueryIO.Write<GenericRecord> createBigQueryWriter() {
+      throw new NotImplementedException("Direct avro support for BigQueryIO on storage writes is not here for now.");
+    }
+  }
+
+  public static class WriteTableRows extends WriteFormatToBigQuery<TableRow> {
+
+    WriteTableRows() {
+    }
+
+    @Override
+    protected BigQueryIO.Write<TableRow> createBigQueryWriter() {
+      return BigQueryIO
+              .writeTableRows();
+    }
+  }
+
   private static TableSchema retrieveTableSchema(EventPayloadOptions options) {
     return BigQueryUtils.toTableSchema(
-            PrepareBQIngestion.retrieveRowSchema(options));
+            TransformTransportToFormat.retrieveRowSchema(options));
   }
 
 }
