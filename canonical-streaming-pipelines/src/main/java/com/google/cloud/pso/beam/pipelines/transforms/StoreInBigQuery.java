@@ -20,10 +20,13 @@ import com.google.cloud.pso.beam.common.transport.EventTransport;
 import com.google.cloud.pso.beam.pipelines.options.BigQueryWriteOptions;
 import com.google.cloud.pso.beam.pipelines.options.EventPayloadOptions;
 import org.apache.beam.sdk.coders.AvroGenericCoder;
+import org.apache.beam.sdk.transforms.Flatten;
 import org.apache.beam.sdk.transforms.PTransform;
 import org.apache.beam.sdk.values.PCollection;
+import org.apache.beam.sdk.values.PCollectionList;
 import org.apache.beam.sdk.values.PCollectionTuple;
 import org.apache.beam.sdk.values.PDone;
+import org.apache.beam.sdk.values.TupleTag;
 
 /**
  * Given the existing configuration for write formats, transform the <EventTransport> and writes it
@@ -31,7 +34,8 @@ import org.apache.beam.sdk.values.PDone;
  */
 public class StoreInBigQuery extends PTransform<PCollection<EventTransport>, PCollectionTuple> {
 
-  public static final String ERROR_TAG_NAME = "errors";
+  public static final TupleTag<ErrorTransport> FAILED_EVENTS = new TupleTag<>() {
+  };
 
   StoreInBigQuery() {
   }
@@ -42,6 +46,10 @@ public class StoreInBigQuery extends PTransform<PCollection<EventTransport>, PCo
 
   public static StoreErrorsInBigQuery storeErrors() {
     return new StoreErrorsInBigQuery();
+  }
+
+  public static TupleTag<ErrorTransport> failedEvents() {
+    return FAILED_EVENTS;
   }
 
   @Override
@@ -62,8 +70,8 @@ public class StoreInBigQuery extends PTransform<PCollection<EventTransport>, PCo
                                               EventPayloadOptions.class))))
               .apply("WriteIntoBigQuery",
                       WriteFormatToBigQuery.writeGenericRecords());
-      returnPCT.and(
-              ERROR_TAG_NAME, maybeGenericRecord.get(TransformTransportToFormat.FAILED_EVENTS));
+      returnPCT = returnPCT.and(
+              FAILED_EVENTS, maybeGenericRecord.get(TransformTransportToFormat.FAILED_EVENTS));
     } else if (input.getPipeline().getOptions()
             .as(BigQueryWriteOptions.class)
             .isUsingTableRowToStore()) {
@@ -73,7 +81,8 @@ public class StoreInBigQuery extends PTransform<PCollection<EventTransport>, PCo
       maybeTableRows.get(TransformTransportToFormat.successfulTableRows())
               .apply("WriteIntoBigQuery",
                       WriteFormatToBigQuery.writeTableRows());
-      returnPCT.and(ERROR_TAG_NAME, maybeTableRows.get(TransformTransportToFormat.FAILED_EVENTS));
+      returnPCT = returnPCT
+              .and(FAILED_EVENTS, maybeTableRows.get(TransformTransportToFormat.FAILED_EVENTS));
     } else {
       var maybeRows = input
               .apply("PrepDataAsRow", TransformTransportToFormat.transformToRows());
@@ -82,17 +91,22 @@ public class StoreInBigQuery extends PTransform<PCollection<EventTransport>, PCo
                       TransformTransportToFormat.retrieveRowSchema(
                               input.getPipeline().getOptions().as(EventPayloadOptions.class)))
               .apply("WriteIntoBigQuery", WriteFormatToBigQuery.writeBeamRows());
-      returnPCT.and(ERROR_TAG_NAME, maybeRows.get(TransformTransportToFormat.FAILED_EVENTS));
+      returnPCT = returnPCT
+              .and(FAILED_EVENTS, maybeRows.get(TransformTransportToFormat.FAILED_EVENTS));
     }
 
     return returnPCT;
   }
 
-  public static class StoreErrorsInBigQuery extends PTransform<PCollection<ErrorTransport>, PDone> {
+  public static class StoreErrorsInBigQuery extends PTransform<PCollectionList<ErrorTransport>, PDone> {
 
     @Override
-    public PDone expand(PCollection<ErrorTransport> input) {
-      throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public PDone expand(PCollectionList<ErrorTransport> input) {
+      input
+              .apply("FlattenErrors", Flatten.pCollections())
+              .apply("TransformToRows", TransformTransportToFormat.transformErrorsToRows())
+              .apply("WriteErrorsToBigQuery", WriteFormatToBigQuery.writeErrorsAsBeamRows());
+      return PDone.in(input.getPipeline());
     }
   }
 

@@ -25,7 +25,6 @@ import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.options.Default;
 import org.apache.beam.sdk.options.Description;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
-import org.apache.beam.sdk.transforms.Flatten;
 import org.apache.beam.sdk.values.PCollectionList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,8 +80,7 @@ public class StreamingSourceToBigQuery {
     PCollectionList
             .of(maybeDecompressed.get(MaybeDecompressEvents.FAILED_EVENTS))
             .and(maybeUDFExec.get(ExecuteUDF.FAILED_EVENTS))
-            .and(maybeStored.get(StoreInBigQuery.ERROR_TAG_NAME))
-            .apply("FlattenErrors", Flatten.pCollections())
+            .and(maybeStored.get(StoreInBigQuery.failedEvents()))
             .apply("StoreErrorsInBigQuery", StoreInBigQuery.storeErrors());
 
     pipeline.run();

@@ -60,7 +60,7 @@ public abstract class TransformTransportToFormat<T>
         extends PTransform<PCollection<EventTransport>, PCollectionTuple> {
 
   private static final Logger LOG = LoggerFactory.getLogger(TransformTransportToFormat.class);
-  public static TupleTag<ErrorTransport> FAILED_EVENTS = new TupleTag<>() {
+  public static final TupleTag<ErrorTransport> FAILED_EVENTS = new TupleTag<>() {
   };
 
   TransformTransportToFormat() {
@@ -76,6 +76,10 @@ public abstract class TransformTransportToFormat<T>
 
   public static TransformToTableRows transformToTableRows() {
     return new TransformToTableRows();
+  }
+
+  public static TransformErrorTransportsToRow transformErrorsToRows() {
+    return new TransformErrorTransportsToRow();
   }
 
   public static TupleTag<TableRow> successfulTableRows() {
@@ -264,6 +268,27 @@ public abstract class TransformTransportToFormat<T>
     }
   }
 
+  public static class TransformErrorTransportsToRow
+          extends PTransform<PCollection<ErrorTransport>, PCollection<Row>> {
+
+    @Override
+    public PCollection<Row> expand(PCollection<ErrorTransport> input) {
+      return input
+              .apply("TransformErrorsToRow",
+                      ParDo.of(
+                              new TransformErrorTransportToRow()))
+              .setRowSchema(ErrorTransport.ERROR_ROW_SCHEMA);
+    }
+
+    static class TransformErrorTransportToRow extends DoFn<ErrorTransport, Row> {
+
+      @ProcessElement
+      public void processElement(ProcessContext context) throws Exception {
+        context.output(context.element().toRow());
+      }
+    }
+  }
+
   static Row retrieveRowFromTransport(
           EventTransport transport,
           EventPayloadOptions.EventFormat eventFormat,
@@ -441,10 +466,12 @@ public abstract class TransformTransportToFormat<T>
 
   public static org.apache.avro.Schema retrieveAvroSchemaFromLocation(String avroSchemaLocation) {
     InputStream iStream = null;
+
     try {
       if (avroSchemaLocation.startsWith("classpath://")) {
-        iStream = TransformTransportToFormat.class.getResourceAsStream(
-                avroSchemaLocation.replace("classpath://", "/"));
+        iStream = TransformTransportToFormat.class
+                .getResourceAsStream(
+                        avroSchemaLocation.replace("classpath://", "/"));
       } else {
         iStream
                 = Channels.newInputStream(FileSystems.open(

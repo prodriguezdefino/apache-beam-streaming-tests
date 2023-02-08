@@ -41,7 +41,10 @@ import org.apache.commons.lang.NotImplementedException;
  */
 public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>, PDone> {
 
-  WriteFormatToBigQuery() {
+  private final Boolean writingErrors;
+
+  WriteFormatToBigQuery(Boolean writingErrors) {
+    this.writingErrors = writingErrors;
   }
 
   public static WriteFormatToBigQuery<GenericRecord> writeGenericRecords() {
@@ -49,7 +52,11 @@ public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>
   }
 
   public static WriteFormatToBigQuery<Row> writeBeamRows() {
-    return new WriteBeamRows();
+    return new WriteBeamRows(false);
+  }
+
+  public static WriteFormatToBigQuery<Row> writeErrorsAsBeamRows() {
+    return new WriteBeamRows(true);
   }
 
   public static WriteFormatToBigQuery<TableRow> writeTableRows() {
@@ -105,7 +112,7 @@ public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>
         write = write.withCreateDisposition(BigQueryIO.Write.CreateDisposition.CREATE_NEVER);
       }
     } else {
-      write = write.to(options.getOutputTable());
+      write = write.to(options.getOutputTable() + (writingErrors ? "-failed" : ""));
       if (options.isCreateBQTable()) {
         var tableSchema = retrieveTableSchema(options);
         write = write
@@ -122,7 +129,8 @@ public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>
 
   public static class WriteBeamRows extends WriteFormatToBigQuery<Row> {
 
-    WriteBeamRows() {
+    WriteBeamRows(Boolean writingErrors) {
+      super(writingErrors);
     }
 
     @Override
@@ -136,6 +144,7 @@ public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>
   public static class WriteGenericRows extends WriteFormatToBigQuery<GenericRecord> {
 
     WriteGenericRows() {
+      super(false);
     }
 
     @Override
@@ -147,6 +156,7 @@ public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>
   public static class WriteTableRows extends WriteFormatToBigQuery<TableRow> {
 
     WriteTableRows() {
+      super(false);
     }
 
     @Override
