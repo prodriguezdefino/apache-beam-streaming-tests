@@ -18,8 +18,7 @@ package com.google.cloud.pso.beam.pipelines;
 import com.google.cloud.pso.beam.common.compression.transforms.MaybeDecompressEvents;
 import com.google.cloud.pso.beam.options.StreamingSourceOptions;
 import com.google.cloud.pso.beam.pipelines.options.BigQueryWriteOptions;
-import com.google.cloud.pso.beam.pipelines.transforms.PrepareBQIngestion;
-import com.google.cloud.pso.beam.pipelines.transforms.WriteToBigQuery;
+import com.google.cloud.pso.beam.pipelines.transforms.StoreInBigQuery;
 import com.google.cloud.pso.beam.transforms.ReadStreamingSource;
 import com.google.cloud.pso.beam.udf.transforms.ExecuteUDF;
 import org.apache.beam.sdk.Pipeline;
@@ -69,8 +68,7 @@ public class StreamingSourceToBigQuery {
             .apply("ReadFromStreamingSource", ReadStreamingSource.create())
             .apply("MaybeDecompress", MaybeDecompressEvents.create())
             .apply("MaybeExecuteUDF", ExecuteUDF.create(options.getUDFClassName()))
-            .apply("PrepIngestion", PrepareBQIngestion.create())
-            .apply("WriteIntoBigQuery", WriteToBigQuery.create());
+            .apply("StoreInBigQuery", StoreInBigQuery.store());
 
     pipeline.run();
   }
