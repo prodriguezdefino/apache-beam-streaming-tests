@@ -27,7 +27,7 @@ pushd streaming-data-generator
 
 JOB_NAME=datagen-pslite-`echo "$2" | tr _ -`-${USER}
 
-source ./execute-ps2bq.sh $1 $2 $3 "\
+source ./execute-generator.sh $1 $2 $3 "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
   --workerZone=${ZONE} \

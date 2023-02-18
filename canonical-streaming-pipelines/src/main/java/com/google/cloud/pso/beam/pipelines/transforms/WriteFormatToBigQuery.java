@@ -15,11 +15,12 @@
  */
 package com.google.cloud.pso.beam.pipelines.transforms;
 
+import com.google.cloud.pso.beam.common.formats.transforms.TransformTransportToFormat;
 import com.google.api.services.bigquery.model.TableRow;
 import com.google.api.services.bigquery.model.TableSchema;
 import com.google.cloud.pso.beam.common.Utilities;
+import com.google.cloud.pso.beam.common.formats.options.TransportFormatOptions;
 import com.google.cloud.pso.beam.pipelines.options.BigQueryWriteOptions;
-import com.google.cloud.pso.beam.pipelines.options.EventPayloadOptions;
 import java.util.Random;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.beam.sdk.io.gcp.bigquery.BigQueryHelpers;
@@ -166,7 +167,7 @@ public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>
     }
   }
 
-  private static TableSchema retrieveTableSchema(EventPayloadOptions options) {
+  private static TableSchema retrieveTableSchema(TransportFormatOptions options) {
     return BigQueryUtils.toTableSchema(
             TransformTransportToFormat.retrieveRowSchema(options));
   }

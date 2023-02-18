@@ -23,10 +23,6 @@
       <groupId>org.apache.beam</groupId>
       <artifactId>beam-runners-google-cloud-dataflow-java</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.apache.avro</groupId>
-      <artifactId>avro-thrift</artifactId>
-    </dependency>
     <!-- Add slf4j API frontend binding with JUL backend -->
     <dependency>
       <groupId>org.slf4j</groupId>

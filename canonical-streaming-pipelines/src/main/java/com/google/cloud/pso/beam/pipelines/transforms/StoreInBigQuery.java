@@ -15,10 +15,11 @@
  */
 package com.google.cloud.pso.beam.pipelines.transforms;
 
+import com.google.cloud.pso.beam.common.formats.options.TransportFormatOptions;
+import com.google.cloud.pso.beam.common.formats.transforms.TransformTransportToFormat;
 import com.google.cloud.pso.beam.common.transport.ErrorTransport;
 import com.google.cloud.pso.beam.common.transport.EventTransport;
 import com.google.cloud.pso.beam.pipelines.options.BigQueryWriteOptions;
-import com.google.cloud.pso.beam.pipelines.options.EventPayloadOptions;
 import org.apache.beam.sdk.coders.AvroGenericCoder;
 import org.apache.beam.sdk.transforms.Flatten;
 import org.apache.beam.sdk.transforms.PTransform;
@@ -67,7 +68,7 @@ public class StoreInBigQuery extends PTransform<PCollection<EventTransport>, PCo
                       AvroGenericCoder.of(
                               TransformTransportToFormat.retrieveAvroSchema(
                                       input.getPipeline().getOptions().as(
-                                              EventPayloadOptions.class))))
+                                              TransportFormatOptions.class))))
               .apply("WriteIntoBigQuery",
                       WriteFormatToBigQuery.writeGenericRecords());
       returnPCT = returnPCT.and(
@@ -89,7 +90,7 @@ public class StoreInBigQuery extends PTransform<PCollection<EventTransport>, PCo
       maybeRows.get(TransformTransportToFormat.successfulRows())
               .setRowSchema(
                       TransformTransportToFormat.retrieveRowSchema(
-                              input.getPipeline().getOptions().as(EventPayloadOptions.class)))
+                              input.getPipeline().getOptions().as(TransportFormatOptions.class)))
               .apply("WriteIntoBigQuery", WriteFormatToBigQuery.writeBeamRows());
       returnPCT = returnPCT
               .and(FAILED_EVENTS, maybeRows.get(TransformTransportToFormat.FAILED_EVENTS));

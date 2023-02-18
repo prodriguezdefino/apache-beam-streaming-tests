@@ -31,9 +31,9 @@ source ./execute-generator.sh $1 $2 $3 " \
   --region=${REGION} \
   --outputTopic=projects/${PROJECT_ID}/topics/${TOPIC} \
   --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
-  --generatorRatePerSec=200000 \
+  --generatorRatePerSec=10000 \
   --maxRecordsPerBatch=4500 \
-  --compressionEnabled=true \
+  --compressionEnabled=false \
   --completeObjects=true "$MORE_PARAMS
 
 popd
@@ -44,17 +44,18 @@ pushd canonical-streaming-pipelines
 SUBSCRIPTION=$2-sub
 JOB_NAME=ps2bq-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
 
-source ./execute-ps2bq.sh $1 $SUBSCRIPTION $3 "\
+source ./execute-agg.sh $1 $SUBSCRIPTION $3 "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
-  --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
   --subscription=projects/${PROJECT_ID}/subscriptions/${SUBSCRIPTION} \
   --experiments=num_pubsub_keys=2048 \
   --experiments=use_pubsub_streaming \
-  --useStorageApiConnectionPool=false \
-  --bigQueryWriteMethod=STORAGE_WRITE_API \
-  --storageWriteApiTriggeringFrequencySec=5 \
-  --numStorageWriteApiStreams=50 \
-  --tableDestinationCount=1 "$MORE_PARAMS
+  --aggregationKeyNames=uuid \
+  --thriftClassName=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
+  --BTProjectId=pabs-pso-lab \
+  --BTInstanceId=aggtest \
+  --BTTableId=aggtest \
+  --outputTable=pabs-pso-lab.spam.aggregation \
+ "$MORE_PARAMS
 
 popd
