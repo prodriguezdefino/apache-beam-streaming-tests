@@ -29,6 +29,8 @@ resource "google_bigtable_instance" "instance" {
     }
   }
   labels = local.bt_labels
+  
+  deletion_protection=false
 }
 
 resource "google_bigtable_table" "table" {
