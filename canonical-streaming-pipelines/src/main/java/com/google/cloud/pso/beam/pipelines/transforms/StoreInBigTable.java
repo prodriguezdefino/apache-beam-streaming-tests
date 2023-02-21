@@ -100,7 +100,7 @@ public class StoreInBigTable
       mutations
               .computeIfAbsent(
                       new MutationInfo(
-                              ByteString.copyFromUtf8((String) result.getAggregationKey()),
+                              ByteString.copyFromUtf8(buildStoreKey(result)),
                               context.timestamp(),
                               window),
                       mutInfo -> Lists.newArrayList())
@@ -109,19 +109,33 @@ public class StoreInBigTable
                               .setSetCell(
                                       Mutation.SetCell
                                               .newBuilder()
-                                              .setTimestampMicros(result.getEventEpochInMillis()
-                                                      .orElse(
-                                                              Instant.now().getMillis() * 1000))
+                                              .setTimestampMicros(
+                                                      result.getEventEpochInMillis()
+                                                              .orElse(Instant.now()
+                                                                      .getMillis()) * 1000)
                                               .setValue(
                                                       ByteString.copyFrom(
                                                               Longs.toByteArray(
                                                                       (Long) result.getResult())))
                                               .setColumnQualifier(
                                                       ByteString.copyFromUtf8(
-                                                              result.getAggregationName()))
+                                                              buildColumnQualifier(result)))
                                               .setFamilyName(columnFamilyName)
                                               .build())
                               .build());
+    }
+
+    String buildStoreKey(AggregationResultTransport result) {
+      return result.getAggregationKey().toString()
+              + result.getAggregationTimestamp().map(ts -> "||" + ts).orElse("");
+    }
+
+    String buildColumnQualifier(AggregationResultTransport result) {
+      var qualifier = result.getAggregationName();
+      if (result.ifFinalValue()) {
+        qualifier = qualifier + "_final";
+      }
+      return qualifier;
     }
 
     @FinishBundle

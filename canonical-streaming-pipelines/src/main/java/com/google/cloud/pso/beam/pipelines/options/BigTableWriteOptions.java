@@ -44,7 +44,7 @@ public interface BigTableWriteOptions extends PipelineOptions {
   void setBTTableId(String value);
 
   @Description("The BigTable table column family name.")
-  @Default.String("aggregations")
+  @Default.String("aggregation_results")
   String getBTColumnFamilyName();
 
   void setBTColumnFamilyName(String value);

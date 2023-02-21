@@ -52,10 +52,10 @@ source ./execute-agg.sh $1 $SUBSCRIPTION $3 "\
   --experiments=use_pubsub_streaming \
   --aggregationKeyNames=uuid \
   --thriftClassName=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
-  --BTProjectId=pabs-pso-lab \
-  --BTInstanceId=aggtest \
-  --BTTableId=aggtest \
-  --outputTable=pabs-pso-lab.spam.aggregation \
+  --BTProjectId=${PROJECT_ID} \
+  --BTInstanceId=aggregations-instance \
+  --BTTableId=aggregations \
+  --outputTable=${PROJECT_ID}.${TOPIC}.aggregation \
  "$MORE_PARAMS
 
 popd
