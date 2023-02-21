@@ -104,30 +104,30 @@ public class StoreInBigTable
                               context.timestamp(),
                               window),
                       mutInfo -> Lists.newArrayList())
-              .add(
-                      Mutation.newBuilder()
-                              .setSetCell(
-                                      Mutation.SetCell
-                                              .newBuilder()
-                                              .setTimestampMicros(
-                                                      result.getEventEpochInMillis()
-                                                              .orElse(Instant.now()
-                                                                      .getMillis()) * 1000)
-                                              .setValue(
-                                                      ByteString.copyFrom(
-                                                              Longs.toByteArray(
-                                                                      (Long) result.getResult())))
-                                              .setColumnQualifier(
-                                                      ByteString.copyFromUtf8(
-                                                              buildColumnQualifier(result)))
-                                              .setFamilyName(columnFamilyName)
-                                              .build())
-                              .build());
+              .add(Mutation
+                      .newBuilder()
+                      .setSetCell(
+                              Mutation.SetCell
+                                      .newBuilder()
+                                      .setTimestampMicros(
+                                              result.getEventEpochInMillis()
+                                                      .orElse(Instant.now()
+                                                              .getMillis()) * 1000)
+                                      .setValue(
+                                              ByteString.copyFrom(
+                                                      Longs.toByteArray(
+                                                              (Long) result.getResult())))
+                                      .setColumnQualifier(
+                                              ByteString.copyFromUtf8(
+                                                      buildColumnQualifier(result)))
+                                      .setFamilyName(columnFamilyName)
+                                      .build())
+                      .build());
     }
 
     String buildStoreKey(AggregationResultTransport result) {
       return result.getAggregationKey().toString()
-              + result.getAggregationTimestamp().map(ts -> "||" + ts).orElse("");
+              + result.getAggregationTimestamp().map(ts -> "#" + ts).orElse("");
     }
 
     String buildColumnQualifier(AggregationResultTransport result) {
