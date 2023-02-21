@@ -7,7 +7,7 @@
 /*       Local Variables     */
 
 locals {
-  fitbit_labels = {
+  kf_labels = {
     "environment"   = "${var.env}"
     "product"       = "kafka-cluster"
   }
