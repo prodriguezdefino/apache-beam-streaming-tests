@@ -20,12 +20,12 @@ import com.google.cloud.pso.beam.common.compression.thrift.ThriftCompression;
 import com.google.cloud.pso.beam.common.transport.CommonTransport;
 import com.google.cloud.pso.beam.common.transport.EventTransport;
 import com.google.cloud.pso.beam.common.transport.coder.CommonTransportCoder;
-import com.google.cloud.pso.beam.generator.formats.AvroDataGenerator;
 import com.google.cloud.pso.beam.options.StreamingSinkOptions;
 import com.google.cloud.pso.beam.transforms.WriteStreamingSink;
 import com.google.common.base.Splitter;
 import com.google.common.math.Quantiles;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -124,6 +124,20 @@ public class StreamingDataGenerator {
     String getFilePath();
 
     void setFilePath(String value);
+
+    @Description("A comma separated value string that indicates the fields that have certain skew.")
+    @Default.String("")
+    String getFieldsWithSkew();
+
+    void setFieldsWithSkew(String value);
+    
+    
+    @Description("How skew the identified fields are, the bigger the number "
+            + "the tighter the skew cluster is.")
+    @Default.Integer(0)
+    Integer getSkewDegree();
+
+    void setSkewDegree(Integer value);
   }
 
   static final Map<String, String> EMPTY_ATTRS = new HashMap<>();
@@ -158,6 +172,8 @@ public class StreamingDataGenerator {
                     options.getMaxSizeCollection(),
                     options.getFilePath());
 
+    gen.configureSkewedProperties(Arrays.asList(options.getFieldsWithSkew().split(",")));
+
     var seqGeneratorRate = options.isCompressionEnabled()
             ? options.getGeneratorRatePerSec() / options.getMaxRecordsPerBatch()
             : options.getGeneratorRatePerSec();
@@ -170,7 +186,7 @@ public class StreamingDataGenerator {
 
     generator.getCoderRegistry()
             .registerCoderForClass(EventTransport.class, CommonTransportCoder.of());
-    
+
     generator
             .apply(
                     GenerateSequence

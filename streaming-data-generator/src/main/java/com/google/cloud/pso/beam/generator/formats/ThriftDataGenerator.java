@@ -15,6 +15,7 @@
  */
 package com.google.cloud.pso.beam.generator.formats;
 
+import com.google.cloud.pso.beam.common.Utilities;
 import com.google.cloud.pso.beam.generator.DataGenerator;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -61,6 +62,8 @@ public class ThriftDataGenerator implements DataGenerator {
 
   private static final Map<String, Class> classCache = new ConcurrentHashMap<>();
   private static final Map<String, Object> valueCache = new ConcurrentHashMap<>();
+  private static final Map<String, Map<Integer, String>> skewedStringValuesForProperties
+          = new ConcurrentHashMap<>();
 
   private final int maxChars;
   private final int minChars;
@@ -329,6 +332,9 @@ public class ThriftDataGenerator implements DataGenerator {
   }
 
   private String getStringValue(String fieldName, double randomFreq) {
+    if (skewedStringValuesForProperties.containsKey(fieldName)) {
+      return getSkewedStringValue(fieldName);
+    }
     if (RANDOM.nextGaussian() < randomFreq) {
       return RandomStringUtils.randomAlphabetic(minChars, maxChars);
     } else {
@@ -336,6 +342,13 @@ public class ThriftDataGenerator implements DataGenerator {
               fieldName,
               b -> RandomStringUtils.randomAlphabetic(minChars, maxChars));
     }
+  }
+
+  private String getSkewedStringValue(String fieldName) {
+    var bucket = Utilities.nextSkewedBoundedInteger(0, 100000, 5, 0);
+    return skewedStringValuesForProperties
+            .get(fieldName)
+            .computeIfAbsent(bucket, n -> RandomStringUtils.randomAlphabetic(minChars, maxChars));
   }
 
   @Override
@@ -367,6 +380,14 @@ public class ThriftDataGenerator implements DataGenerator {
     } catch (TException e) {
       throw new RuntimeException("Error while serializing the object.", e);
     }
+  }
+
+  @Override
+  public void configureSkewedProperties(List<String> propertyNames) {
+    propertyNames.forEach(name -> {
+      skewedStringValuesForProperties
+              .computeIfAbsent(name, n -> new ConcurrentHashMap<>());
+    });
   }
 
 }

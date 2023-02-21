@@ -34,6 +34,8 @@ source ./execute-generator.sh $1 $2 $3 " \
   --generatorRatePerSec=10000 \
   --maxRecordsPerBatch=4500 \
   --compressionEnabled=false \
+  --fieldsWithSkew=uuid \
+  --skewDegree=5 \
   --completeObjects=true "$MORE_PARAMS
 
 popd

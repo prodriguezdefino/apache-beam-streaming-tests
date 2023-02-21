@@ -19,6 +19,7 @@ import com.google.cloud.pso.beam.generator.formats.AvroDataGenerator;
 import com.google.cloud.pso.beam.generator.formats.ThriftDataGenerator;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 import org.apache.beam.sdk.values.KV;
 
 /**
@@ -34,6 +35,8 @@ public interface DataGenerator extends Serializable {
 
   default void init() throws Exception {
   }
+
+  void configureSkewedProperties(List<String> propertyNames);
 
   Object createInstance(boolean allFieldsPopulated);
 
