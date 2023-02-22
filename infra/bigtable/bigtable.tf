@@ -14,12 +14,12 @@ locals {
 
 /*       resources           */
 resource "google_bigtable_instance" "instance" {
-  name    = "${var.instance_name}"
-  project = "${var.project}"
+  name    = var.instance_name
+  project = var.project
 
   cluster {
     cluster_id   = "${var.instance_name}-cluster"
-    zone         = "${var.zone}"
+    zone         = var.zone
     storage_type = "SSD"
 
     autoscaling_config {
@@ -34,18 +34,20 @@ resource "google_bigtable_instance" "instance" {
 }
 
 resource "google_bigtable_table" "table" {
-  name          = "${var.table_name}"
+  project       = var.project
+  name          = var.table_name
   instance_name = google_bigtable_instance.instance.name
 
   column_family {
-    family = "${var.column_family_name}"
+    family = var.column_family_name
   }
 }
 
 resource "google_bigtable_gc_policy" "policy" {
-  instance_name = google_bigtable_instance.instance.name
-  table         = google_bigtable_table.table.name
-  column_family = "${var.column_family_name}"
+  project         = var.project
+  instance_name   = google_bigtable_instance.instance.name
+  table           = google_bigtable_table.table.name
+  column_family   = var.column_family_name
   deletion_policy = "ABANDON"
 
 
