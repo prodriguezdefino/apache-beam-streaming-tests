@@ -18,9 +18,11 @@ package com.google.cloud.pso.beam.generator;
 import com.google.cloud.pso.beam.generator.formats.AvroDataGenerator;
 import com.google.cloud.pso.beam.generator.formats.ThriftDataGenerator;
 import com.google.cloud.pso.beam.generator.thrift.CompoundEvent;
+import com.google.common.collect.Lists;
 import com.google.common.math.Quantiles;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import org.apache.avro.file.CodecFactory;
 import org.apache.avro.file.DataFileWriter;
 import org.apache.avro.generic.GenericDatumWriter;
@@ -45,9 +47,12 @@ public class StreamingDataGeneratorTest {
     var sizes = new ArrayList<Long>();
     var times = new ArrayList<Long>();
     var gen = ThriftDataGenerator.create(CompoundEvent.class, 5, 25, 20);
+    gen.configureSkewedProperties(List.of("uuid"), 3, 10);
+    List<Object> gens = Lists.newArrayList();
     for (int i = 0; i < 1000; i++) {
       var start = System.nanoTime();
       var obj = gen.populateNewInstance(true, 0.001D);
+      gens.add(obj);
       times.add(System.nanoTime() - start);
       Assert.assertNotNull(obj);
       Assert.assertTrue(obj instanceof CompoundEvent);

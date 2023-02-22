@@ -162,7 +162,8 @@ public class AvroDataGenerator implements DataGenerator {
   }
 
   @Override
-  public void configureSkewedProperties(List<String> propertyNames) {
+  public void configureSkewedProperties(List<String> propertyNames, Integer skewDegree,
+          Integer skewBuckets) {
   }
 
 }

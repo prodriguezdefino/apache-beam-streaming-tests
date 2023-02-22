@@ -35,7 +35,8 @@ source ./execute-generator.sh $1 $2 $3 " \
   --maxRecordsPerBatch=4500 \
   --compressionEnabled=false \
   --fieldsWithSkew=uuid \
-  --skewDegree=5 \
+  --skewDegree=10 \
+  --skewBuckets=1000 \
   --completeObjects=true "$MORE_PARAMS
 
 popd
@@ -52,11 +53,15 @@ source ./execute-agg.sh $1 $SUBSCRIPTION $3 "\
   --subscription=projects/${PROJECT_ID}/subscriptions/${SUBSCRIPTION} \
   --experiments=num_pubsub_keys=2048 \
   --experiments=use_pubsub_streaming \
-  --aggregationKeyNames=uuid \
   --thriftClassName=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
   --BTProjectId=${PROJECT_ID} \
   --BTInstanceId=aggregations-instance \
   --BTTableId=aggregations \
+  --aggregationKeyNames=uuid \
+  --aggregationWindowInMinutes=15 \
+  --aggregationPartialTriggerSeconds=60 \
+  --aggregationDiscardPartialResults=false \
+  --aggregationPartialTriggerEventCount=100000 \
   --outputTable=${PROJECT_ID}.${TOPIC}.aggregation \
  "$MORE_PARAMS
 

@@ -36,7 +36,8 @@ public interface DataGenerator extends Serializable {
   default void init() throws Exception {
   }
 
-  void configureSkewedProperties(List<String> propertyNames);
+  void configureSkewedProperties(List<String> propertyNames, Integer skewDegree,
+          Integer skewBuckets);
 
   Object createInstance(boolean allFieldsPopulated);
 

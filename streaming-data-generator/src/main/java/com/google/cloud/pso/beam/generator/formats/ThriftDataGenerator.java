@@ -71,6 +71,9 @@ public class ThriftDataGenerator implements DataGenerator {
   private final boolean allFieldPopulated = true;
   private final double randomFreq = RANDOM_ENABLER_THRESHOLD;
   private final Class clazz;
+  private List<String> skewedProperties;
+  private Integer skewDegree = 0;
+  private Integer skewBuckets = 1000;
 
   ThriftDataGenerator(Class clazz, Optional<Integer> minChars, Optional<Integer> maxChars, Optional<Integer> maxSizeCollectionType) {
     this.clazz = clazz;
@@ -345,7 +348,7 @@ public class ThriftDataGenerator implements DataGenerator {
   }
 
   private String getSkewedStringValue(String fieldName) {
-    var bucket = Utilities.nextSkewedBoundedInteger(0, 100000, 5, 0);
+    var bucket = Utilities.nextSkewedBoundedInteger(0, skewBuckets, skewDegree, 0);
     return skewedStringValuesForProperties
             .get(fieldName)
             .computeIfAbsent(bucket, n -> RandomStringUtils.randomAlphabetic(minChars, maxChars));
@@ -383,11 +386,19 @@ public class ThriftDataGenerator implements DataGenerator {
   }
 
   @Override
-  public void configureSkewedProperties(List<String> propertyNames) {
-    propertyNames.forEach(name -> {
+  public void init() throws Exception {
+    skewedProperties.forEach(name -> {
       skewedStringValuesForProperties
               .computeIfAbsent(name, n -> new ConcurrentHashMap<>());
     });
+  }
+
+  @Override
+  public void configureSkewedProperties(List<String> propertyNames, Integer skewDegree,
+          Integer skewBuckets) {
+    this.skewDegree = skewDegree;
+    this.skewBuckets = skewBuckets;
+    this.skewedProperties = List.copyOf(propertyNames);
   }
 
 }

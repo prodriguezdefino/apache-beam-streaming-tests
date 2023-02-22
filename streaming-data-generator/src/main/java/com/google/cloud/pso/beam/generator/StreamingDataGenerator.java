@@ -138,6 +138,12 @@ public class StreamingDataGenerator {
     Integer getSkewDegree();
 
     void setSkewDegree(Integer value);
+    
+    @Description("How many different values will be generated for the skewed fields.")
+    @Default.Integer(1000)
+    Integer getSkewBuckets();
+
+    void setSkewBuckets(Integer value);
   }
 
   static final Map<String, String> EMPTY_ATTRS = new HashMap<>();
@@ -172,7 +178,10 @@ public class StreamingDataGenerator {
                     options.getMaxSizeCollection(),
                     options.getFilePath());
 
-    gen.configureSkewedProperties(Arrays.asList(options.getFieldsWithSkew().split(",")));
+    gen.configureSkewedProperties(
+            Arrays.asList(options.getFieldsWithSkew().split(",")),
+            options.getSkewDegree(),
+            options.getSkewBuckets());
 
     var seqGeneratorRate = options.isCompressionEnabled()
             ? options.getGeneratorRatePerSec() / options.getMaxRecordsPerBatch()
