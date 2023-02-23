@@ -14,7 +14,7 @@ TOPIC=$2
 PROJECT=$1
 BUCKET=$3
 
-terraform apply \
+terraform init && terraform apply \
   -var="create_bigtable=${BT_ENABLED}" \
   -var="create_bigquery=${BQ_ENABLED}" \
   -var="create_pubsub=${PS_ENABLED}"   \
