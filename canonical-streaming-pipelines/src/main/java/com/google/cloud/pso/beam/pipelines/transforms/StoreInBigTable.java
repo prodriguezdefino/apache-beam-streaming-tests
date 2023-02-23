@@ -22,6 +22,8 @@ import com.google.cloud.pso.beam.pipelines.options.BigTableWriteOptions;
 import com.google.cloud.pso.beam.transforms.aggregations.AggregationResultTransport;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.primitives.Doubles;
+import com.google.common.primitives.Floats;
 import com.google.common.primitives.Longs;
 import com.google.protobuf.ByteString;
 import java.util.List;
@@ -114,10 +116,7 @@ public class StoreInBigTable
                                               result.getEventEpochInMillis()
                                                       .orElse(Instant.now()
                                                               .getMillis()) * 1000)
-                                      .setValue(
-                                              ByteString.copyFrom(
-                                                      Longs.toByteArray(
-                                                              (Long) result.getResult())))
+                                      .setValue(retrieveValue(result))
                                       .setColumnQualifier(
                                               ByteString.copyFromUtf8(
                                                       buildColumnQualifier(result)))
@@ -128,7 +127,7 @@ public class StoreInBigTable
 
     String buildStoreKey(AggregationResultTransport result) {
       return result.getAggregationKey().toString()
-              + result.getAggregationTimestamp().map(ts -> "#" + ts).orElse("");
+              + result.getAggregationWindowTimestamp().map(ts -> "#" + ts).orElse("");
     }
 
     String buildColumnQualifier(AggregationResultTransport result) {
@@ -141,6 +140,26 @@ public class StoreInBigTable
         qualifier = qualifier + "_final";
       }
       return qualifier + ":" + timeComponent;
+    }
+
+    ByteString longInByteString(Long longValue) {
+      return ByteString
+              .copyFrom(Longs.toByteArray(longValue));
+    }
+
+    ByteString retrieveValue(AggregationResultTransport result) {
+      return switch (result.getType()) {
+        case DOUBLE ->
+          longInByteString(Double.doubleToLongBits((Double) result.getResult()));
+        case FLOAT ->
+          longInByteString((long) Float.floatToIntBits((Float) result.getResult()));
+        case INT ->
+          longInByteString(((Integer) result.getResult()).longValue());
+        case LONG ->
+          longInByteString((Long) result.getResult());
+        case STRING ->
+          ByteString.copyFromUtf8((String) result.getResult());
+      };
     }
 
     @FinishBundle
