@@ -25,7 +25,8 @@ module "pubsub_resources" {
 resource "google_storage_bucket" "staging" {
   project       = var.project 
   name          = var.staging_bucket_name
-  location      = "US"
+  location      = "US-CENTRAL1"
+  storage_class = "REGIONAL"
   force_destroy = true
 
   lifecycle_rule {
