@@ -20,6 +20,15 @@ BEAM_VERSION=2.46.0-SNAPSHOT
 PROJECT_ID=$1
 TOPIC=$2
 REGION=us-central1
+BUCKET=$3
+
+echo "creating infrastructure"
+pushd infra
+
+# we need to create a ps topic+sub, bq dataset, bt instance + table and staging bucket 
+source ./tf-apply.sh $PROJECT_ID $TOPIC $BUCKET true true true
+
+popd
 
 echo "starting data generator"
 pushd streaming-data-generator
