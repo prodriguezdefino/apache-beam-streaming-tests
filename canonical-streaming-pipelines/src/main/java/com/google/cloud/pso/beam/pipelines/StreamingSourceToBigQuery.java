@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Google Inc.
+ * Copyright (C) 2023 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -29,25 +29,20 @@ import org.apache.beam.sdk.values.PCollectionList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Ingestion pipeline for BigQuery, reads data from a specified StreamingSource.
- */
+/** Ingestion pipeline for BigQuery, reads data from a specified StreamingSource. */
 public class StreamingSourceToBigQuery {
 
   private static final Logger LOG = LoggerFactory.getLogger(StreamingSourceToBigQuery.class);
 
-  /**
-   * Options for the streaming data generator
-   */
+  /** Options for the streaming data generator */
   public interface StreamingSourceToBigQueryOptions
-          extends StreamingSourceOptions, BigQueryWriteOptions {
+      extends StreamingSourceOptions, BigQueryWriteOptions {
 
     @Description("FQCN of the UDF that will execute")
     @Default.String("")
     String getUDFClassName();
 
     void setUDFClassName(String value);
-
   }
 
   /**
@@ -57,33 +52,36 @@ public class StreamingSourceToBigQuery {
    * @throws
    */
   public static void main(String[] args) throws Exception {
-    var options
-            = PipelineOptionsFactory.fromArgs(args)
-                    .withValidation()
-                    .as(StreamingSourceToBigQueryOptions.class);
+    var options =
+        PipelineOptionsFactory.fromArgs(args)
+            .withValidation()
+            .as(StreamingSourceToBigQueryOptions.class);
 
     // Create the pipeline
     var pipeline = Pipeline.create(options);
 
     // read from the streaming sources and maybe decompress payloads
-    var maybeDecompressed = pipeline
+    var maybeDecompressed =
+        pipeline
             .apply("ReadFromStreamingSource", ReadStreamingSource.create())
             .apply("MaybeDecompress", MaybeDecompressEvents.create());
     // possibly execute a configured UDF
-    var maybeUDFExec = maybeDecompressed.get(MaybeDecompressEvents.SUCCESSFULLY_PROCESSED_EVENTS)
+    var maybeUDFExec =
+        maybeDecompressed
+            .get(MaybeDecompressEvents.SUCCESSFULLY_PROCESSED_EVENTS)
             .apply("MaybeExecuteUDF", ExecuteUDF.create(options.getUDFClassName()));
     // store the data into BigQuery
-    var maybeStored = maybeUDFExec.get(ExecuteUDF.SUCCESSFULLY_PROCESSED_EVENTS)
+    var maybeStored =
+        maybeUDFExec
+            .get(ExecuteUDF.SUCCESSFULLY_PROCESSED_EVENTS)
             .apply("StoreInBigQuery", StoreInBigQuery.store());
 
     // process errors from the multiple previous stages
-    PCollectionList
-            .of(maybeDecompressed.get(MaybeDecompressEvents.FAILED_EVENTS))
-            .and(maybeUDFExec.get(ExecuteUDF.FAILED_EVENTS))
-            .and(maybeStored.get(StoreInBigQuery.failedEvents()))
-            .apply("StoreErrorsInBigQuery", StoreInBigQuery.storeErrors());
+    PCollectionList.of(maybeDecompressed.get(MaybeDecompressEvents.FAILED_EVENTS))
+        .and(maybeUDFExec.get(ExecuteUDF.FAILED_EVENTS))
+        .and(maybeStored.get(StoreInBigQuery.failedEvents()))
+        .apply("StoreErrorsInBigQuery", StoreInBigQuery.storeErrors());
 
     pipeline.run();
   }
-
 }

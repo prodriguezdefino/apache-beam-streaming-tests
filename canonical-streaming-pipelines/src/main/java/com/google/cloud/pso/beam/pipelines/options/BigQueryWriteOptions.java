@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Google Inc.
+ * Copyright (C) 2023 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -22,20 +22,19 @@ import org.apache.beam.sdk.options.Description;
 import org.apache.beam.sdk.options.PipelineOptions;
 import org.apache.beam.sdk.options.Validation;
 
-/**
- * A collection of options needed when writing to BigQuery.
- */
+/** A collection of options needed when writing to BigQuery. */
 public interface BigQueryWriteOptions extends PipelineOptions, TransportFormatOptions {
 
-  @Description("The BigQuery destination table. When using table destination count > 1 "
+  @Description(
+      "The BigQuery destination table. When using table destination count > 1 "
           + "this will be used as the base table name.")
   @Validation.Required
   String getOutputTable();
 
   void setOutputTable(String value);
 
-  @Description("The quantity of destination tables the data will be written to "
-          + "(Random distribution).")
+  @Description(
+      "The quantity of destination tables the data will be written to " + "(Random distribution).")
   @Default.Integer(1)
   Integer getTableDestinationCount();
 
@@ -53,8 +52,8 @@ public interface BigQueryWriteOptions extends PipelineOptions, TransportFormatOp
 
   void setBigQueryWriteMethod(BigQueryIO.Write.Method value);
 
-  @Description("The number of storage write api stream to create to write into BQ "
-          + "(Exactly Once mode).")
+  @Description(
+      "The number of storage write api stream to create to write into BQ " + "(Exactly Once mode).")
   @Default.Integer(1)
   Integer getNumStorageWriteEOStreams();
 
@@ -77,5 +76,4 @@ public interface BigQueryWriteOptions extends PipelineOptions, TransportFormatOp
   Boolean isUsingTableRowToStore();
 
   void setUsingTableRowToStore(Boolean value);
-
 }

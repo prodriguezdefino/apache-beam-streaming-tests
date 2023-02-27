@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Google Inc.
+ * Copyright (C) 2023 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -62,8 +62,8 @@ public class ThriftDataGenerator implements DataGenerator {
 
   private static final Map<String, Class> classCache = new ConcurrentHashMap<>();
   private static final Map<String, Object> valueCache = new ConcurrentHashMap<>();
-  private static final Map<String, Map<Integer, String>> skewedStringValuesForProperties
-          = new ConcurrentHashMap<>();
+  private static final Map<String, Map<Integer, String>> skewedStringValuesForProperties =
+      new ConcurrentHashMap<>();
 
   private final int maxChars;
   private final int minChars;
@@ -75,23 +75,31 @@ public class ThriftDataGenerator implements DataGenerator {
   private Integer skewDegree = 0;
   private Integer skewBuckets = 1000;
 
-  ThriftDataGenerator(Class clazz, Optional<Integer> minChars, Optional<Integer> maxChars, Optional<Integer> maxSizeCollectionType) {
+  ThriftDataGenerator(
+      Class clazz,
+      Optional<Integer> minChars,
+      Optional<Integer> maxChars,
+      Optional<Integer> maxSizeCollectionType) {
     this.clazz = clazz;
     this.maxChars = maxChars.orElse(MAX_GENERATED_STRING_LENGTH);
     this.minChars = minChars.orElse(MIN_GENERATED_STRING_LENGTH);
     this.maxSizeCollection = maxSizeCollectionType.orElse(MAX_SIZE_COLLECTION_TYPE);
   }
 
-  public static ThriftDataGenerator create(Class clazz, int minChars, int maxChars, int maxSizeCollectionType) {
-    return new ThriftDataGenerator(clazz, Optional.of(minChars), Optional.of(maxChars), Optional.of(maxSizeCollectionType));
+  public static ThriftDataGenerator create(
+      Class clazz, int minChars, int maxChars, int maxSizeCollectionType) {
+    return new ThriftDataGenerator(
+        clazz, Optional.of(minChars), Optional.of(maxChars), Optional.of(maxSizeCollectionType));
   }
 
   public static ThriftDataGenerator create(Class clazz, int maxSizeCollectionType) {
-    return new ThriftDataGenerator(clazz, Optional.empty(), Optional.empty(), Optional.of(maxSizeCollectionType));
+    return new ThriftDataGenerator(
+        clazz, Optional.empty(), Optional.empty(), Optional.of(maxSizeCollectionType));
   }
 
   public static ThriftDataGenerator create(Class clazz, int minChars, int maxChars) {
-    return new ThriftDataGenerator(clazz, Optional.of(minChars), Optional.of(maxChars), Optional.empty());
+    return new ThriftDataGenerator(
+        clazz, Optional.of(minChars), Optional.of(maxChars), Optional.empty());
   }
 
   public static ThriftDataGenerator create(Class clazz) {
@@ -115,9 +123,12 @@ public class ThriftDataGenerator implements DataGenerator {
   }
 
   private Optional<Method> findMethodByName(Class cls, String fieldName) {
-    return Stream.of(cls.getMethods()).filter(f -> {
-      return f.getName().equals(fieldName);
-    }).findAny();
+    return Stream.of(cls.getMethods())
+        .filter(
+            f -> {
+              return f.getName().equals(fieldName);
+            })
+        .findAny();
   }
 
   private TBase populateNewInstance(Class clazz, boolean allFieldsPopulated, double randomFreq) {
@@ -125,7 +136,10 @@ public class ThriftDataGenerator implements DataGenerator {
     try {
       if (TBase.class.isAssignableFrom(clazz)) { // struct
         value = (TBase) clazz.getDeclaredConstructor().newInstance();
-        for (var f : ((Map<? extends TBase, FieldMetaData>) FieldMetaData.getStructMetaDataMap((Class<? extends TBase>) clazz)).values()) {
+        for (var f :
+            ((Map<? extends TBase, FieldMetaData>)
+                    FieldMetaData.getStructMetaDataMap((Class<? extends TBase>) clazz))
+                .values()) {
           var fieldValue = createValue(f, f.valueMetaData, allFieldsPopulated, randomFreq);
 
           // check for container types, because we won't be able to use reflection on those.
@@ -134,18 +148,15 @@ public class ThriftDataGenerator implements DataGenerator {
             field.setAccessible(true);
             field.set(value, fieldValue);
           } else if (f.valueMetaData.isContainer()) {
-            var setter
-                    = findMethodByName(
-                            clazz,
-                            "set" + StringUtils.capitalize(f.fieldName)).get();
+            var setter = findMethodByName(clazz, "set" + StringUtils.capitalize(f.fieldName)).get();
             if (fieldValue != null) {
               setter.invoke(value, fieldValue);
             }
           } else {
-            var setter
-                    = clazz.getDeclaredMethod(
-                            "set" + StringUtils.capitalize(f.fieldName),
-                            getClassFromField(f.valueMetaData));
+            var setter =
+                clazz.getDeclaredMethod(
+                    "set" + StringUtils.capitalize(f.fieldName),
+                    getClassFromField(f.valueMetaData));
             if (fieldValue != null) {
               setter.invoke(value, fieldValue);
             }
@@ -155,20 +166,21 @@ public class ThriftDataGenerator implements DataGenerator {
         throw new RuntimeException("Not a Thrift-generated class: " + clazz);
       }
     } catch (IllegalAccessException
-            | IllegalArgumentException
-            | InstantiationException
-            | NoSuchFieldException
-            | NoSuchMethodException
-            | InvocationTargetException e) {
+        | IllegalArgumentException
+        | InstantiationException
+        | NoSuchFieldException
+        | NoSuchMethodException
+        | InvocationTargetException e) {
       throw new RuntimeException("Error while generating value for class " + clazz.toString(), e);
     }
     return value;
   }
 
-  private Optional<Object> getValueToAssign(Supplier<Object> fieldValue, FieldMetaData f, boolean allFieldsPopulated) {
+  private Optional<Object> getValueToAssign(
+      Supplier<Object> fieldValue, FieldMetaData f, boolean allFieldsPopulated) {
     if (!allFieldsPopulated
-            && f.requirementType != TFieldRequirementType.REQUIRED
-            && !RANDOM.nextBoolean()) {
+        && f.requirementType != TFieldRequirementType.REQUIRED
+        && !RANDOM.nextBoolean()) {
       return Optional.empty();
     }
     return Optional.of(fieldValue.get());
@@ -200,16 +212,16 @@ public class ThriftDataGenerator implements DataGenerator {
           structClass = structMeta.structClass;
         } else {
           // Some thrift version will use structMeta + typedefname as struct.
-          structClass
-                  = classCache.computeIfAbsent(
-                          f.getTypedefName(),
-                          cName -> {
-                            try {
-                              return Class.forName(cName);
-                            } catch (ClassNotFoundException ex) {
-                              throw new IllegalArgumentException(ex);
-                            }
-                          });
+          structClass =
+              classCache.computeIfAbsent(
+                  f.getTypedefName(),
+                  cName -> {
+                    try {
+                      return Class.forName(cName);
+                    } catch (ClassNotFoundException ex) {
+                      throw new IllegalArgumentException(ex);
+                    }
+                  });
         }
         return structClass;
       case TType.VOID:
@@ -219,88 +231,91 @@ public class ThriftDataGenerator implements DataGenerator {
     }
   }
 
-  private Object createList(
-          FieldMetaData fieldMetadata,
-          ListMetaData listMeta,
-          double randomFreq) {
+  private Object createList(FieldMetaData fieldMetadata, ListMetaData listMeta, double randomFreq) {
     var maybeRange = RANDOM.nextInt(maxSizeCollection);
-    return IntStream
-            .range(0, maybeRange == 0 ? 1 : maybeRange)
-            .mapToObj(i -> createValue(fieldMetadata, listMeta.elemMetaData, true, randomFreq))
-            .collect(Collectors.toList());
+    return IntStream.range(0, maybeRange == 0 ? 1 : maybeRange)
+        .mapToObj(i -> createValue(fieldMetadata, listMeta.elemMetaData, true, randomFreq))
+        .collect(Collectors.toList());
   }
 
-  private Object createSet(
-          FieldMetaData fieldMetadata,
-          SetMetaData setMeta,
-          double randomFreq) {
+  private Object createSet(FieldMetaData fieldMetadata, SetMetaData setMeta, double randomFreq) {
     var maybeRange = RANDOM.nextInt(maxSizeCollection);
-    return IntStream
-            .range(0, maybeRange == 0 ? 1 : maybeRange)
-            .mapToObj(i -> createValue(fieldMetadata, setMeta.elemMetaData, true, randomFreq))
-            .collect(Collectors.toSet());
+    return IntStream.range(0, maybeRange == 0 ? 1 : maybeRange)
+        .mapToObj(i -> createValue(fieldMetadata, setMeta.elemMetaData, true, randomFreq))
+        .collect(Collectors.toSet());
   }
 
-  private Object createMap(
-          FieldMetaData fieldMetadata,
-          MapMetaData mapMeta,
-          double randomFreq) {
+  private Object createMap(FieldMetaData fieldMetadata, MapMetaData mapMeta, double randomFreq) {
     var maybeRange = RANDOM.nextInt(maxSizeCollection);
-    return IntStream
-            .range(0, maybeRange == 0 ? 1 : maybeRange)
-            .mapToObj(i -> Map.entry(
-            createValue(fieldMetadata, mapMeta.keyMetaData, true, randomFreq),
-            createValue(fieldMetadata, mapMeta.valueMetaData, true, randomFreq)))
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> a));
+    return IntStream.range(0, maybeRange == 0 ? 1 : maybeRange)
+        .mapToObj(
+            i ->
+                Map.entry(
+                    createValue(fieldMetadata, mapMeta.keyMetaData, true, randomFreq),
+                    createValue(fieldMetadata, mapMeta.valueMetaData, true, randomFreq)))
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> a));
   }
 
   private Object createValue(
-          FieldMetaData fieldMetadata,
-          FieldValueMetaData fieldValueMetadata,
-          boolean allFieldsPopulated,
-          double randomFreq) {
+      FieldMetaData fieldMetadata,
+      FieldValueMetaData fieldValueMetadata,
+      boolean allFieldsPopulated,
+      double randomFreq) {
 
     switch (fieldValueMetadata.type) {
       case TType.BOOL:
-        return getValueToAssign(() -> RANDOM.nextBoolean(), fieldMetadata, allFieldsPopulated).orElse(null);
+        return getValueToAssign(() -> RANDOM.nextBoolean(), fieldMetadata, allFieldsPopulated)
+            .orElse(null);
       case TType.BYTE:
         byte[] rbytes = new byte[1];
         RANDOM.nextBytes(rbytes);
         return getValueToAssign(() -> rbytes[0], fieldMetadata, allFieldsPopulated).orElse(null);
       case TType.I16:
-        return getValueToAssign(() -> (short) RANDOM.nextInt(Short.MAX_VALUE + 1), fieldMetadata, allFieldsPopulated).orElse(null);
+        return getValueToAssign(
+                () -> (short) RANDOM.nextInt(Short.MAX_VALUE + 1),
+                fieldMetadata,
+                allFieldsPopulated)
+            .orElse(null);
       case TType.I32:
-        return getValueToAssign(() -> (int) RANDOM.nextInt(), fieldMetadata, allFieldsPopulated).orElse(null);
+        return getValueToAssign(() -> (int) RANDOM.nextInt(), fieldMetadata, allFieldsPopulated)
+            .orElse(null);
       case TType.I64:
-        return getValueToAssign(() -> RANDOM.nextLong(), fieldMetadata, allFieldsPopulated).orElse(null);
+        return getValueToAssign(() -> RANDOM.nextLong(), fieldMetadata, allFieldsPopulated)
+            .orElse(null);
       case TType.DOUBLE:
-        return getValueToAssign(() -> RANDOM.nextDouble(), fieldMetadata, allFieldsPopulated).orElse(null);
+        return getValueToAssign(() -> RANDOM.nextDouble(), fieldMetadata, allFieldsPopulated)
+            .orElse(null);
       case TType.ENUM:
         var enumMeta = (EnumMetaData) fieldValueMetadata;
         var symbols = new ArrayList<Enum>();
-        symbols.addAll(Arrays.asList(((Class<? extends Enum>) enumMeta.enumClass).getEnumConstants()));
-        return getValueToAssign(() -> symbols.get(RANDOM.nextInt(symbols.size())), fieldMetadata, allFieldsPopulated).orElse(null);
+        symbols.addAll(
+            Arrays.asList(((Class<? extends Enum>) enumMeta.enumClass).getEnumConstants()));
+        return getValueToAssign(
+                () -> symbols.get(RANDOM.nextInt(symbols.size())),
+                fieldMetadata,
+                allFieldsPopulated)
+            .orElse(null);
       case TType.LIST:
         var listMeta = (ListMetaData) fieldValueMetadata;
         return getValueToAssign(
                 () -> createList(fieldMetadata, listMeta, randomFreq),
                 fieldMetadata,
                 allFieldsPopulated)
-                .orElse(List.of());
+            .orElse(List.of());
       case TType.MAP:
         var mapMeta = (MapMetaData) fieldValueMetadata;
         return getValueToAssign(
                 () -> createMap(fieldMetadata, mapMeta, randomFreq),
                 fieldMetadata,
                 allFieldsPopulated)
-                .orElse(Map.of());
+            .orElse(Map.of());
       case TType.SET:
         var setMeta = (SetMetaData) fieldValueMetadata;
         return getValueToAssign(
                 () -> createSet(fieldMetadata, setMeta, randomFreq),
                 fieldMetadata,
                 allFieldsPopulated)
-                .orElse(Set.of());
+            .orElse(Set.of());
       case TType.STRING:
         var value = getStringValue(fieldMetadata.fieldName, randomFreq);
         if (fieldValueMetadata.isBinary()) {
@@ -309,24 +324,26 @@ public class ThriftDataGenerator implements DataGenerator {
         return getValueToAssign(
                 () -> fieldValueMetadata.isBinary() ? ByteBuffer.wrap(value.getBytes()) : value,
                 fieldMetadata,
-                allFieldsPopulated).orElse(null);
+                allFieldsPopulated)
+            .orElse(null);
       case TType.STRUCT:
         return getValueToAssign(
                 () -> {
                   try {
                     return populateNewInstance(
-                            fieldValueMetadata instanceof StructMetaData
-                                    ? ((StructMetaData) fieldValueMetadata).structClass
-                                    : Class.forName(fieldValueMetadata.getTypedefName()),
-                            allFieldsPopulated,
-                            randomFreq);
+                        fieldValueMetadata instanceof StructMetaData
+                            ? ((StructMetaData) fieldValueMetadata).structClass
+                            : Class.forName(fieldValueMetadata.getTypedefName()),
+                        allFieldsPopulated,
+                        randomFreq);
                   } catch (Exception e) {
-                    throw new IllegalArgumentException("Couldn't find class:" + ((StructMetaData) fieldValueMetadata).structClass);
+                    throw new IllegalArgumentException(
+                        "Couldn't find class:" + ((StructMetaData) fieldValueMetadata).structClass);
                   }
                 },
                 fieldMetadata,
-                allFieldsPopulated
-        ).orElse(null);
+                allFieldsPopulated)
+            .orElse(null);
       case TType.VOID:
         return null;
       default:
@@ -341,17 +358,17 @@ public class ThriftDataGenerator implements DataGenerator {
     if (RANDOM.nextGaussian() < randomFreq) {
       return RandomStringUtils.randomAlphabetic(minChars, maxChars);
     } else {
-      return (String) valueCache.computeIfAbsent(
-              fieldName,
-              b -> RandomStringUtils.randomAlphabetic(minChars, maxChars));
+      return (String)
+          valueCache.computeIfAbsent(
+              fieldName, b -> RandomStringUtils.randomAlphabetic(minChars, maxChars));
     }
   }
 
   private String getSkewedStringValue(String fieldName) {
     var bucket = Utilities.nextSkewedBoundedInteger(0, skewBuckets, skewDegree, 0);
     return skewedStringValuesForProperties
-            .get(fieldName)
-            .computeIfAbsent(bucket, n -> RandomStringUtils.randomAlphabetic(minChars, maxChars));
+        .get(fieldName)
+        .computeIfAbsent(bucket, n -> RandomStringUtils.randomAlphabetic(minChars, maxChars));
   }
 
   @Override
@@ -361,14 +378,14 @@ public class ThriftDataGenerator implements DataGenerator {
 
   @Override
   public Iterable<Object> createInstance(boolean allFieldsPopulated, Integer count) {
-    return IntStream
-            .range(0, count - 1)
-            .mapToObj(i -> populateNewInstance(allFieldsPopulated))
-            .collect(Collectors.toList());
+    return IntStream.range(0, count - 1)
+        .mapToObj(i -> populateNewInstance(allFieldsPopulated))
+        .collect(Collectors.toList());
   }
 
   @Override
-  public KV<byte[], String> createInstanceAsBytesAndSchemaAsStringIfPresent(boolean allFieldsPopulated) throws Exception {
+  public KV<byte[], String> createInstanceAsBytesAndSchemaAsStringIfPresent(
+      boolean allFieldsPopulated) throws Exception {
     TSerializer serializer = null;
     try {
       serializer = new TSerializer(new TBinaryProtocol.Factory());
@@ -387,18 +404,17 @@ public class ThriftDataGenerator implements DataGenerator {
 
   @Override
   public void init() throws Exception {
-    skewedProperties.forEach(name -> {
-      skewedStringValuesForProperties
-              .computeIfAbsent(name, n -> new ConcurrentHashMap<>());
-    });
+    skewedProperties.forEach(
+        name -> {
+          skewedStringValuesForProperties.computeIfAbsent(name, n -> new ConcurrentHashMap<>());
+        });
   }
 
   @Override
-  public void configureSkewedProperties(List<String> propertyNames, Integer skewDegree,
-          Integer skewBuckets) {
+  public void configureSkewedProperties(
+      List<String> propertyNames, Integer skewDegree, Integer skewBuckets) {
     this.skewDegree = skewDegree;
     this.skewBuckets = skewBuckets;
     this.skewedProperties = List.copyOf(propertyNames);
   }
-
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Google Inc.
+ * Copyright (C) 2023 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -20,9 +20,7 @@ import org.apache.beam.sdk.options.Description;
 import org.apache.beam.sdk.options.PipelineOptions;
 import org.apache.beam.sdk.options.Validation;
 
-/**
- * A collection of options needed when writing to BigQuery.
- */
+/** A collection of options needed when writing to BigQuery. */
 public interface BigTableWriteOptions extends PipelineOptions {
 
   @Description("The project id hosting the BigTable instance.")
@@ -48,5 +46,4 @@ public interface BigTableWriteOptions extends PipelineOptions {
   String getBTColumnFamilyName();
 
   void setBTColumnFamilyName(String value);
-
 }

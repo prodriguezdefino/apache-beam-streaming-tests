@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Google Inc.
+ * Copyright (C) 2023 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -22,9 +22,7 @@ import java.io.Serializable;
 import java.util.List;
 import org.apache.beam.sdk.values.KV;
 
-/**
- *
- */
+/** */
 public interface DataGenerator extends Serializable {
 
   public enum Format {
@@ -33,26 +31,26 @@ public interface DataGenerator extends Serializable {
     THRIFT
   }
 
-  default void init() throws Exception {
-  }
+  default void init() throws Exception {}
 
-  void configureSkewedProperties(List<String> propertyNames, Integer skewDegree,
-          Integer skewBuckets);
+  void configureSkewedProperties(
+      List<String> propertyNames, Integer skewDegree, Integer skewBuckets);
 
   Object createInstance(boolean allFieldsPopulated);
 
   Iterable<Object> createInstance(boolean allFieldsPopulated, Integer count);
 
-  KV<byte[], String> createInstanceAsBytesAndSchemaAsStringIfPresent(
-          boolean allFieldsPopulated) throws Exception;
+  KV<byte[], String> createInstanceAsBytesAndSchemaAsStringIfPresent(boolean allFieldsPopulated)
+      throws Exception;
 
   static DataGenerator createDataGenerator(
-          Format format,
-          Class clazz,
-          int minChars,
-          int maxChars,
-          int maxSizeCollectionType,
-          String filePath) throws IOException {
+      Format format,
+      Class clazz,
+      int minChars,
+      int maxChars,
+      int maxSizeCollectionType,
+      String filePath)
+      throws IOException {
     switch (format) {
       case AVRO_FROM_FILE:
         return AvroDataGenerator.createFromFile(filePath);
@@ -64,5 +62,4 @@ public interface DataGenerator extends Serializable {
         throw new IllegalArgumentException("The format is not supported.");
     }
   }
-
 }

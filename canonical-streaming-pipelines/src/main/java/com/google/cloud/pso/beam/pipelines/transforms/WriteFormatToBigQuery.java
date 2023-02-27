@@ -15,11 +15,11 @@
  */
 package com.google.cloud.pso.beam.pipelines.transforms;
 
-import com.google.cloud.pso.beam.common.formats.transforms.TransformTransportToFormat;
 import com.google.api.services.bigquery.model.TableRow;
 import com.google.api.services.bigquery.model.TableSchema;
 import com.google.cloud.pso.beam.common.Utilities;
 import com.google.cloud.pso.beam.common.formats.options.TransportFormatOptions;
+import com.google.cloud.pso.beam.common.formats.transforms.TransformTransportToFormat;
 import com.google.cloud.pso.beam.pipelines.options.BigQueryWriteOptions;
 import java.util.Random;
 import org.apache.avro.generic.GenericRecord;
@@ -70,21 +70,22 @@ public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>
   public PDone expand(PCollection<T> input) {
     var options = input.getPipeline().getOptions().as(BigQueryWriteOptions.class);
 
-    var write
-            = createBigQueryWriter()
-                    .withMethod(options.getBigQueryWriteMethod())
-                    .withoutValidation()
-                    .withWriteDisposition(BigQueryIO.Write.WriteDisposition.WRITE_APPEND)
-                    .withSuccessfulInsertsPropagation(false)
-                    .withExtendedErrorInfo();
+    var write =
+        createBigQueryWriter()
+            .withMethod(options.getBigQueryWriteMethod())
+            .withoutValidation()
+            .withWriteDisposition(BigQueryIO.Write.WriteDisposition.WRITE_APPEND)
+            .withSuccessfulInsertsPropagation(false)
+            .withExtendedErrorInfo();
 
     if (options.getTableDestinationCount() > 1) {
       var tableSchemaString = BigQueryHelpers.toJsonString(retrieveTableSchema(options));
       var tableCount = options.getTableDestinationCount();
       var tableSpec = options.getOutputTable();
       var shouldSkew = options.isDestinationTableLoadSkewed();
-      write = write
-              .to(new DynamicDestinations<T, Integer>() {
+      write =
+          write.to(
+              new DynamicDestinations<T, Integer>() {
                 private final Random rand = new Random();
 
                 @Override
@@ -107,8 +108,7 @@ public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>
                 }
               });
       if (options.isCreateBQTable()) {
-        write = write
-                .withCreateDisposition(BigQueryIO.Write.CreateDisposition.CREATE_IF_NEEDED);
+        write = write.withCreateDisposition(BigQueryIO.Write.CreateDisposition.CREATE_IF_NEEDED);
       } else {
         write = write.withCreateDisposition(BigQueryIO.Write.CreateDisposition.CREATE_NEVER);
       }
@@ -116,7 +116,8 @@ public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>
       write = write.to(options.getOutputTable() + (writingErrors ? "-failed" : ""));
       if (options.isCreateBQTable()) {
         var tableSchema = retrieveTableSchema(options);
-        write = write
+        write =
+            write
                 .withSchema(tableSchema)
                 .withCreateDisposition(BigQueryIO.Write.CreateDisposition.CREATE_IF_NEEDED);
 
@@ -136,9 +137,7 @@ public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>
 
     @Override
     protected BigQueryIO.Write<Row> createBigQueryWriter() {
-      return BigQueryIO
-              .<Row>write()
-              .useBeamSchema();
+      return BigQueryIO.<Row>write().useBeamSchema();
     }
   }
 
@@ -150,7 +149,8 @@ public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>
 
     @Override
     protected BigQueryIO.Write<GenericRecord> createBigQueryWriter() {
-      throw new NotImplementedException("Direct avro support for BigQueryIO on storage writes is not here for now.");
+      throw new NotImplementedException(
+          "Direct avro support for BigQueryIO on storage writes is not here for now.");
     }
   }
 
@@ -162,14 +162,11 @@ public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>
 
     @Override
     protected BigQueryIO.Write<TableRow> createBigQueryWriter() {
-      return BigQueryIO
-              .writeTableRows();
+      return BigQueryIO.writeTableRows();
     }
   }
 
   private static TableSchema retrieveTableSchema(TransportFormatOptions options) {
-    return BigQueryUtils.toTableSchema(
-            TransformTransportToFormat.retrieveRowSchema(options));
+    return BigQueryUtils.toTableSchema(TransformTransportToFormat.retrieveRowSchema(options));
   }
-
 }

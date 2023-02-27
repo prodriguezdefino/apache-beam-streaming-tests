@@ -16,14 +16,11 @@
 package com.google.cloud.pso.beam.pipelines.transforms;
 
 import com.google.bigtable.v2.Mutation;
-import com.google.cloud.pso.beam.common.Utilities;
 import com.google.cloud.pso.beam.common.transport.ErrorTransport;
 import com.google.cloud.pso.beam.pipelines.options.BigTableWriteOptions;
 import com.google.cloud.pso.beam.transforms.aggregations.AggregationResultTransport;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.primitives.Doubles;
-import com.google.common.primitives.Floats;
 import com.google.common.primitives.Longs;
 import com.google.protobuf.ByteString;
 import java.util.List;
@@ -39,17 +36,12 @@ import org.apache.beam.sdk.values.PDone;
 import org.apache.beam.sdk.values.TupleTag;
 import org.joda.time.Instant;
 
-/**
- * Transform the <AggregationResultTransport> and writes it into BigTable.
- */
-public class StoreInBigTable
-        extends PTransform<PCollection<AggregationResultTransport>, PDone> {
+/** Transform the <AggregationResultTransport> and writes it into BigTable. */
+public class StoreInBigTable extends PTransform<PCollection<AggregationResultTransport>, PDone> {
 
-  public static final TupleTag<ErrorTransport> FAILED_EVENTS = new TupleTag<>() {
-  };
+  public static final TupleTag<ErrorTransport> FAILED_EVENTS = new TupleTag<>() {};
 
-  StoreInBigTable() {
-  }
+  StoreInBigTable() {}
 
   public static StoreInBigTable store() {
     return new StoreInBigTable();
@@ -64,26 +56,23 @@ public class StoreInBigTable
     var options = input.getPipeline().getOptions().as(BigTableWriteOptions.class);
 
     input
-            .apply("TransformToMutations",
-                    ParDo.of(
-                            new TransformAggregationToMutation(
-                                    options.getBTColumnFamilyName())))
-            .apply("WriteOnBigTable",
-                    BigtableIO
-                            .write()
-                            .withProjectId(options.getBTProjectId())
-                            .withInstanceId(options.getBTInstanceId())
-                            .withTableId(options.getBTTableId()));
+        .apply(
+            "TransformToMutations",
+            ParDo.of(new TransformAggregationToMutation(options.getBTColumnFamilyName())))
+        .apply(
+            "WriteOnBigTable",
+            BigtableIO.write()
+                .withProjectId(options.getBTProjectId())
+                .withInstanceId(options.getBTInstanceId())
+                .withTableId(options.getBTTableId()));
 
     return PDone.in(input.getPipeline());
   }
 
   private static class TransformAggregationToMutation
-          extends DoFn<AggregationResultTransport, KV<ByteString, Iterable<Mutation>>> {
+      extends DoFn<AggregationResultTransport, KV<ByteString, Iterable<Mutation>>> {
 
-    record MutationInfo(ByteString key, Instant timestamp, BoundedWindow window) {
-
-    }
+    record MutationInfo(ByteString key, Instant timestamp, BoundedWindow window) {}
 
     private final String columnFamilyName;
     private Map<MutationInfo, List<Mutation>> mutations;
@@ -101,39 +90,31 @@ public class StoreInBigTable
     public void processElement(ProcessContext context, BoundedWindow window) {
       var result = context.element();
       mutations
-              .computeIfAbsent(
-                      new MutationInfo(
-                              ByteString.copyFromUtf8(buildStoreKey(result)),
-                              context.timestamp(),
-                              window),
-                      mutInfo -> Lists.newArrayList())
-              .add(Mutation
-                      .newBuilder()
-                      .setSetCell(
-                              Mutation.SetCell
-                                      .newBuilder()
-                                      .setTimestampMicros(
-                                              result.getEventEpochInMillis()
-                                                      .orElse(Instant.now()
-                                                              .getMillis()) * 1000)
-                                      .setValue(retrieveValue(result))
-                                      .setColumnQualifier(
-                                              ByteString.copyFromUtf8(
-                                                      buildColumnQualifier(result)))
-                                      .setFamilyName(columnFamilyName)
-                                      .build())
-                      .build());
+          .computeIfAbsent(
+              new MutationInfo(
+                  ByteString.copyFromUtf8(buildStoreKey(result)), context.timestamp(), window),
+              mutInfo -> Lists.newArrayList())
+          .add(
+              Mutation.newBuilder()
+                  .setSetCell(
+                      Mutation.SetCell.newBuilder()
+                          .setTimestampMicros(
+                              result.getEventEpochInMillis().orElse(Instant.now().getMillis())
+                                  * 1000)
+                          .setValue(retrieveValue(result))
+                          .setColumnQualifier(ByteString.copyFromUtf8(buildColumnQualifier(result)))
+                          .setFamilyName(columnFamilyName)
+                          .build())
+                  .build());
     }
 
     String buildStoreKey(AggregationResultTransport result) {
       return result.getAggregationKey().toString()
-              + result.getAggregationWindowTimestamp().map(ts -> "#" + ts).orElse("");
+          + result.getAggregationWindowTimestamp().map(ts -> "#" + ts).orElse("");
     }
 
     String buildColumnQualifier(AggregationResultTransport result) {
-      var timeComponent
-              = result.getAggregationWindowTimestamp()
-                      .orElse("NA");
+      var timeComponent = result.getAggregationWindowTimestamp().orElse("NA");
 
       var qualifier = result.getAggregationName();
       if (result.ifFinalValue()) {
@@ -143,35 +124,30 @@ public class StoreInBigTable
     }
 
     ByteString longInByteString(Long longValue) {
-      return ByteString
-              .copyFrom(Longs.toByteArray(longValue));
+      return ByteString.copyFrom(Longs.toByteArray(longValue));
     }
 
     ByteString retrieveValue(AggregationResultTransport result) {
       return switch (result.getType()) {
-        case DOUBLE ->
-          longInByteString(Double.doubleToLongBits((Double) result.getResult()));
-        case FLOAT ->
-          longInByteString((long) Float.floatToIntBits((Float) result.getResult()));
-        case INT ->
-          longInByteString(((Integer) result.getResult()).longValue());
-        case LONG ->
-          longInByteString((Long) result.getResult());
-        case STRING ->
-          ByteString.copyFromUtf8((String) result.getResult());
+        case DOUBLE -> longInByteString(Double.doubleToLongBits((Double) result.getResult()));
+        case FLOAT -> longInByteString((long) Float.floatToIntBits((Float) result.getResult()));
+        case INT -> longInByteString(((Integer) result.getResult()).longValue());
+        case LONG -> longInByteString((Long) result.getResult());
+        case STRING -> ByteString.copyFromUtf8((String) result.getResult());
       };
     }
 
     @FinishBundle
     public void finishBundle(FinishBundleContext context) {
-      mutations.entrySet().forEach(entry -> {
-        context.output(
-                KV.of(
-                        entry.getKey().key(),
-                        entry.getValue()),
-                entry.getKey().timestamp(),
-                entry.getKey().window());
-      });
+      mutations
+          .entrySet()
+          .forEach(
+              entry -> {
+                context.output(
+                    KV.of(entry.getKey().key(), entry.getValue()),
+                    entry.getKey().timestamp(),
+                    entry.getKey().window());
+              });
     }
   }
 }

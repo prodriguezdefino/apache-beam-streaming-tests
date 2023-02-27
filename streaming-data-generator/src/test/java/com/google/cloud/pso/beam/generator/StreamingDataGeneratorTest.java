@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Google Inc.
+ * Copyright (C) 2023 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -33,14 +33,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-/**
- *
- */
+/** */
 @RunWith(JUnit4.class)
 public class StreamingDataGeneratorTest {
 
-  public StreamingDataGeneratorTest() {
-  }
+  public StreamingDataGeneratorTest() {}
 
   @Test
   public void testMakeThriftMessage() {
@@ -65,9 +62,11 @@ public class StreamingDataGeneratorTest {
         throw new RuntimeException("Error while creating a TSerializer.", e);
       }
     }
-    System.out.println("Thrift gen size percentiles (bytes): "
+    System.out.println(
+        "Thrift gen size percentiles (bytes): "
             + Quantiles.percentiles().indexes(50, 90, 95).compute(sizes).toString());
-    System.out.println("Thrift gen time percentiles (ns): "
+    System.out.println(
+        "Thrift gen time percentiles (ns): "
             + Quantiles.percentiles().indexes(50, 90, 95).compute(times).toString());
   }
 
@@ -93,10 +92,11 @@ public class StreamingDataGeneratorTest {
       var serialized = out.toByteArray();
       sizes.add((long) serialized.length);
     }
-    System.out.println("Avro gen size percentiles (bytes): "
+    System.out.println(
+        "Avro gen size percentiles (bytes): "
             + Quantiles.percentiles().indexes(50, 90, 95).compute(sizes).toString());
-    System.out.println("Avro gen time percentiles (ns): "
+    System.out.println(
+        "Avro gen time percentiles (ns): "
             + Quantiles.percentiles().indexes(50, 90, 95).compute(times).toString());
   }
-
 }
