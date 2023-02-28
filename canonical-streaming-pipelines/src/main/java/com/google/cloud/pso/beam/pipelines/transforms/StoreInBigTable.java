@@ -36,7 +36,7 @@ import org.apache.beam.sdk.values.PDone;
 import org.apache.beam.sdk.values.TupleTag;
 import org.joda.time.Instant;
 
-/** Transform the <AggregationResultTransport> and writes it into BigTable. */
+/** Transform the {@link AggregationResultTransport} and writes it into BigTable. */
 public class StoreInBigTable extends PTransform<PCollection<AggregationResultTransport>, PDone> {
 
   public static final TupleTag<ErrorTransport> FAILED_EVENTS = new TupleTag<>() {};
@@ -101,7 +101,7 @@ public class StoreInBigTable extends PTransform<PCollection<AggregationResultTra
                           .setTimestampMicros(
                               result.getTransportEpochInMillis().orElse(Instant.now().getMillis())
                                   * 1000)
-                          .setValue(retrieveValue(result))
+                          .setValue(retrieveAggregationValueForStorage(result))
                           .setColumnQualifier(ByteString.copyFromUtf8(buildColumnQualifier(result)))
                           .setFamilyName(columnFamilyName)
                           .build())
@@ -120,14 +120,15 @@ public class StoreInBigTable extends PTransform<PCollection<AggregationResultTra
       if (result.ifFinalValue()) {
         qualifier = qualifier + "_final";
       }
-      return qualifier + ":" + timeComponent;
+      // encode the aggregation's name, expected type and max window timestamp as time component
+      return qualifier + ":" + result.getType().name() + ":" + timeComponent;
     }
 
     ByteString longInByteString(Long longValue) {
       return ByteString.copyFrom(Longs.toByteArray(longValue));
     }
 
-    ByteString retrieveValue(AggregationResultTransport result) {
+    ByteString retrieveAggregationValueForStorage(AggregationResultTransport result) {
       return switch (result.getType()) {
         case DOUBLE -> longInByteString(Double.doubleToLongBits((Double) result.getResult()));
         case FLOAT -> longInByteString((long) Float.floatToIntBits((Float) result.getResult()));
