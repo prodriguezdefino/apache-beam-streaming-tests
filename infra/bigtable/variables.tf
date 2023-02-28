@@ -33,7 +33,7 @@ variable min_nodes {
 }
 
 variable max_nodes {
-  default = "5"
+  default = "10"
 }
 
 variable cpu_target {

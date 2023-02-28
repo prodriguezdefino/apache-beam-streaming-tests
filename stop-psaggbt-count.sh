@@ -27,18 +27,28 @@ echo "draining dataflow jobs..."
 GEN_JOB_NAME=datagen-ps-`echo "$2" | tr _ -`-${USER}
 
 # get job id 
-GEN_JOB_ID=$(gcloud dataflow jobs list --filter="name=${GEN_JOB_NAME}" --status=active --format="value(JOB_ID)")
+GEN_JOB_ID=$(gcloud dataflow jobs list --filter="name=${GEN_JOB_NAME}" --status=active --format="value(JOB_ID)" --region=${REGION})
 # drain job
-[ ! -z "$GEN_JOB_ID" ] && gcloud dataflow jobs drain $GEN_JOB_ID
+if [ ! -z "$GEN_JOB_ID" ] 
+  then 
+    gcloud dataflow jobs drain $GEN_JOB_ID 
+    STATUS=""
+    while [ $STATUS != "JOB_STATE_DRAINED" ]; do STATUS=$(gcloud dataflow jobs describe ${GEN_JOB_ID} --format='value(currentState)' --region=${REGION}); done
+fi
 
 SUBSCRIPTION=$TOPIC-sub
 AGG_JOB_NAME=ps2bq-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
 
 # get job id 
-AGG_JOB_ID=$(gcloud dataflow jobs list --filter="name=${AGG_JOB_NAME}" --status=active --format="value(JOB_ID)")
+AGG_JOB_ID=$(gcloud dataflow jobs list --filter="name=${AGG_JOB_NAME}" --status=active --format="value(JOB_ID)" --region=${REGION})
 
 # drain job
-[ ! -z "$GEN_JOB_ID" ] && gcloud dataflow jobs drain $AGG_JOB_ID
+if [ ! -z "$AGG_JOB_ID" ] 
+  then 
+    gcloud dataflow jobs drain $AGG_JOB_ID 
+    STATUS=""
+    while [ $STATUS != "JOB_STATE_DRAINED" ]; do STATUS=$(gcloud dataflow jobs describe ${AGG_JOB_ID} --format='value(currentState)' --region=${REGION}); done
+fi
 
 echo "removing infrastructure"
 pushd infra

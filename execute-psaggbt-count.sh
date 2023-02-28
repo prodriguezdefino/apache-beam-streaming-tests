@@ -68,9 +68,10 @@ source ./execute-agg.sh $1 $SUBSCRIPTION $3 "\
   --BTTableId=aggregations \
   --aggregationKeyNames=uuid \
   --aggregationWindowInMinutes=15 \
+  --aggregationAllowedLatenessInMinutes=1 \
   --aggregationPartialTriggerSeconds=60 \
-  --aggregationDiscardPartialResults=false \
   --aggregationPartialTriggerEventCount=100000 \
+  --aggregationDiscardPartialResults=false \
   --outputTable=${PROJECT_ID}.${TOPIC}.aggregation \
  "$MORE_PARAMS
 
