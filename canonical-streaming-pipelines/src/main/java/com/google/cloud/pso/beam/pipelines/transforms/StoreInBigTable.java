@@ -16,9 +16,9 @@
 package com.google.cloud.pso.beam.pipelines.transforms;
 
 import com.google.bigtable.v2.Mutation;
+import com.google.cloud.pso.beam.common.transport.AggregationResultTransport;
 import com.google.cloud.pso.beam.common.transport.ErrorTransport;
 import com.google.cloud.pso.beam.pipelines.options.BigTableWriteOptions;
-import com.google.cloud.pso.beam.common.transport.AggregationResultTransport;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.primitives.Longs;
