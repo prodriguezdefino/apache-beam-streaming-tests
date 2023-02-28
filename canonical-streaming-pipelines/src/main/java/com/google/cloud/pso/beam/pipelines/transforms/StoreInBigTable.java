@@ -18,7 +18,7 @@ package com.google.cloud.pso.beam.pipelines.transforms;
 import com.google.bigtable.v2.Mutation;
 import com.google.cloud.pso.beam.common.transport.ErrorTransport;
 import com.google.cloud.pso.beam.pipelines.options.BigTableWriteOptions;
-import com.google.cloud.pso.beam.transforms.aggregations.AggregationResultTransport;
+import com.google.cloud.pso.beam.common.transport.AggregationResultTransport;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.primitives.Longs;
@@ -99,7 +99,7 @@ public class StoreInBigTable extends PTransform<PCollection<AggregationResultTra
                   .setSetCell(
                       Mutation.SetCell.newBuilder()
                           .setTimestampMicros(
-                              result.getEventEpochInMillis().orElse(Instant.now().getMillis())
+                              result.getTransportEpochInMillis().orElse(Instant.now().getMillis())
                                   * 1000)
                           .setValue(retrieveValue(result))
                           .setColumnQualifier(ByteString.copyFromUtf8(buildColumnQualifier(result)))
