@@ -16,7 +16,7 @@
 package com.google.cloud.pso.beam.pipelines;
 
 import com.google.cloud.pso.beam.common.compression.transforms.MaybeDecompressEvents;
-import com.google.cloud.pso.beam.options.CountByFieldsAggregationOptions;
+import com.google.cloud.pso.beam.options.AggregationOptions;
 import com.google.cloud.pso.beam.options.StreamingSourceOptions;
 import com.google.cloud.pso.beam.pipelines.options.BigQueryWriteOptions;
 import com.google.cloud.pso.beam.pipelines.options.BigTableWriteOptions;
@@ -38,7 +38,7 @@ public class StreamingSourceCountAggregation {
   /** Options for the streaming data generator */
   public interface StreamingSourceCountAggregationOptions
       extends StreamingSourceOptions,
-          CountByFieldsAggregationOptions,
+          AggregationOptions,
           BigTableWriteOptions,
           BigQueryWriteOptions {}
 

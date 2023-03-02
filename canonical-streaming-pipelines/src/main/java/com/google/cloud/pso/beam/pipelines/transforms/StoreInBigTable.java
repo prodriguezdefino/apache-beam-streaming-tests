@@ -37,14 +37,15 @@ import org.apache.beam.sdk.values.TupleTag;
 import org.joda.time.Instant;
 
 /** Transform the {@link AggregationResultTransport} and writes it into BigTable. */
-public class StoreInBigTable extends PTransform<PCollection<AggregationResultTransport>, PDone> {
+public class StoreInBigTable<Key, Res>
+    extends PTransform<PCollection<AggregationResultTransport<Key, Res>>, PDone> {
 
   public static final TupleTag<ErrorTransport> FAILED_EVENTS = new TupleTag<>() {};
 
   StoreInBigTable() {}
 
-  public static StoreInBigTable store() {
-    return new StoreInBigTable();
+  public static <Key, Res> StoreInBigTable<Key, Res> store() {
+    return new StoreInBigTable<>();
   }
 
   public static TupleTag<ErrorTransport> failedEvents() {
@@ -52,13 +53,13 @@ public class StoreInBigTable extends PTransform<PCollection<AggregationResultTra
   }
 
   @Override
-  public PDone expand(PCollection<AggregationResultTransport> input) {
+  public PDone expand(PCollection<AggregationResultTransport<Key, Res>> input) {
     var options = input.getPipeline().getOptions().as(BigTableWriteOptions.class);
 
     input
         .apply(
             "TransformToMutations",
-            ParDo.of(new TransformAggregationToMutation(options.getBTColumnFamilyName())))
+            ParDo.of(new TransformAggregationToMutation<>(options.getBTColumnFamilyName())))
         .apply(
             "WriteOnBigTable",
             BigtableIO.write()
@@ -69,8 +70,8 @@ public class StoreInBigTable extends PTransform<PCollection<AggregationResultTra
     return PDone.in(input.getPipeline());
   }
 
-  private static class TransformAggregationToMutation
-      extends DoFn<AggregationResultTransport, KV<ByteString, Iterable<Mutation>>> {
+  private static class TransformAggregationToMutation<Key, Res>
+      extends DoFn<AggregationResultTransport<Key, Res>, KV<ByteString, Iterable<Mutation>>> {
 
     record MutationInfo(ByteString key, Instant timestamp, BoundedWindow window) {}
 
@@ -108,12 +109,12 @@ public class StoreInBigTable extends PTransform<PCollection<AggregationResultTra
                   .build());
     }
 
-    String buildStoreKey(AggregationResultTransport result) {
+    String buildStoreKey(AggregationResultTransport<Key, Res> result) {
       return result.getAggregationKey().toString()
           + result.getAggregationWindowTimestamp().map(ts -> "#" + ts).orElse("");
     }
 
-    String buildColumnQualifier(AggregationResultTransport result) {
+    String buildColumnQualifier(AggregationResultTransport<Key, Res> result) {
       var timeComponent = result.getAggregationWindowTimestamp().orElse("NA");
 
       var qualifier = result.getAggregationName();
@@ -128,7 +129,7 @@ public class StoreInBigTable extends PTransform<PCollection<AggregationResultTra
       return ByteString.copyFrom(Longs.toByteArray(longValue));
     }
 
-    ByteString retrieveAggregationValueForStorage(AggregationResultTransport result) {
+    ByteString retrieveAggregationValueForStorage(AggregationResultTransport<Key, Res> result) {
       return switch (result.getType()) {
         case DOUBLE -> longInByteString(Double.doubleToLongBits((Double) result.getResult()));
         case FLOAT -> longInByteString((long) Float.floatToIntBits((Float) result.getResult()));
