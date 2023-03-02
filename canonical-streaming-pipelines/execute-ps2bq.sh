@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xeu
+set -eu
 # Usage : sh run.sh <gcp project> <subscription name> <gcs bucket name> 
 
 if [ "$#" -ne 3 ] && [ "$#" -ne 4 ]
@@ -28,9 +28,9 @@ LAUNCH_PARAMS=" \
  --project=${PROJECT_ID} \
  --runner=DataflowRunner \
  --streaming \
- --stagingLocation=${STAGING_PATH} \
- --tempLocation=${BUCKET}/.temp \
- --gcpTempLocation=${BUCKET}/.temp \
+ --stagingLocation=$STAGING_BUCKET/dataflow/staging \
+ --tempLocation=$STAGING_BUCKET/dataflow/temp \
+ --gcpTempLocation=$STAGING_BUCKET/dataflow/gcptemp \
  --outputTable=${OUTPUT_TABLE} \
  --numWorkers=1 \
  --maxNumWorkers=400 \

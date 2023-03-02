@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xeu
+set -eu
 
 if [ "$#" -ne 3 ] && [ "$#" -ne 4 ]
   then
@@ -10,12 +10,13 @@ fi
 
 PROJECT=$1
 TOPIC=$2
-STAGING_BUCKET=$3
+STAGING_BUCKET="gs://${3}"
 
 LAUNCH_PARAMS=" \
   --project=$PROJECT \
-  --stagingLocation=gs://$STAGING_BUCKET/dataflow/staging \
-  --tempLocation=gs://$STAGING_BUCKET/dataflow/temp \
+  --stagingLocation=$STAGING_BUCKET/dataflow/staging \
+  --tempLocation=$STAGING_BUCKET/dataflow/temp \
+  --gcpTempLocation=$STAGING_BUCKET/dataflow/gcptemp \
   --enableStreamingEngine \
   --numWorkers=50 \
   --maxNumWorkers=1000 \

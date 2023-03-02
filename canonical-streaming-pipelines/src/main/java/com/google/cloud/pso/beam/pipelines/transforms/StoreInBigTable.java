@@ -36,7 +36,12 @@ import org.apache.beam.sdk.values.PDone;
 import org.apache.beam.sdk.values.TupleTag;
 import org.joda.time.Instant;
 
-/** Transform the {@link AggregationResultTransport} and writes it into BigTable. */
+/**
+ * Transform the {@link AggregationResultTransport} and writes it into BigTable.
+ *
+ * @param <Key> The key type of the aggregation result
+ * @param <Res> the value type of the aggregation result
+ */
 public class StoreInBigTable<Key, Res>
     extends PTransform<PCollection<AggregationResultTransport<Key, Res>>, PDone> {
 
