@@ -34,7 +34,7 @@ public class StreamingSourceToBigQuery {
 
   private static final Logger LOG = LoggerFactory.getLogger(StreamingSourceToBigQuery.class);
 
-  /** Options for the streaming data generator */
+  /** Options for the ingestion pipeline */
   public interface StreamingSourceToBigQueryOptions
       extends StreamingSourceOptions, BigQueryWriteOptions {
 
@@ -46,7 +46,7 @@ public class StreamingSourceToBigQuery {
   }
 
   /**
-   * Sets up and starts generator pipeline.
+   * Sets up and starts ingestion pipeline.
    *
    * @param args
    * @throws

@@ -56,22 +56,40 @@ pushd canonical-streaming-pipelines
 SUBSCRIPTION=$2-sub
 JOB_NAME=ps2bq-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
 
+AGGREGATION_CONFIG_LOCATION="gs://${BUCKET}/aggregation-config.yaml"
+
+# This configuration creates an aggregation which will count the events entering on a 15min window, 
+# allowing arrival of up to 1min for late data and it will produce early firings at least every minute (or more if event count is achieved).
+# It expects incoming data in Thrift format, with the specified Thrift type as schema. 
+# It will group data by the value of the "uuid" field contained in the input type.
+echo "aggregations: 
+  - type: COUNT 
+    window: 
+      length: 15m 
+      lateness: 1m 
+      earlyFirings: 
+        enabled: true 
+        count: 100000 
+        time: 60s 
+        accumulating: true 
+    input:
+      format: THRIFT
+      thriftClassName: com.google.cloud.pso.beam.generator.thrift.CompoundEvent
+    fields:
+      key: 
+        - uuid
+" | gsutil cp  - ${AGGREGATION_CONFIG_LOCATION}
+
 source ./execute-agg.sh $1 $SUBSCRIPTION $3 "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
   --subscription=projects/${PROJECT_ID}/subscriptions/${SUBSCRIPTION} \
   --experiments=num_pubsub_keys=2048 \
   --experiments=use_pubsub_streaming \
-  --thriftClassName=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
   --BTProjectId=${PROJECT_ID} \
   --BTInstanceId=aggregations-instance \
   --BTTableId=aggregations \
-  --aggregationKeyNames=uuid \
-  --aggregationWindowInMinutes=15 \
-  --aggregationAllowedLatenessInMinutes=1 \
-  --aggregationPartialTriggerSeconds=60 \
-  --aggregationPartialTriggerEventCount=100000 \
-  --aggregationDiscardPartialResults=false \
+  --aggregationConfigurationLocation=${AGGREGATION_CONFIG_LOCATION} \
   --outputTable=${PROJECT_ID}.${TOPIC}.aggregation \
  "$MORE_PARAMS
 

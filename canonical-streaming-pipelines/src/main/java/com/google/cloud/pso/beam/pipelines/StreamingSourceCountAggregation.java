@@ -23,19 +23,22 @@ import com.google.cloud.pso.beam.pipelines.options.BigTableWriteOptions;
 import com.google.cloud.pso.beam.pipelines.transforms.StoreInBigQuery;
 import com.google.cloud.pso.beam.pipelines.transforms.StoreInBigTable;
 import com.google.cloud.pso.beam.transforms.ReadStreamingSource;
-import com.google.cloud.pso.beam.transforms.aggregations.CountByFieldsAggregation;
+import com.google.cloud.pso.beam.transforms.aggregations.ConfigurableAggregation;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
 import org.apache.beam.sdk.values.PCollectionList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Ingestion pipeline for BigQuery, reads data from a specified StreamingSource. */
+/**
+ * Ingestion pipeline that reads data from a specified StreamingSource, aggregates it based on
+ * provided configuration and stores it on BigTable.
+ */
 public class StreamingSourceCountAggregation {
 
   private static final Logger LOG = LoggerFactory.getLogger(StreamingSourceCountAggregation.class);
 
-  /** Options for the streaming data generator */
+  /** Options for the ingestion pipeline */
   public interface StreamingSourceCountAggregationOptions
       extends StreamingSourceOptions,
           AggregationOptions,
@@ -43,7 +46,7 @@ public class StreamingSourceCountAggregation {
           BigQueryWriteOptions {}
 
   /**
-   * Sets up and starts generator pipeline.
+   * Sets up and starts ingestion pipeline.
    *
    * @param args
    * @throws
@@ -63,9 +66,11 @@ public class StreamingSourceCountAggregation {
             .apply("ReadFromStreamingSource", ReadStreamingSource.create())
             .apply("MaybeDecompress", MaybeDecompressEvents.create());
 
+    // from the resulting events aggregate them based on the provided configuration and store them
+    // in BigTable
     maybeDecompressed
         .get(MaybeDecompressEvents.SUCCESSFULLY_PROCESSED_EVENTS)
-        .apply("CountByConfig", CountByFieldsAggregation.create())
+        .apply("AggregateByConfiguration", ConfigurableAggregation.create())
         .apply("StoreCountResults", StoreInBigTable.store());
 
     // process errors from the multiple previous stages
