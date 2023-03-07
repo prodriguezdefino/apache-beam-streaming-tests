@@ -20,6 +20,15 @@ BEAM_VERSION=2.46.0-SNAPSHOT
 PROJECT_ID=$1
 TOPIC=$2
 REGION=us-central1
+BUCKET=$3 
+
+echo "creating infrastructure"
+pushd infra
+
+# we need to create a ps topic+sub, bt instance + table, bq dataset and staging bucket 
+source ./tf-apply.sh $PROJECT_ID $TOPIC $BUCKET false true true
+
+popd
 
 echo "starting data generator"
 pushd streaming-data-generator
@@ -47,7 +56,7 @@ JOB_NAME=ps2bq-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
 source ./execute-ps2bq.sh $1 $SUBSCRIPTION $3 "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
-  --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
+  --thriftClassName=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
   --subscription=projects/${PROJECT_ID}/subscriptions/${SUBSCRIPTION} \
   --experiments=num_pubsub_keys=2048 \
   --experiments=use_pubsub_streaming \

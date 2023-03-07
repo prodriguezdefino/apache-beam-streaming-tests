@@ -16,6 +16,7 @@
 package com.google.cloud.pso.beam.pipelines;
 
 import com.google.cloud.pso.beam.common.compression.transforms.MaybeDecompressEvents;
+import com.google.cloud.pso.beam.common.formats.options.TransportFormatOptions;
 import com.google.cloud.pso.beam.options.StreamingSourceOptions;
 import com.google.cloud.pso.beam.pipelines.options.BigQueryWriteOptions;
 import com.google.cloud.pso.beam.pipelines.transforms.StoreInBigQuery;
@@ -36,7 +37,7 @@ public class StreamingSourceToBigQuery {
 
   /** Options for the ingestion pipeline */
   public interface StreamingSourceToBigQueryOptions
-      extends StreamingSourceOptions, BigQueryWriteOptions {
+      extends StreamingSourceOptions, TransportFormatOptions, BigQueryWriteOptions {
 
     @Description("FQCN of the UDF that will execute")
     @Default.String("")

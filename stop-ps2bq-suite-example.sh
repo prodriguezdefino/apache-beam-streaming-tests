@@ -14,8 +14,6 @@ then
   MORE_PARAMS=$MORE_PARAMS$4
 fi
 
-# Beam version var is unset, this will default in the pom.xml definitions
-BEAM_VERSION=2.46.0-SNAPSHOT
 # Other manual configurations
 PROJECT_ID=$1
 TOPIC=$2
@@ -48,14 +46,14 @@ GEN_JOB_NAME=datagen-ps-`echo "$2" | tr _ -`-${USER}
 drain_job $GEN_JOB_NAME $REGION
 
 SUBSCRIPTION=$TOPIC-sub
-AGG_JOB_NAME=psaggsbt-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
+ING_JOB_NAME=ps2bq-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
 
-drain_job $AGG_JOB_NAME $REGION
+drain_job $ING_JOB_NAME $REGION
 
 echo "removing infrastructure"
 pushd infra
 
 # answering anything but `yes` will keep the infra in place for review
-source ./tf-destroy.sh $PROJECT_ID $TOPIC $BUCKET true true true || 1
+source ./tf-destroy.sh $PROJECT_ID $TOPIC $BUCKET true false true || 1
 
 popd

@@ -21,6 +21,6 @@ resource "google_bigquery_dataset" "dataset" {
   description                 = "Dataset created for DF ingestion tests"
   location                    = "US"
   default_table_expiration_ms = 604800000
-
-  labels = local.bq_labels
+  labels                      = local.bq_labels
+  delete_contents_on_destroy  = true
 }
