@@ -33,7 +33,6 @@ import org.apache.beam.sdk.values.PCollection;
 import org.apache.beam.sdk.values.PDone;
 import org.apache.beam.sdk.values.Row;
 import org.apache.beam.sdk.values.ValueInSingleWindow;
-import org.apache.commons.lang.NotImplementedException;
 
 /**
  * Writes to BigQuery using StorageWrite API.
@@ -149,8 +148,7 @@ public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>
 
     @Override
     protected BigQueryIO.Write<GenericRecord> createBigQueryWriter() {
-      throw new NotImplementedException(
-          "Direct avro support for BigQueryIO on storage writes is not here for now.");
+      return BigQueryIO.writeGenericRecords();
     }
   }
 

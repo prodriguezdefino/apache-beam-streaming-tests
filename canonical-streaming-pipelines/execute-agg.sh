@@ -11,7 +11,7 @@ fi
 PROJECT_ID=$1
 BUCKET="gs://${3}"
 
-PIPELINE_NAME=StreamingSourceCountAggregation
+PIPELINE_NAME=StreamingSourceAggregation
 TOPIC=`echo $2 | awk -F "-sub" '{print $1}'`
 SUBSCRIPTION=$2
 

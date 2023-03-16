@@ -34,9 +34,9 @@ import org.slf4j.LoggerFactory;
  * Ingestion pipeline that reads data from a specified StreamingSource, aggregates it based on
  * provided configuration and stores it on BigTable.
  */
-public class StreamingSourceCountAggregation {
+public class StreamingSourceAggregation {
 
-  private static final Logger LOG = LoggerFactory.getLogger(StreamingSourceCountAggregation.class);
+  private static final Logger LOG = LoggerFactory.getLogger(StreamingSourceAggregation.class);
 
   /** Options for the ingestion pipeline */
   public interface StreamingSourceCountAggregationOptions

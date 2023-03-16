@@ -14,7 +14,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <beam.version>2.45.0</beam.version>
+    <beam.version>2.46.0</beam.version>
     <java.version>17</java.version>
     <slf4j.version>1.7.36</slf4j.version>
     <!-- tool versions -->

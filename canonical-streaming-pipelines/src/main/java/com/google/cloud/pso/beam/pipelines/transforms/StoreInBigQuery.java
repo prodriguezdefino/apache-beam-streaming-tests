@@ -20,7 +20,7 @@ import com.google.cloud.pso.beam.common.formats.transforms.TransformTransportToF
 import com.google.cloud.pso.beam.common.transport.ErrorTransport;
 import com.google.cloud.pso.beam.common.transport.EventTransport;
 import com.google.cloud.pso.beam.pipelines.options.BigQueryWriteOptions;
-import org.apache.beam.sdk.coders.AvroGenericCoder;
+import org.apache.beam.sdk.extensions.avro.coders.AvroGenericCoder;
 import org.apache.beam.sdk.transforms.Flatten;
 import org.apache.beam.sdk.transforms.PTransform;
 import org.apache.beam.sdk.values.PCollection;
