@@ -36,6 +36,10 @@
         <directory>${basedir}/src/main/avro</directory>
         <filtering>false</filtering>
       </resource>
+      <resource>
+        <directory>${basedir}/src/main/json</directory>
+        <filtering>false</filtering>
+      </resource>
     </resources>
 
     <plugins>
