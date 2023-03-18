@@ -16,6 +16,7 @@
 package com.google.cloud.pso.beam.generator;
 
 import com.google.cloud.pso.beam.generator.formats.AvroDataGenerator;
+import com.google.cloud.pso.beam.generator.formats.JSONDataGenerator;
 import com.google.cloud.pso.beam.generator.formats.ThriftDataGenerator;
 import java.io.IOException;
 import java.io.Serializable;
@@ -28,7 +29,8 @@ public interface DataGenerator extends Serializable {
   public enum Format {
     AVRO_FROM_FILE,
     AVRO_FROM_SCHEMA,
-    THRIFT
+    THRIFT,
+    JSON
   }
 
   default void init() throws Exception {}
@@ -58,6 +60,8 @@ public interface DataGenerator extends Serializable {
         return AvroDataGenerator.createFromSchema(filePath);
       case THRIFT:
         return ThriftDataGenerator.create(clazz, minChars, maxChars, maxSizeCollectionType);
+      case JSON:
+        return JSONDataGenerator.create(filePath, maxChars, minChars, maxSizeCollectionType);
       default:
         throw new IllegalArgumentException("The format is not supported.");
     }

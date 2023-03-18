@@ -71,7 +71,7 @@ public class ThriftDataGenerator implements DataGenerator {
   private final boolean allFieldPopulated = true;
   private final double randomFreq = RANDOM_ENABLER_THRESHOLD;
   private final Class clazz;
-  private List<String> skewedProperties;
+  private List<String> skewedProperties = List.of();
   private Integer skewDegree = 0;
   private Integer skewBuckets = 1000;
 

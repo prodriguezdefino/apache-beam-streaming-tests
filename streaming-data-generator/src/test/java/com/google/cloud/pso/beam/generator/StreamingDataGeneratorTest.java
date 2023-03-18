@@ -16,6 +16,7 @@
 package com.google.cloud.pso.beam.generator;
 
 import com.google.cloud.pso.beam.generator.formats.AvroDataGenerator;
+import com.google.cloud.pso.beam.generator.formats.JSONDataGenerator;
 import com.google.cloud.pso.beam.generator.formats.ThriftDataGenerator;
 import com.google.cloud.pso.beam.generator.thrift.CompoundEvent;
 import com.google.common.collect.Lists;
@@ -98,5 +99,13 @@ public class StreamingDataGeneratorTest {
     System.out.println(
         "Avro gen time percentiles (ns): "
             + Quantiles.percentiles().indexes(50, 90, 95).compute(times).toString());
+  }
+
+  @Test
+  public void testMakeJsonMessage() throws Exception {
+    var gen = new JSONDataGenerator("classpath://message-schema.json", 20, 10, 5);
+    gen.init();
+    var json = gen.createInstance(true);
+    Assert.assertNotNull(json);
   }
 }
