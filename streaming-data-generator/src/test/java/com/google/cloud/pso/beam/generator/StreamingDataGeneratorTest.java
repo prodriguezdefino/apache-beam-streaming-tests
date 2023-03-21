@@ -103,7 +103,7 @@ public class StreamingDataGeneratorTest {
 
   @Test
   public void testMakeJsonMessage() throws Exception {
-    var gen = new JSONDataGenerator("classpath://message-schema.json", 20, 10, 5);
+    var gen = new JSONDataGenerator("classpath://message-schema.json", 10, 20, 5);
     gen.init();
     var json = gen.createInstance(true);
     Assert.assertNotNull(json);
