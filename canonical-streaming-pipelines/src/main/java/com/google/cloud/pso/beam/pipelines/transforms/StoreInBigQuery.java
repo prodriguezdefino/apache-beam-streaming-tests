@@ -23,6 +23,9 @@ import com.google.cloud.pso.beam.pipelines.options.BigQueryWriteOptions;
 import org.apache.beam.sdk.extensions.avro.coders.AvroGenericCoder;
 import org.apache.beam.sdk.transforms.Flatten;
 import org.apache.beam.sdk.transforms.PTransform;
+import org.apache.beam.sdk.transforms.windowing.DefaultTrigger;
+import org.apache.beam.sdk.transforms.windowing.GlobalWindows;
+import org.apache.beam.sdk.transforms.windowing.Window;
 import org.apache.beam.sdk.values.PCollection;
 import org.apache.beam.sdk.values.PCollectionList;
 import org.apache.beam.sdk.values.PCollectionTuple;
@@ -98,7 +101,20 @@ public class StoreInBigQuery extends PTransform<PCollection<EventTransport>, PCo
 
     @Override
     public PDone expand(PCollectionList<ErrorTransport> input) {
-      input
+
+      var errorsToStore =
+          PCollectionList.of(
+              input.getAll().stream()
+                  // make sure all the input PCollections discard their window information
+                  .map(
+                      pc ->
+                          pc.apply(
+                              "rewindowIntoGlobal",
+                              Window.<ErrorTransport>into(new GlobalWindows())
+                                  .triggering(DefaultTrigger.of())))
+                  .toList());
+
+      errorsToStore
           .apply("FlattenErrors", Flatten.pCollections())
           .apply("TransformToRows", TransformTransportToFormat.transformErrorsToRows())
           .apply("WriteErrorsToBigQuery", WriteFormatToBigQuery.writeErrorsAsBeamRows());

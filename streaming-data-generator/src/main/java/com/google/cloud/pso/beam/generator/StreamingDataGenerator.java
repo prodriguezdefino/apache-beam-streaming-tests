@@ -17,6 +17,7 @@ package com.google.cloud.pso.beam.generator;
 
 import com.google.cloud.pso.beam.common.compression.CompressionUtils;
 import com.google.cloud.pso.beam.common.compression.thrift.ThriftCompression;
+import com.google.cloud.pso.beam.common.formats.TransportFormats;
 import com.google.cloud.pso.beam.common.transport.CommonTransport;
 import com.google.cloud.pso.beam.common.transport.EventTransport;
 import com.google.cloud.pso.beam.common.transport.coder.CommonTransportCoder;
@@ -111,15 +112,21 @@ public class StreamingDataGenerator {
 
     @Description("Format of the generated messages")
     @Default.Enum("THRIFT")
-    DataGenerator.Format getFormat();
+    TransportFormats.Format getFormat();
 
-    void setFormat(DataGenerator.Format value);
+    void setFormat(TransportFormats.Format value);
 
-    @Description("File path for the avro schema or already generated file with data to use.")
+    @Description("File path for the already generated AVRO file with data to use.")
     @Default.String("")
-    String getFilePath();
+    String getAvroFileLocation();
 
-    void setFilePath(String value);
+    void setAvroFileLocation(String value);
+
+    @Description("File location for the schema used to generate data (JSON or AVRO).")
+    @Default.String("")
+    String getSchemaFileLocation();
+
+    void setSchemaFileLocation(String value);
 
     @Description("A comma separated value string that indicates the fields that have certain skew.")
     @Default.String("")
@@ -161,18 +168,8 @@ public class StreamingDataGenerator {
     // Run generator pipeline
     var generator = Pipeline.create(options);
 
-    // capture class of the type that will be generated
-    var clazz = Class.forName(options.getClassName());
-
     // create a data generator for this class and based on the configured options
-    var gen =
-        DataGenerator.createDataGenerator(
-            options.getFormat(),
-            clazz,
-            options.getMinStringLength(),
-            options.getMaxStringLength(),
-            options.getMaxSizeCollection(),
-            options.getFilePath());
+    var gen = DataGenerator.createDataGenerator(options);
 
     gen.configureSkewedProperties(
         Arrays.asList(options.getFieldsWithSkew().split(",")),

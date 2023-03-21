@@ -68,13 +68,15 @@ public class StreamingSourceAggregation {
 
     // from the resulting events aggregate them based on the provided configuration and store them
     // in BigTable
-    maybeDecompressed
-        .get(MaybeDecompressEvents.SUCCESSFULLY_PROCESSED_EVENTS)
-        .apply("AggregateByConfiguration", ConfigurableAggregation.create())
-        .apply("StoreCountResults", StoreInBigTable.store());
+    var maybeStored =
+        maybeDecompressed
+            .get(MaybeDecompressEvents.SUCCESSFULLY_PROCESSED_EVENTS)
+            .apply("AggregateByConfiguration", ConfigurableAggregation.create())
+            .apply("StoreCountResults", StoreInBigTable.store());
 
     // process errors from the multiple previous stages
     PCollectionList.of(maybeDecompressed.get(MaybeDecompressEvents.FAILED_EVENTS))
+        .and(maybeStored.getFailedMutationTransformations())
         .apply("StoreErrorsInBigQuery", StoreInBigQuery.storeErrors());
 
     pipeline.run();

@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2023 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package com.google.cloud.pso.beam.generator.formats;
 
 import autovalue.shaded.com.google.common.base.Preconditions;
@@ -48,7 +63,7 @@ public class JSONDataGenerator implements DataGenerator {
   private final int maxSizeCollection;
 
   public JSONDataGenerator(
-      String dataSchemaPath, int maxChars, int minChars, int maxSizeCollection) {
+      String dataSchemaPath, int minChars, int maxChars, int maxSizeCollection) {
     this.dataSchemaPath = dataSchemaPath;
     this.maxChars = maxChars;
     this.minChars = minChars;
@@ -56,8 +71,8 @@ public class JSONDataGenerator implements DataGenerator {
   }
 
   public static JSONDataGenerator create(
-      String dataSchemaPath, int maxChars, int minChars, int maxSizeCollection) {
-    return new JSONDataGenerator(dataSchemaPath, maxChars, minChars, maxSizeCollection);
+      String dataSchemaPath, int minChars, int maxChars, int maxSizeCollection) {
+    return new JSONDataGenerator(dataSchemaPath, minChars, maxChars, maxSizeCollection);
   }
 
   @Override

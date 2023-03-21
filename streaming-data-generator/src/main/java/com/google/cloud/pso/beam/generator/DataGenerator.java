@@ -26,13 +26,6 @@ import org.apache.beam.sdk.values.KV;
 /** */
 public interface DataGenerator extends Serializable {
 
-  public enum Format {
-    AVRO_FROM_FILE,
-    AVRO_FROM_SCHEMA,
-    THRIFT,
-    JSON
-  }
-
   default void init() throws Exception {}
 
   void configureSkewedProperties(
@@ -46,24 +39,23 @@ public interface DataGenerator extends Serializable {
       throws Exception;
 
   static DataGenerator createDataGenerator(
-      Format format,
-      Class clazz,
-      int minChars,
-      int maxChars,
-      int maxSizeCollectionType,
-      String filePath)
-      throws IOException {
-    switch (format) {
-      case AVRO_FROM_FILE:
-        return AvroDataGenerator.createFromFile(filePath);
-      case AVRO_FROM_SCHEMA:
-        return AvroDataGenerator.createFromSchema(filePath);
-      case THRIFT:
-        return ThriftDataGenerator.create(clazz, minChars, maxChars, maxSizeCollectionType);
-      case JSON:
-        return JSONDataGenerator.create(filePath, maxChars, minChars, maxSizeCollectionType);
-      default:
-        throw new IllegalArgumentException("The format is not supported.");
-    }
+      StreamingDataGenerator.StreamingDataGeneratorOptions options)
+      throws IOException, ClassNotFoundException {
+    return switch (options.getFormat()) {
+      case AVRO -> options.getSchemaFileLocation().isBlank()
+          ? AvroDataGenerator.createFromFile(options.getAvroFileLocation())
+          : AvroDataGenerator.createFromSchema(options.getSchemaFileLocation());
+      case THRIFT -> ThriftDataGenerator.create(
+          Class.forName(options.getClassName()),
+          options.getMinStringLength(),
+          options.getMaxStringLength(),
+          options.getMaxSizeCollection());
+      case JSON -> JSONDataGenerator.create(
+          options.getSchemaFileLocation(),
+          options.getMinStringLength(),
+          options.getMaxStringLength(),
+          options.getMaxSizeCollection());
+      default -> throw new IllegalArgumentException("The format is not supported.");
+    };
   }
 }
