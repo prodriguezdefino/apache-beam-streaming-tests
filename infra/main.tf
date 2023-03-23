@@ -2,6 +2,8 @@
 module "bigtable_instance" {
   count = var.create_bigtable ? 1 : 0
   source = "./bigtable"
+  instance_name = "${var.run_name}-instance" 
+  table_name = var.run_name
 
   project = var.project
 }
@@ -11,7 +13,7 @@ module "bigquery_dataset" {
   source = "./bigquery"
 
   project = var.project
-  dataset_name = var.topic_name
+  dataset_name = var.run_name
 }
 
 module "pubsub_resources" {
@@ -19,12 +21,20 @@ module "pubsub_resources" {
   source = "./pubsub"
 
   project = var.project
-  topic_name = var.topic_name
+  topic_name = var.run_name
+}
+
+module "pubsublite_resources" {
+  count = var.create_pubsublite ? 1 : 0
+  source = "./pubsublite"
+
+  project = var.project
+  topic_name = var.run_name
 }
 
 resource "google_storage_bucket" "staging" {
   project       = var.project 
-  name          = var.staging_bucket_name
+  name          = "${var.run_name}-staging-${var.project}"
   location      = "US-CENTRAL1"
   storage_class = "REGIONAL"
   force_destroy = true
@@ -54,6 +64,8 @@ variable create_pubsub {
     type = bool
 }
 
-variable topic_name {}
+variable create_pubsublite { 
+    type = bool
+}
 
-variable staging_bucket_name {}
+variable run_name {}

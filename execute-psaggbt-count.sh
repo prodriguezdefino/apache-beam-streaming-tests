@@ -20,13 +20,13 @@ BEAM_VERSION=
 PROJECT_ID=$1
 TOPIC=$2
 REGION=us-central1
-BUCKET=$3
+BUCKET=$2-staging-$1
 
 echo "creating infrastructure"
 pushd infra
 
 # we need to create a ps topic+sub, bq dataset, bt instance + table and staging bucket 
-source ./tf-apply.sh $PROJECT_ID $TOPIC $BUCKET true true true
+source ./tf-apply.sh $PROJECT_ID $TOPIC $BUCKET true true true false
 
 popd
 
@@ -35,7 +35,7 @@ pushd streaming-data-generator
 
 JOB_NAME=datagen-ps-`echo "$2" | tr _ -`-${USER}
 
-source ./execute-generator.sh $1 $2 $3 " \
+source ./execute-generator.sh $PROJECT_ID $BUCKET " \
   --jobName=${JOB_NAME} \
   --region=${REGION} \
   --outputTopic=projects/${PROJECT_ID}/topics/${TOPIC} \
@@ -87,10 +87,10 @@ source ./execute-agg.sh $1 $SUBSCRIPTION $3 "\
   --experiments=num_pubsub_keys=2048 \
   --experiments=use_pubsub_streaming \
   --BTProjectId=${PROJECT_ID} \
-  --BTInstanceId=aggregations-instance \
-  --BTTableId=aggregations \
+  --BTInstanceId=${TOPIC}-instance \
+  --BTTableId=${TOPIC} \
   --aggregationConfigurationLocation=${AGGREGATION_CONFIG_LOCATION} \
-  --outputTable=${PROJECT_ID}.${TOPIC}.aggregation \
+  --outputTable=${PROJECT_ID}.${TOPIC}.${TOPIC}-errors \
  "$MORE_PARAMS
 
 popd

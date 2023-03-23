@@ -1,17 +1,17 @@
 #!/bin/bash
 set -eu
 
-if [ "$#" -ne 3 ] && [ "$#" -ne 4 ]
+if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]
   then
-    echo "Usage : sh execute-suite-example.sh <gcp project> <topic name> <staging gcs bucket name> <optional params>" 
+    echo "Usage : sh execute-suite-example.sh <gcp project> <run name> <optional params>" 
     exit -1
 fi
 
 MORE_PARAMS=""
 
-if (( $# == 4 ))
+if (( $# == 3 ))
 then
-  MORE_PARAMS=$MORE_PARAMS$4
+  MORE_PARAMS=$MORE_PARAMS$3
 fi
 
 # Beam version var is unset, this will default in the pom.xml definitions
@@ -20,13 +20,13 @@ BEAM_VERSION=
 PROJECT_ID=$1
 TOPIC=$2
 REGION=us-central1
-BUCKET=$3 
+BUCKET=$2-staging-$1
 
 echo "creating infrastructure"
 pushd infra
 
-# we need to create a ps topic+sub, bt instance + table, bq dataset and staging bucket 
-source ./tf-apply.sh $PROJECT_ID $TOPIC $BUCKET false true true
+# we need to create a ps topic+sub, bq dataset, bq dataset and staging bucket 
+source ./tf-apply.sh $PROJECT_ID $TOPIC false true true false
 
 popd
 
@@ -35,7 +35,7 @@ pushd streaming-data-generator
 
 JOB_NAME=datagen-ps-`echo "$2" | tr _ -`-${USER}
 
-source ./execute-generator.sh $1 $2 $3 " \
+source ./execute-generator.sh $PROJECT_ID $BUCKET " \
   --jobName=${JOB_NAME} \
   --region=${REGION} \
   --outputTopic=projects/${PROJECT_ID}/topics/${TOPIC} \
@@ -52,8 +52,10 @@ pushd canonical-streaming-pipelines
 
 SUBSCRIPTION=$2-sub
 JOB_NAME=ps2bq-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
+BQ_TABLE_NAME=`echo "$SUBSCRIPTION" | tr - _`
+BQ_DATASET_ID=`echo "${TOPIC}" | tr - _`
 
-source ./execute-ps2bq.sh $1 $SUBSCRIPTION $3 "\
+source ./execute-ps2bq.sh $1 $SUBSCRIPTION $BUCKET "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
   --thriftClassName=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
@@ -64,6 +66,7 @@ source ./execute-ps2bq.sh $1 $SUBSCRIPTION $3 "\
   --bigQueryWriteMethod=STORAGE_WRITE_API \
   --storageWriteApiTriggeringFrequencySec=5 \
   --numStorageWriteApiStreams=50 \
+  --outputTable=${PROJECT_ID}:${BQ_DATASET_ID}.stream_${BQ_TABLE_NAME} \
   --tableDestinationCount=1 "$MORE_PARAMS
 
 popd

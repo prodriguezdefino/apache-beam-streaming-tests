@@ -26,13 +26,13 @@ variable "partition_count" {
 }
 
 variable "publish_throughput_mbs" {
-  description = "The max throughput in MBs for publishing"
-  default = 40
+  description = "The max throughput per partition in MBs for publishing"
+  default = 4
 }
 
 variable "subscribe_throughput_mbs" {
-  description = "The max throughput in MBs for subscribing"
-  default = 80
+  description = "The max throughput per partition in MBs for subscribing"
+  default = 8
 }
 
 variable "bytes_per_partition" {

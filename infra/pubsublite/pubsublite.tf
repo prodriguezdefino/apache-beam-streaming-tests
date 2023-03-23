@@ -29,10 +29,13 @@ resource "google_pubsub_lite_topic" "psl_topic" {
   }
 }
 
-
 resource "google_pubsub_lite_subscription" "psl_subscription" {
   name  = "${var.topic_name}-sub"
   topic = google_pubsub_lite_topic.psl_topic.name
+  project = data.google_project.project.number
+  region = var.region   
+  zone = var.zone
+
   delivery_config {
     delivery_requirement = "DELIVER_AFTER_STORED"
   }

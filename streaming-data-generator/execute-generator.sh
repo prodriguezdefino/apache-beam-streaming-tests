@@ -1,16 +1,15 @@
 #!/bin/bash
 set -eu
 
-if [ "$#" -ne 3 ] && [ "$#" -ne 4 ]
+if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]
   then
-    echo "Usage : sh run.sh <gcp project> <topic> <staging gcs bucket name> <optional params>"
+    echo "Usage : sh run.sh <gcp project> <staging gcs bucket name> <optional params>"
     exit -1
 fi
 
 
 PROJECT=$1
-TOPIC=$2
-STAGING_BUCKET="gs://${3}"
+STAGING_BUCKET="gs://${2}"
 
 LAUNCH_PARAMS=" \
   --project=$PROJECT \
@@ -27,9 +26,9 @@ LAUNCH_PARAMS=" \
 #  --network=some-network \
 #  --subnetwork=https://www.googleapis.com/compute/v1/projects/some-project/regions/us-central1/subnetworks/some-subnetwork \
 
-if (( $# == 4 ))
+if (( $# == 3 ))
 then
-  LAUNCH_PARAMS=$LAUNCH_PARAMS$4
+  LAUNCH_PARAMS=$LAUNCH_PARAMS$3
 fi
 
 if [[ -z "${BEAM_VERSION}" ]]; then

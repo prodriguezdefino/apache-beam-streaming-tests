@@ -21,8 +21,6 @@ BQ_DATASET_ID=`echo "${TOPIC}" | tr - _`
 BQ_PROJECT_ID=${PROJECT_ID}
 
 STAGING_BUCKET=${BUCKET}
-STAGING_PATH=${STAGING_BUCKET}"/.staging/"
-OUTPUT_TABLE=${BQ_PROJECT_ID}:${BQ_DATASET_ID}.prefix_${BQ_TABLE_NAME}
 
 LAUNCH_PARAMS=" \
  --project=${PROJECT_ID} \
@@ -31,7 +29,6 @@ LAUNCH_PARAMS=" \
  --stagingLocation=$STAGING_BUCKET/dataflow/staging \
  --tempLocation=$STAGING_BUCKET/dataflow/temp \
  --gcpTempLocation=$STAGING_BUCKET/dataflow/gcptemp \
- --outputTable=${OUTPUT_TABLE} \
  --numWorkers=1 \
  --maxNumWorkers=400 \
  --experiments=min_num_workers=1 \

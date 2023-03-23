@@ -1,17 +1,17 @@
 #!/bin/bash
 set -eu
 
-if [ "$#" -ne 3 ] && [ "$#" -ne 4 ]
+if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]
   then
-    echo "Usage : sh execute-suite-example.sh <gcp project> <a string containing topic/bootstrap-servers> <staging gcs bucket name> <optional params>" 
+    echo "Usage : sh execute-suite-example.sh <gcp project> <a string containing topic/bootstrap-servers> <optional params>" 
     exit -1
 fi
 
 MORE_PARAMS=""
 
-if (( $# == 4 ))
+if (( $# == 3 ))
 then
-  MORE_PARAMS=$MORE_PARAMS$4
+  MORE_PARAMS=$MORE_PARAMS$3
 fi
 
 # Beam version var is unset, this will default in the pom.xml definitions
@@ -21,13 +21,14 @@ PROJECT_ID=$1
 TOPIC_AND_BOOTSTRAPSERVERS=$2
 REGION=us-central1
 ZONE=us-central1-a
+BUCKET=$2-staging-$1
 
 echo "starting data generator"
 pushd streaming-data-generator
 
 JOB_NAME=datagen-kafka-`echo "$2" | tr _ -`-${USER}
 
-source ./execute-generator.sh $1 $2 $3 "\
+source ./execute-generator.sh $PROJECT_ID $BUCKET "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
   --outputTopic=${TOPIC_AND_BOOTSTRAPSERVERS} \
@@ -45,7 +46,7 @@ pushd canonical-streaming-pipelines
 
 JOB_NAME=kafka2bq-`echo "$2" | tr _ -`-${USER}
 
-source ./execute-ps2bq.sh $1 $SUBSCRIPTION $3 "\
+source ./execute-ps2bq.sh $PROJECT_ID $SUBSCRIPTION $BUCKET "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
   --subscription=${TOPIC_AND_BOOTSTRAPSERVERS} \

@@ -40,12 +40,12 @@ function drain_job(){
 
 echo "draining dataflow jobs..."
 
-GEN_JOB_NAME=datagen-ps-`echo "$2" | tr _ -`-${USER}
+GEN_JOB_NAME=datagen-pslite-`echo "$2" | tr _ -`-${USER}
 
 drain_job $GEN_JOB_NAME $REGION
 
 SUBSCRIPTION=$TOPIC-sub
-ING_JOB_NAME=ps2bq-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
+ING_JOB_NAME=pslite2bq-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
 
 drain_job $ING_JOB_NAME $REGION
 
@@ -53,6 +53,6 @@ echo "removing infrastructure"
 pushd infra
 
 # answering anything but `yes` will keep the infra in place for review
-source ./tf-destroy.sh $PROJECT_ID $TOPIC false true true false || 1
+source ./tf-destroy.sh $PROJECT_ID $TOPIC false true false true || 1
 
 popd
