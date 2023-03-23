@@ -106,6 +106,37 @@
     </dependencies>
   </dependencyManagement>
   
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.beam</groupId>
+      <artifactId>beam-sdks-java-io-google-cloud-platform</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.thrift</groupId>
+      <artifactId>libthrift</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.avro</groupId>
+      <artifactId>avro-thrift</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.erosb</groupId>
+      <artifactId>everit-json-schema</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.beam</groupId>
+      <artifactId>beam-sdks-java-io-parquet</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.beam</groupId>
+      <artifactId>beam-sdks-java-io-kafka</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.beam</groupId>
+      <artifactId>beam-runners-google-cloud-dataflow-java</artifactId>
+    </dependency>
+  </dependencies>
+  
   <build>
     <resources>
       <resource>
@@ -241,11 +272,19 @@
     </repository>
   </repositories>
 
-  <modules>
-    <module>apache-beam-ptransforms</module>
-    <module>types</module>
-    <module>streaming-data-generator</module>
-    <module>canonical-streaming-pipelines</module>
-  </modules>
+  <profiles>
+    <profile>
+      <id>modules</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <modules>
+        <module>apache-beam-ptransforms</module>
+        <module>types</module>
+        <module>streaming-data-generator</module>
+        <module>canonical-streaming-pipelines</module>
+      </modules>
+    </profile>
+  </profiles>
 </project>
 
