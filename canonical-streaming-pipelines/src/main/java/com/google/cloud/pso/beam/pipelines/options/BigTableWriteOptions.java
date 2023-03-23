@@ -23,25 +23,12 @@ import org.apache.beam.sdk.options.Validation;
 /** A collection of options needed when writing to BigQuery. */
 public interface BigTableWriteOptions extends PipelineOptions {
 
-  @Description("The project id hosting the BigTable instance.")
+  @Description("The URL of the BigTable table to store the data (<project>.<bt-instance>.<table>).")
   @Validation.Required
-  String getBTProjectId();
+  String getAggregationDestination();
 
-  void setBTProjectId(String value);
+  void setAggregationDestination(String value);
 
-  @Description("The BigTable instance id.")
-  @Validation.Required
-  String getBTInstanceId();
-
-  void setBTInstanceId(String value);
-
-  @Description("The BigTable table identifier.")
-  @Validation.Required
-  String getBTTableId();
-
-  void setBTTableId(String value);
-
-  @Description("The BigTable table column family name.")
   @Default.String("aggregation_results")
   String getBTColumnFamilyName();
 

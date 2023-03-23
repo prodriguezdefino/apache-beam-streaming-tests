@@ -20,6 +20,7 @@ import com.google.cloud.pso.beam.common.transport.AggregationResultTransport;
 import com.google.cloud.pso.beam.common.transport.CommonErrorTransport;
 import com.google.cloud.pso.beam.common.transport.ErrorTransport;
 import com.google.cloud.pso.beam.pipelines.options.BigTableWriteOptions;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.primitives.Longs;
@@ -66,6 +67,12 @@ public class StoreInBigTable<Key, Res>
       PCollection<AggregationResultTransport<Key, Res>> input) {
     var options = input.getPipeline().getOptions().as(BigTableWriteOptions.class);
 
+    var aggDestination = options.getAggregationDestination().split("\\.");
+
+    Preconditions.checkState(
+        aggDestination.length == 3,
+        "The aggregation's destination format should be <project>.<bt-instance>.<table>");
+
     var maybeMutations =
         input.apply(
             "TransformToMutations",
@@ -77,9 +84,9 @@ public class StoreInBigTable<Key, Res>
         .apply(
             "WriteOnBigTable",
             BigtableIO.write()
-                .withProjectId(options.getBTProjectId())
-                .withInstanceId(options.getBTInstanceId())
-                .withTableId(options.getBTTableId()));
+                .withProjectId(aggDestination[0])
+                .withInstanceId(aggDestination[1])
+                .withTableId(aggDestination[2]));
 
     return MutationTransformationErrors.of(
         input.getPipeline(), maybeMutations.get(FAILED_EVENTS), FAILED_EVENTS);
