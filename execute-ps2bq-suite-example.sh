@@ -50,7 +50,7 @@ popd
 echo "starting processing pipeline"
 pushd canonical-streaming-pipelines
 
-SUBSCRIPTION=$2-sub
+SUBSCRIPTION=$TOPIC-sub
 JOB_NAME=ps2bq-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
 BQ_TABLE_NAME=`echo "$SUBSCRIPTION" | tr - _`
 BQ_DATASET_ID=`echo "${TOPIC}" | tr - _`
