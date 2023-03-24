@@ -1,0 +1,125 @@
+{
+  "name": "Streaming Data Generator Pipeline",
+  "description": "An Apache Beam streaming pipeline which generates random data (based on the provided format and configuration) and sends it to the selected streaming infrastructure.",
+  "parameters": [
+    {
+      "name": "outputTopic",
+      "label": "The output topic to send the data",
+      "helpText": "The output topic to send the data to",
+      "isOptional": false,
+      "regexes": []
+    },
+    {
+      "name": "maxRecordsPerBatch",
+      "label": "The quantity of records that are included in a data batch",
+      "helpText": "The quantity of records that are included in a data batch",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "sinkType",
+      "label": "The type of the sink where data is being sent",
+      "helpText": "The type of the sink where data is being sent to",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "generatorRatePerSec",
+      "label": "The quantity of data to be generated per second",
+      "helpText": "The quantity of data to be generated per second",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "className",
+      "label": "The thrift FQCN that will be used to generate data for",
+      "helpText": "The thrift FQCN that will be used to generate data for",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "minStringLength",
+      "label": "The min length for the generated string content",
+      "helpText": "The min length for the generated string content",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "maxStringLength",
+      "label": "The max length for the string content",
+      "helpText": "The max length for the string content",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "maxSizeCollection",
+      "label": "The max size of all collection types",
+      "helpText": "The max size of all collection types",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "compressionEnabled",
+      "label": "Enables compression and batching of the generated elements",
+      "helpText": "Enables compression and batching of the generated elements",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "completeObjects",
+      "label": "Generates complete objects",
+      "helpText": "Generates data even when the field is marked as optional",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "compressionLevel",
+      "label": "The level of compression",
+      "helpText": "from 1-6",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "format",
+      "label": "The format of the data to generate",
+      "helpText": "Supported are AVRO, THRIFT, JSON",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "avroFileLocation",
+      "label": "The location of the AVRO data file to use as input",
+      "helpText": "After reading the data from the file, the generator will randomically select records and send them downstream",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "schemaFileLocation",
+      "label": "The location of the schema file used for data generator",
+      "helpText": "JSON and AVRO generators can use this property",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "fieldsWithSkew",
+      "label": "Selects the first level fields on the generated data that present a skew degree",
+      "helpText": "Skewed fields will have data that appear more frequently",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "skewDegree",
+      "label": "The skew degree, a higher value implies a closer clustering",
+      "helpText": "The skew degree, a higher value implies a closer clustering",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "skewBuckets",
+      "label": "The number of different elements that will be skewed",
+      "helpText": "The number of different elements that will be skewed",
+      "isOptional": true,
+      "regexes": []
+    }
+  ]
+}

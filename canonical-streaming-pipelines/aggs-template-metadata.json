@@ -1,0 +1,59 @@
+{
+  "name": "Streaming Aggregations Pipeline",
+  "description": "An Apache Beam streaming pipeline which reads data from a streaming infrastructure source, aggregates data based on the provided configuration and write the results in the provided BigTable instance.",
+  "parameters": [
+    {
+      "name": "sourceType",
+      "label": "Source type",
+      "helpText": "Select between PubSub, PubSubLite and Kafka.",
+      "isOptional": true,
+      "regexes": [
+        "PUBSUB|PUBSUBLITE|KAFKA"
+      ]
+    },
+    {
+      "name": "aggregationConfigurationLocation",
+      "label": "Location of the configuration file",
+      "helpText": "The path for the configuration for the aggregations.",
+      "isOptional": false,
+      "regexes": [
+        "[^:]+.[^.]+[.].+|(gs:\/\/)(([a-zA-Z_$][a-zA-Z0-9_$-]*)\/?)+"
+      ]
+    },
+    {
+      "name": "outputTable",
+      "label": "BigQuery table for processing errors",
+      "helpText": "The path for the configuration for the aggregations.",
+      "isOptional": false,
+      "regexes": []
+    },
+    {
+      "name": "aggregationDestination",
+      "label": "The destination URL for the aggregations",
+      "helpText": "The path for the configuration for the aggregations.",
+      "isOptional": false,
+      "regexes": []
+    },
+    {
+      "name": "subscription",
+      "label": "Subscription",
+      "helpText": "The streaming infrastructure subscription.",
+      "isOptional": false,
+      "regexes": []
+    },
+    {
+      "name": "streaming",
+      "label": "Streaming flag",
+      "helpText": "Sets the pipeline as a streaming one.",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "enableStreamingEngine",
+      "label": "Enables streaming engine",
+      "helpText": "Enables streaming engine.",
+      "isOptional": true,
+      "regexes": []
+    }
+  ]
+}

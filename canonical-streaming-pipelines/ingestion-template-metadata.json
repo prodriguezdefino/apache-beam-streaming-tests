@@ -1,0 +1,85 @@
+{
+  "name": "Streaming Aggregations Pipeline",
+  "description": "An Apache Beam streaming pipeline which reads data from a streaming infrastructure source, aggregates data based on the provided configuration and write the results in the provided BigTable instance.",
+  "parameters": [
+    {
+      "name": "sourceType",
+      "label": "Source type",
+      "helpText": "Select between PubSub, PubSubLite and Kafka.",
+      "isOptional": true,
+      "regexes": [
+        "PUBSUB|PUBSUBLITE|KAFKA"
+      ]
+    },
+    {
+      "name": "createBQTable",
+      "label": "If the pipeline should create the BigQuery table before launching.",
+      "helpText": "If the pipeline should create the BigQuery table before launching.",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "thriftClassName",
+      "label": "The type of the thrift object used to ingest data.",
+      "helpText": "The type of the thrift object used to ingest data.",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "subscription",
+      "label": "The subscription source",
+      "helpText": "The subscription source",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "useStorageApiConnectionPool",
+      "label": "Enables connection pool management for StorageWrite method",
+      "helpText": "This works when using StorageWrite method",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "bigQueryWriteMethod",
+      "label": "The method used to write to BigQuery",
+      "helpText": "The method used to write to BigQuery",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "storageWriteApiTriggeringFrequencySec",
+      "label": "The time frequency used to flush data to BigQuery",
+      "helpText": "This works when using consitent StorageWrite mode",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "numStorageWriteApiStreams",
+      "label": "The number of BigQuery StorageWrite API streams to use for ingest data",
+      "helpText": "This works when using consitent StorageWrite mode",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "outputTable",
+      "label": "The BigQuery output table to ingest data to",
+      "helpText": "The BigQuery output table to ingest data to",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "tableDestinationCount",
+      "label": "The number of destination tables where data will be distributed to",
+      "helpText": "The number of destination tables where data will be distributed to",
+      "isOptional": true,
+      "regexes": []
+    },
+    {
+      "name": "enableStreamingEngine",
+      "label": "Enables streaming engine",
+      "helpText": "Enables streaming engine.",
+      "isOptional": true,
+      "regexes": []
+    }
+  ]
+}
