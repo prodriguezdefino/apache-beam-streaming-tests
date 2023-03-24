@@ -36,17 +36,17 @@ pushd streaming-data-generator
 
 JOB_NAME=datagen-pslite-`echo "$2" | tr _ -`-${USER}
 
-#source ./execute-generator.sh $PROJECT_ID $BUCKET "\
-#  --jobName=${JOB_NAME} \
-#  --region=${REGION} \
-#  --workerZone=${ZONE} \
-#  --outputTopic=projects/${PROJECT_ID}/locations/${ZONE}/topics/${TOPIC} \
-#  --sinkType=PUBSUBLITE \
-#  --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
-#  --generatorRatePerSec=10000 \
-#  --maxRecordsPerBatch=100 \
-#  --compressionEnabled=false \
-#  --completeObjects=true "$MORE_PARAMS
+source ./execute-generator.sh $PROJECT_ID $BUCKET "\
+  --jobName=${JOB_NAME} \
+  --region=${REGION} \
+  --workerZone=${ZONE} \
+  --outputTopic=projects/${PROJECT_ID}/locations/${ZONE}/topics/${TOPIC} \
+  --sinkType=PUBSUBLITE \
+  --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
+  --generatorRatePerSec=10000 \
+  --maxRecordsPerBatch=100 \
+  --compressionEnabled=false \
+  --completeObjects=true "$MORE_PARAMS
 
 popd
 
@@ -58,7 +58,7 @@ JOB_NAME=pslite2bq-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
 BQ_TABLE_NAME=`echo "$SUBSCRIPTION" | tr - _`
 BQ_DATASET_ID=`echo "${TOPIC}" | tr - _`
 
-source ./execute-ps2bq.sh $1 $SUBSCRIPTION $BUCKET "\
+source ./execute-ingestion.sh $1 $SUBSCRIPTION $BUCKET "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
   --workerZone=${ZONE} \

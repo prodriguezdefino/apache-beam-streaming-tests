@@ -55,7 +55,7 @@ JOB_NAME=ps2bq-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
 BQ_TABLE_NAME=`echo "$SUBSCRIPTION" | tr - _`
 BQ_DATASET_ID=`echo "${TOPIC}" | tr - _`
 
-source ./execute-ps2bq.sh $1 $SUBSCRIPTION $BUCKET "\
+source ./execute-ingestion.sh $1 $SUBSCRIPTION $BUCKET "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
   --thriftClassName=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \

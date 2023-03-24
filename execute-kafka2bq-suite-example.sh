@@ -46,7 +46,7 @@ pushd canonical-streaming-pipelines
 
 JOB_NAME=kafka2bq-`echo "$2" | tr _ -`-${USER}
 
-source ./execute-ps2bq.sh $PROJECT_ID $SUBSCRIPTION $BUCKET "\
+source ./execute-ingestion.sh $PROJECT_ID $SUBSCRIPTION $BUCKET "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
   --subscription=${TOPIC_AND_BOOTSTRAPSERVERS} \
