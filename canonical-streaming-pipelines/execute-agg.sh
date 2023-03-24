@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -xeu
 # Usage : sh run.sh <gcp project> <subscription name> <gcs bucket name> 
 
 if [ "$#" -ne 3 ] && [ "$#" -ne 4 ]

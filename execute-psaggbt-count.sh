@@ -1,17 +1,17 @@
 #!/bin/bash
 set -eu
 
-if [ "$#" -ne 3 ] && [ "$#" -ne 4 ]
+if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]
   then
-    echo "Usage : sh execute-suite-example.sh <gcp project> <topic name> <staging gcs bucket name> <optional params>" 
+    echo "Usage : sh execute-suite-example.sh <gcp project> <topic name> <optional params>" 
     exit -1
 fi
 
 MORE_PARAMS=""
 
-if (( $# == 4 ))
+if (( $# == 3 ))
 then
-  MORE_PARAMS=$MORE_PARAMS$4
+  MORE_PARAMS=$MORE_PARAMS$3
 fi
 
 # Beam version var is unset, this will default in the pom.xml definitions
@@ -26,7 +26,7 @@ echo "creating infrastructure"
 pushd infra
 
 # we need to create a ps topic+sub, bq dataset, bt instance + table and staging bucket 
-source ./tf-apply.sh $PROJECT_ID $TOPIC $BUCKET true true true false
+source ./tf-apply.sh $PROJECT_ID $TOPIC true true true false
 
 popd
 
@@ -80,15 +80,13 @@ echo "aggregations:
         - uuid
 " | gsutil cp  - ${AGGREGATION_CONFIG_LOCATION}
 
-source ./execute-agg.sh $1 $SUBSCRIPTION $3 "\
+source ./execute-agg.sh $1 $SUBSCRIPTION $BUCKET "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
   --subscription=projects/${PROJECT_ID}/subscriptions/${SUBSCRIPTION} \
   --experiments=num_pubsub_keys=2048 \
   --experiments=use_pubsub_streaming \
-  --BTProjectId=${PROJECT_ID} \
-  --BTInstanceId=${TOPIC}-instance \
-  --BTTableId=${TOPIC} \
+  --aggregationDestination=${PROJECT_ID}.${TOPIC}-instance.${TOPIC} \
   --aggregationConfigurationLocation=${AGGREGATION_CONFIG_LOCATION} \
   --outputTable=${PROJECT_ID}.${TOPIC}.${TOPIC}-errors \
  "$MORE_PARAMS
