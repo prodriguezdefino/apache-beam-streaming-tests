@@ -32,6 +32,16 @@ module "pubsublite_resources" {
   topic_name = var.run_name
 }
 
+module "kafka_resources" {
+  count = var.create_kafka ? 1 : 0
+  source = "./kafka"
+
+  project    = var.project
+  ssh_user   = var.ssh_user
+  ssh_key    = file(pathexpand("~/.ssh/id_rsa.pub"))
+  topic_name = var.run_name
+}
+
 resource "google_storage_bucket" "staging" {
   project       = var.project 
   name          = "${var.run_name}-staging-${var.project}"
@@ -68,4 +78,29 @@ variable create_pubsublite {
     type = bool
 }
 
+variable create_kafka { 
+    type = bool
+}
+
+variable ssh_user {}
+
 variable run_name {}
+
+/* ------------------------- */
+/*       Outputs             */
+
+output "jmpsrv_ip" {
+  value = var.create_kafka ? module.kafka_resources.0.jmpsrv_ip : null
+}
+
+output "kafka_ip" {
+  value = var.create_kafka ? module.kafka_resources.0.kafka_ip : null
+}
+
+output "df_sa" {
+  value = var.create_kafka ? module.kafka_resources.0.df_sa : null
+}
+
+output "subnet" {
+  value = var.create_kafka ? module.kafka_resources.0.subnet : null
+}

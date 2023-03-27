@@ -18,43 +18,104 @@ fi
 BEAM_VERSION=
 # Other manual configurations
 PROJECT_ID=$1
-TOPIC_AND_BOOTSTRAPSERVERS=$2
+RUN_NAME=$2
 REGION=us-central1
 ZONE=us-central1-a
 BUCKET=$2-staging-$1
 
-echo "starting data generator"
-pushd streaming-data-generator
+echo "creating infrastructure"
+pushd infra
 
-JOB_NAME=datagen-kafka-`echo "$2" | tr _ -`-${USER}
+# we need to create kafka infrastructure, bq dataset and staging bucket 
+source ./tf-apply.sh $PROJECT_ID $RUN_NAME false true false false true
 
-source ./execute-generator.sh $PROJECT_ID $BUCKET "\
-  --jobName=${JOB_NAME} \
-  --region=${REGION} \
-  --outputTopic=${TOPIC_AND_BOOTSTRAPSERVERS} \
-  --sinkType=PUBSUBLITE \
-  --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
-  --generatorRatePerSec=50000 \
-  --maxRecordsPerBatch=4500 \
-  --compressionEnabled=true \
-  --completeObjects=true "$MORE_PARAMS
+# capture the outputs in variables
+TF_JSON_OUTPUT=$(terraform output -json)
+SUBNET=$(echo $TF_JSON_OUTPUT | jq .subnet.value | tr -d '"')
+DF_SA=$(echo $TF_JSON_OUTPUT | jq .df_sa.value | tr -d '"')
+KAFKA_IP=$(echo $TF_JSON_OUTPUT | jq .kafka_ip.value | tr -d '"')
+REMOTE_JMPSVR_IP=$(echo $TF_JSON_OUTPUT | jq .jmpsrv_ip.value | tr -d '"')
 
 popd
 
-echo "starting processing pipeline"
-pushd canonical-streaming-pipelines
+# since the kafka IO implementation needs to be able to read the partition metadata 
+# we need to make sure to build the packaged jar files and upload them to the created jump server
 
-JOB_NAME=kafka2bq-`echo "$2" | tr _ -`-${USER}
+sh build.sh
 
-source ./execute-ingestion.sh $PROJECT_ID $SUBSCRIPTION $BUCKET "\
+echo "starting data generator"
+
+JOB_NAME=datagen-kafka-`echo "$RUN_NAME" | tr _ -`-${USER}
+TOPIC_AND_BOOTSTRAPSERVERS=$RUN_NAME/$KAFKA_IP:9092
+
+# launch the pipeline locally since the sink does not need to validate against the cluster 
+java -jar streaming-data-generator/target/streaming-data-generator-bundled-0.0.1-SNAPSHOT.jar \
+  --project=$PROJECT_ID \
+  --subnetwork=$SUBNET \
+  --streaming \
+  --stagingLocation=gs://$BUCKET/dataflow/staging \
+  --tempLocation=gs://$BUCKET/dataflow/temp \
+  --gcpTempLocation=gs://$BUCKET/dataflow/gcptemp \
+  --enableStreamingEngine \
+  --autoscalingAlgorithm=THROUGHPUT_BASED \
+  --numWorkers=50 \
+  --maxNumWorkers=1000 \
+  --runner=DataflowRunner \
+  --workerMachineType=n1-standard-4 \
+  --usePublicIps=false \
   --jobName=${JOB_NAME} \
   --region=${REGION} \
+  --outputTopic=${TOPIC_AND_BOOTSTRAPSERVERS} \
+  --sinkType=KAFKA \
+  --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
+  --generatorRatePerSec=50000 \
+  --sdkHarnessLogLevelOverrides='{\"org.apache.kafka.clients\":\"WARN\"}' \
+  --maxRecordsPerBatch=4500 \
+  --compressionEnabled=false \
+  --serviceAccount=$DF_SA \
+  --completeObjects=true $MORE_PARAMS
+
+echo "starting processing pipeline"
+
+# in the case of the ingestion pipeline, the read IO needs to validate and capture the partitions from the cluster
+# this can not be achieved from the launcher machine since it may not have connectivity to the cluster in GCP
+# we will need to upload the jar file to the jump server created by the infrastructure and then launch the pipeline.
+scp -o "StrictHostKeyChecking=no" canonical-streaming-pipelines/target/streaming-pipelines-bundled-0.0.1-SNAPSHOT.jar $USER@$REMOTE_JMPSVR_IP:~
+
+JOB_NAME=kafka2bq-`echo "$RUN_NAME-sub" | tr _ -`-${USER}
+BQ_TABLE_NAME=`echo "$RUN_NAME-sub" | tr - _`
+BQ_DATASET_ID=`echo "$RUN_NAME" | tr - _`
+
+EXEC_CMD="java -cp ~/streaming-pipelines-bundled-0.0.1-SNAPSHOT.jar com.google.cloud.pso.beam.pipelines.StreamingSourceToBigQuery \
+  --project=$PROJECT_ID \
+  --subnetwork=$SUBNET \
+  --streaming \
+  --stagingLocation=gs://$BUCKET/dataflow/staging \
+  --tempLocation=gs://$BUCKET/dataflow/temp \
+  --gcpTempLocation=gs://$BUCKET/dataflow/gcptemp \
+  --enableStreamingEngine \
+  --autoscalingAlgorithm=THROUGHPUT_BASED \
+  --numWorkers=1 \
+  --maxNumWorkers=400 \
+  --experiments=min_num_workers=1 \
+  --runner=DataflowRunner \
+  --workerMachineType=n2d-standard-4 \
+  --usePublicIps=false \
+  --jobName=${JOB_NAME} \
+  --region=${REGION} \
+  --serviceAccount=$DF_SA \
+  --createBQTable \
   --subscription=${TOPIC_AND_BOOTSTRAPSERVERS} \
   --experiments=use_unified_worker \
   --experiments=use_runner_v2 \
   --sourceType=KAFKA \
-  --useStorageApiConnectionPool=true \
+  --inputTopic=$RUN_NAME \
+  --bootstrapServers=$KAFKA_IP:9092 \
+  --consumerGroupId=$RUN_NAME \
+  --useStorageApiConnectionPool=false \
   --bigQueryWriteMethod=STORAGE_API_AT_LEAST_ONCE \
-  --tableDestinationCount=1 "$MORE_PARAMS
+  --sdkHarnessLogLevelOverrides='{\"org.apache.kafka.clients\":\"WARN\", \"org.apache.kafka.clients.consumer.internals\":\"WARN\"}' \
+  --outputTable=${PROJECT_ID}:${BQ_DATASET_ID}.stream_${BQ_TABLE_NAME} \
+  --tableDestinationCount=1 $MORE_PARAMS"
 
-popd
+ssh -o "StrictHostKeyChecking=no" $USER@$REMOTE_JMPSVR_IP $EXEC_CMD

@@ -51,6 +51,7 @@ import org.slf4j.LoggerFactory;
 public class StreamingDataGenerator {
 
   private static final Logger LOG = LoggerFactory.getLogger(StreamingDataGenerator.class);
+  private static final Boolean PRINT_GEN_LOGS = false;
 
   /** Options for the streaming data generator */
   public interface StreamingDataGeneratorOptions
@@ -307,12 +308,14 @@ public class StreamingDataGenerator {
 
     @FinishBundle
     public void finalizeBundle() {
-      LOG.info(
-          "Gen size percentiles (bytes): {}",
-          Quantiles.percentiles().indexes(50, 90, 95).compute(sizes).toString());
-      LOG.info(
-          "Gen time percentiles (ns): {}",
-          Quantiles.percentiles().indexes(50, 90, 95).compute(times).toString());
+      if (PRINT_GEN_LOGS) {
+        LOG.info(
+            "Gen size percentiles (bytes): {}",
+            Quantiles.percentiles().indexes(50, 90, 95).compute(sizes).toString());
+        LOG.info(
+            "Gen time percentiles (ns): {}",
+            Quantiles.percentiles().indexes(50, 90, 95).compute(times).toString());
+      }
     }
 
     KV<byte[], String> makeMessage() {

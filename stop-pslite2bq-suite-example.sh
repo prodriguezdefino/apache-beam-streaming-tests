@@ -53,6 +53,6 @@ echo "removing infrastructure"
 pushd infra
 
 # answering anything but `yes` will keep the infra in place for review
-source ./tf-destroy.sh $PROJECT_ID $TOPIC false true false true || 1
+source ./tf-destroy.sh $PROJECT_ID $TOPIC false true false true false || 1
 
 popd

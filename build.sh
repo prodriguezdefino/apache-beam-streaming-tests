@@ -1,4 +1,4 @@
 #!/bin/bash
-set -xeu
+set -eu
 
 mvn clean install -U

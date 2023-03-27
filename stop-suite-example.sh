@@ -1,25 +1,17 @@
 #!/bin/bash
 set -eu
 
-if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]
+if [ "$#" -ne 5 ]
   then
-    echo "Usage : sh execute-suite-example.sh <gcp project> <run name> <optional params>" 
+    echo "Usage : sh stop-suite-example.sh <gcp project> <region> <run name> <generator job> <ingestion job>" 
     exit -1
 fi
 
-MORE_PARAMS=""
-
-if (( $# == 3 ))
-then
-  MORE_PARAMS=$MORE_PARAMS$3
-fi
-
-# Beam version var is unset, this will default in the pom.xml definitions
-BEAM_VERSION=2.46.0-SNAPSHOT
-# Other manual configurations
-PROJECT_ID=$1
-RUN_NAME=$2
-REGION=us-central1
+GCP_PROJECT=$1
+REGION=$2
+RUN_NAME=$3
+GEN_JOB=$4
+ING_JOB=$5
 
 function drain_job(){
   JOB_NAME=$1
@@ -42,19 +34,14 @@ function drain_job(){
 
 echo "draining dataflow jobs..."
 
-GEN_JOB_NAME=datagen-ps-`echo "$2" | tr _ -`-${USER}
+drain_job $GEN_JOB $REGION
 
-drain_job $GEN_JOB_NAME $REGION
-
-SUBSCRIPTION=$RUN_NAME-sub
-AGG_JOB_NAME=psaggsbt-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
-
-drain_job $AGG_JOB_NAME $REGION
+drain_job $ING_JOB $REGION
 
 echo "removing infrastructure"
 pushd infra
 
 # answering anything but `yes` will keep the infra in place for review
-source ./tf-destroy.sh $PROJECT_ID $RUN_NAME true true true false false || 1
+source ./tf-destroy.sh $GCP_PROJECT $RUN_NAME false true false false true || 1
 
 popd

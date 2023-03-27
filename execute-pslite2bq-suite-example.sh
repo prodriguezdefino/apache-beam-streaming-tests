@@ -27,7 +27,7 @@ echo "creating infrastructure"
 pushd infra
 
 # we need to create a psl topic+sub, bq table, bq dataset and staging bucket 
-source ./tf-apply.sh $PROJECT_ID $TOPIC false true false true
+source ./tf-apply.sh $PROJECT_ID $TOPIC false true false true false
 
 popd
 
