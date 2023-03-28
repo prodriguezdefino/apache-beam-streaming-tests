@@ -29,7 +29,7 @@ LAUNCH_PARAMS=" \
  --stagingLocation=$STAGING_BUCKET/dataflow/staging \
  --tempLocation=$STAGING_BUCKET/dataflow/temp \
  --gcpTempLocation=$STAGING_BUCKET/dataflow/gcptemp \
- --numWorkers=1 \
+ --numWorkers=10 \
  --maxNumWorkers=400 \
  --experiments=min_num_workers=1 \
  --workerMachineType=n2d-standard-4 \

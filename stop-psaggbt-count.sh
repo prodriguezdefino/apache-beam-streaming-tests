@@ -21,40 +21,8 @@ PROJECT_ID=$1
 RUN_NAME=$2
 REGION=us-central1
 
-function drain_job(){
-  JOB_NAME=$1
-  REGION=$2
-  # get job id 
-  JOB_ID=$(gcloud dataflow jobs list --filter="name=${JOB_NAME}" --status=active --format="value(JOB_ID)" --region=${REGION})
-  # drain job
-  if [ ! -z "$JOB_ID" ] 
-  then 
-    gcloud dataflow jobs drain $JOB_ID --region=${REGION}
-    STATUS=""
-    while [[ $STATUS != "JOB_STATE_DRAINED" ]]; 
-    do
-      echo "draining..." 
-      sleep 30
-      STATUS=$(gcloud dataflow jobs describe ${JOB_ID} --format='value(currentState)' --region=${REGION}) 
-    done
-  fi
-}
-
-echo "draining dataflow jobs..."
-
-GEN_JOB_NAME=datagen-ps-`echo "$2" | tr _ -`-${USER}
-
-drain_job $GEN_JOB_NAME $REGION
-
+GEN_JOB_NAME=datagen-ps-`echo "$RUN_NAME" | tr _ -`-${USER}
 SUBSCRIPTION=$RUN_NAME-sub
 AGG_JOB_NAME=psaggsbt-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
 
-drain_job $AGG_JOB_NAME $REGION
-
-echo "removing infrastructure"
-pushd infra
-
-# answering anything but `yes` will keep the infra in place for review
-source ./tf-destroy.sh $PROJECT_ID $RUN_NAME true true true false false || 1
-
-popd
+source stop-suite-example.sh $PROJECT_ID $REGION $RUN_NAME $GEN_JOB_NAME $AGG_JOB_NAME

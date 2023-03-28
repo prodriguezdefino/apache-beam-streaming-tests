@@ -68,8 +68,8 @@ java -jar streaming-data-generator/target/streaming-data-generator-bundled-0.0.1
   --outputTopic=${TOPIC_AND_BOOTSTRAPSERVERS} \
   --sinkType=KAFKA \
   --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
-  --generatorRatePerSec=50000 \
-  --sdkHarnessLogLevelOverrides='{\"org.apache.kafka.clients\":\"WARN\"}' \
+  --generatorRatePerSec=100000 \
+  --sdkHarnessLogLevelOverrides='{"org.apache.kafka.clients":"WARN"}' \
   --maxRecordsPerBatch=4500 \
   --compressionEnabled=false \
   --serviceAccount=$DF_SA \
@@ -95,7 +95,7 @@ EXEC_CMD="java -cp ~/streaming-pipelines-bundled-0.0.1-SNAPSHOT.jar com.google.c
   --gcpTempLocation=gs://$BUCKET/dataflow/gcptemp \
   --enableStreamingEngine \
   --autoscalingAlgorithm=THROUGHPUT_BASED \
-  --numWorkers=1 \
+  --numWorkers=10 \
   --maxNumWorkers=400 \
   --experiments=min_num_workers=1 \
   --runner=DataflowRunner \
@@ -114,7 +114,7 @@ EXEC_CMD="java -cp ~/streaming-pipelines-bundled-0.0.1-SNAPSHOT.jar com.google.c
   --consumerGroupId=$RUN_NAME \
   --useStorageApiConnectionPool=false \
   --bigQueryWriteMethod=STORAGE_API_AT_LEAST_ONCE \
-  --sdkHarnessLogLevelOverrides='{\"org.apache.kafka.clients\":\"WARN\", \"org.apache.kafka.clients.consumer.internals\":\"WARN\"}' \
+  --sdkHarnessLogLevelOverrides='{\"org.apache.kafka.clients\":\"WARN\", \"org.apache.kafka.clients.consumer.internals\":\"WARN\", \"org.apache.kafka.common.metrics\":\"WARN\", \"org.apache.kafka.common.utils\":\"WARN\"}' \
   --outputTable=${PROJECT_ID}:${BQ_DATASET_ID}.stream_${BQ_TABLE_NAME} \
   --tableDestinationCount=1 $MORE_PARAMS"
 

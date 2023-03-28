@@ -43,7 +43,7 @@ source ./execute-generator.sh $PROJECT_ID $BUCKET "\
   --outputTopic=projects/${PROJECT_ID}/locations/${ZONE}/topics/${TOPIC} \
   --sinkType=PUBSUBLITE \
   --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
-  --generatorRatePerSec=10000 \
+  --generatorRatePerSec=100000 \
   --maxRecordsPerBatch=100 \
   --compressionEnabled=false \
   --completeObjects=true "$MORE_PARAMS

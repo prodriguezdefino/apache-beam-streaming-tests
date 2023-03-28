@@ -40,9 +40,9 @@ source ./execute-generator.sh $PROJECT_ID $BUCKET " \
   --region=${REGION} \
   --outputTopic=projects/${PROJECT_ID}/topics/${TOPIC} \
   --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
-  --generatorRatePerSec=200000 \
+  --generatorRatePerSec=100000 \
   --maxRecordsPerBatch=4500 \
-  --compressionEnabled=true \
+  --compressionEnabled=false \
   --completeObjects=true "$MORE_PARAMS
 
 popd
