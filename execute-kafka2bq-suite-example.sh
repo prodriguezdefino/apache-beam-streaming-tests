@@ -41,8 +41,6 @@ popd
 # since the kafka IO implementation needs to be able to read the partition metadata 
 # we need to make sure to build the packaged jar files and upload them to the created jump server
 
-sh build.sh
-
 echo "starting data generator"
 
 JOB_NAME=datagen-kafka-`echo "$RUN_NAME" | tr _ -`-${USER}
@@ -58,7 +56,7 @@ java -jar streaming-data-generator/target/streaming-data-generator-bundled-0.0.1
   --gcpTempLocation=gs://$BUCKET/dataflow/gcptemp \
   --enableStreamingEngine \
   --autoscalingAlgorithm=THROUGHPUT_BASED \
-  --numWorkers=50 \
+  --numWorkers=10 \
   --maxNumWorkers=1000 \
   --runner=DataflowRunner \
   --workerMachineType=n1-standard-4 \

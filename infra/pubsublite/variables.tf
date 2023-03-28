@@ -20,9 +20,14 @@ variable "topic_name" {
   description = "The topic name to be created"
 }
 
+variable reservation_units {
+  description = "The reserved capacity in units"
+  default = 400
+}
+
 variable "partition_count" {
   description = "the number of partitions for the topic"
-  default = 10
+  default = 50
 }
 
 variable "publish_throughput_mbs" {

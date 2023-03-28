@@ -10,6 +10,13 @@ data "google_project" "project" {
   project_id = var.project
 }
 
+resource "google_pubsub_lite_reservation" "reservation" {
+  name = var.topic_name
+  project = data.google_project.project.number
+  region = var.region
+  throughput_capacity = var.reservation_units
+}
+
 resource "google_pubsub_lite_topic" "psl_topic" {
   name = var.topic_name
   project = data.google_project.project.number
@@ -22,6 +29,10 @@ resource "google_pubsub_lite_topic" "psl_topic" {
       publish_mib_per_sec = var.publish_throughput_mbs
       subscribe_mib_per_sec = var.subscribe_throughput_mbs
     }
+  }
+
+  reservation_config {
+    throughput_reservation = google_pubsub_lite_reservation.reservation.name
   }
 
   retention_config {

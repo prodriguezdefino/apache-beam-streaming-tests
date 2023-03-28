@@ -17,7 +17,7 @@ LAUNCH_PARAMS=" \
   --tempLocation=$STAGING_BUCKET/dataflow/temp \
   --gcpTempLocation=$STAGING_BUCKET/dataflow/gcptemp \
   --enableStreamingEngine \
-  --numWorkers=50 \
+  --numWorkers=10 \
   --maxNumWorkers=1000 \
   --runner=DataflowRunner \
   --workerMachineType=n1-standard-4 \
