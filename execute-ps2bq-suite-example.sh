@@ -63,9 +63,7 @@ source ./execute-ingestion.sh $1 $SUBSCRIPTION $BUCKET "\
   --experiments=num_pubsub_keys=2048 \
   --experiments=use_pubsub_streaming \
   --useStorageApiConnectionPool=false \
-  --bigQueryWriteMethod=STORAGE_WRITE_API \
-  --storageWriteApiTriggeringFrequencySec=5 \
-  --numStorageWriteApiStreams=50 \
+  --bigQueryWriteMethod=STORAGE_API_AT_LEAST_ONCE \
   --outputTable=${PROJECT_ID}:${BQ_DATASET_ID}.stream_${BQ_TABLE_NAME} \
   --tableDestinationCount=1 "$MORE_PARAMS
 

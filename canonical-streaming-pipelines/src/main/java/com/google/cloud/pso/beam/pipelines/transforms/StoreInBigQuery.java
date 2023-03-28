@@ -58,42 +58,42 @@ public class StoreInBigQuery extends PTransform<PCollection<EventTransport>, PCo
   public PCollectionTuple expand(PCollection<EventTransport> input) {
     var returnPCT = PCollectionTuple.empty(input.getPipeline());
     var options = input.getPipeline().getOptions().as(BigQueryWriteOptions.class);
-    if (options.isUsingAvroToStore()) {
-      var maybeGenericRecord =
-          input.apply(
-              "PrepDataAsGenericRecord", TransformTransportToFormat.transformToGenericRecords());
-      maybeGenericRecord
-          .get(TransformTransportToFormat.successfulGenericRecords())
-          .setCoder(
-              AvroGenericCoder.of(
-                  TransformTransportToFormat.retrieveAvroSchema(
-                      input.getPipeline().getOptions().as(TransportFormatOptions.class))))
-          .apply("WriteIntoBigQuery", WriteFormatToBigQuery.writeGenericRecords());
-      returnPCT =
-          returnPCT.and(
-              FAILED_EVENTS, maybeGenericRecord.get(TransformTransportToFormat.FAILED_EVENTS));
-    } else if (options.isUsingTableRowToStore()) {
-      var maybeTableRows =
-          input.apply("PrepDataAsTableRow", TransformTransportToFormat.transformToTableRows());
-      maybeTableRows
-          .get(TransformTransportToFormat.successfulTableRows())
-          .apply("WriteIntoBigQuery", WriteFormatToBigQuery.writeTableRows());
-      returnPCT =
-          returnPCT.and(
-              FAILED_EVENTS, maybeTableRows.get(TransformTransportToFormat.FAILED_EVENTS));
-    } else {
-      var maybeRows = input.apply("PrepDataAsRow", TransformTransportToFormat.transformToRows());
-      maybeRows
-          .get(TransformTransportToFormat.successfulRows())
-          .setRowSchema(
-              TransformTransportToFormat.retrieveRowSchema(
-                  input.getPipeline().getOptions().as(TransportFormatOptions.class)))
-          .apply("WriteIntoBigQuery", WriteFormatToBigQuery.writeBeamRows());
-      returnPCT =
-          returnPCT.and(FAILED_EVENTS, maybeRows.get(TransformTransportToFormat.FAILED_EVENTS));
-    }
 
-    return returnPCT;
+    return switch (options.getFormatToStore()) {
+      case BEAM_ROW -> {
+        var maybeRows = input.apply("PrepDataAsRow", TransformTransportToFormat.transformToRows());
+        maybeRows
+            .get(TransformTransportToFormat.successfulRows())
+            .setRowSchema(
+                TransformTransportToFormat.retrieveRowSchema(
+                    input.getPipeline().getOptions().as(TransportFormatOptions.class)))
+            .apply("WriteIntoBigQuery", WriteFormatToBigQuery.writeBeamRows());
+        yield returnPCT.and(FAILED_EVENTS, maybeRows.get(TransformTransportToFormat.FAILED_EVENTS));
+      }
+      case AVRO_GENERIC_RECORD -> {
+        var maybeGenericRecord =
+            input.apply(
+                "PrepDataAsGenericRecord", TransformTransportToFormat.transformToGenericRecords());
+        maybeGenericRecord
+            .get(TransformTransportToFormat.successfulGenericRecords())
+            .setCoder(
+                AvroGenericCoder.of(
+                    TransformTransportToFormat.retrieveAvroSchema(
+                        input.getPipeline().getOptions().as(TransportFormatOptions.class))))
+            .apply("WriteIntoBigQuery", WriteFormatToBigQuery.writeGenericRecords());
+        yield returnPCT.and(
+            FAILED_EVENTS, maybeGenericRecord.get(TransformTransportToFormat.FAILED_EVENTS));
+      }
+      case TABLE_ROW -> {
+        var maybeTableRows =
+            input.apply("PrepDataAsTableRow", TransformTransportToFormat.transformToTableRows());
+        maybeTableRows
+            .get(TransformTransportToFormat.successfulTableRows())
+            .apply("WriteIntoBigQuery", WriteFormatToBigQuery.writeTableRows());
+        yield returnPCT.and(
+            FAILED_EVENTS, maybeTableRows.get(TransformTransportToFormat.FAILED_EVENTS));
+      }
+    };
   }
 
   public static class StoreErrorsInBigQuery

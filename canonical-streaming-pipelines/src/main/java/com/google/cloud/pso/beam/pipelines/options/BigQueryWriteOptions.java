@@ -25,6 +25,12 @@ import org.apache.beam.sdk.options.Validation;
 /** A collection of options needed when writing to BigQuery. */
 public interface BigQueryWriteOptions extends PipelineOptions, TransportFormatOptions {
 
+  public enum BigQueryInputFormat {
+    TABLE_ROW,
+    AVRO_GENERIC_RECORD,
+    BEAM_ROW
+  }
+
   @Description(
       "The BigQuery destination table. When using table destination count > 1 "
           + "this will be used as the base table name.")
@@ -65,15 +71,9 @@ public interface BigQueryWriteOptions extends PipelineOptions, TransportFormatOp
 
   void setDestinationTableLoadSkewed(Boolean value);
 
-  @Description("Enables the use of Avro GenericRecords to store in BigQuery")
-  @Default.Boolean(false)
-  Boolean isUsingAvroToStore();
+  @Description("Defines the format to use as BigQueryIO input type.")
+  @Default.Enum("AVRO_GENERIC_RECORD")
+  BigQueryInputFormat getFormatToStore();
 
-  void setUsingAvroToStore(Boolean value);
-
-  @Description("Enables the use of TableRow to store in BigQuery")
-  @Default.Boolean(false)
-  Boolean isUsingTableRowToStore();
-
-  void setUsingTableRowToStore(Boolean value);
+  void setFormatToStore(BigQueryInputFormat value);
 }
