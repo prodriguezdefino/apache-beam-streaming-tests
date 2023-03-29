@@ -9,10 +9,11 @@ sudo mkdir -p ${zkdata_dir}
 # Install Default JRE
 sudo apt-get update && sudo apt-get install -y default-jre supervisor lsof --allow-unauthenticated
 
+ZK_URL=https://archive.apache.org/dist/zookeeper/zookeeper-${zk_version}/zookeeper-${zk_version}.tar.gz
 cd /tmp \
-  && curl -O https://archive.apache.org/dist/zookeeper/zookeeper-${zk_version}/zookeeper-${zk_version}.tar.gz
+  && curl -O $ZK_URL
 
-echo "curl -O https://archive.apache.org/dist/zookeeper/zookeeper-${zk_version}/zookeeper-${zk_version}.tar.gz"
+echo "curl -O $ZK_URL"
 
 cd /opt \
   && tar xzf /tmp/zookeeper-${zk_version}.tar.gz

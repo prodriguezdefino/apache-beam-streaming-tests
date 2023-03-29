@@ -38,8 +38,13 @@ REMOTE_JMPSVR_IP=$(echo $TF_JSON_OUTPUT | jq .jmpsrv_ip.value | tr -d '"')
 
 popd
 
+echo "give some time to infra to stabilize..."
+
+sleep 90
+
 # since the kafka IO implementation needs to be able to read the partition metadata 
 # we need to make sure to build the packaged jar files and upload them to the created jump server
+sh build.sh
 
 echo "starting data generator"
 
@@ -68,8 +73,8 @@ java -jar streaming-data-generator/target/streaming-data-generator-bundled-0.0.1
   --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
   --generatorRatePerSec=100000 \
   --sdkHarnessLogLevelOverrides='{"org.apache.kafka.clients":"WARN"}' \
-  --maxRecordsPerBatch=4500 \
-  --compressionEnabled=false \
+  --maxRecordsPerBatch=1000 \
+  --compressionEnabled=true \
   --serviceAccount=$DF_SA \
   --completeObjects=true $MORE_PARAMS
 
@@ -104,9 +109,8 @@ EXEC_CMD="java -cp ~/streaming-pipelines-bundled-0.0.1-SNAPSHOT.jar com.google.c
   --serviceAccount=$DF_SA \
   --createBQTable \
   --subscription=${TOPIC_AND_BOOTSTRAPSERVERS} \
-  --experiments=use_unified_worker \
-  --experiments=use_runner_v2 \
   --sourceType=KAFKA \
+  --timestampType=LOG_APPEND_TIME
   --inputTopic=$RUN_NAME \
   --bootstrapServers=$KAFKA_IP:9092 \
   --consumerGroupId=$RUN_NAME \
@@ -117,3 +121,4 @@ EXEC_CMD="java -cp ~/streaming-pipelines-bundled-0.0.1-SNAPSHOT.jar com.google.c
   --tableDestinationCount=1 $MORE_PARAMS"
 
 ssh -o "StrictHostKeyChecking=no" $USER@$REMOTE_JMPSVR_IP $EXEC_CMD
+
