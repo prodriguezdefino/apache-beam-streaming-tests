@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xeu
+set -eu
 # Usage : sh run.sh <gcp project> <subscription name> <gcs bucket name> 
 
 if [ "$#" -ne 3 ] && [ "$#" -ne 4 ]
@@ -21,18 +21,15 @@ BQ_DATASET_ID=`echo "${TOPIC}" | tr - _`
 BQ_PROJECT_ID=${PROJECT_ID}
 
 STAGING_BUCKET=${BUCKET}
-STAGING_PATH=${STAGING_BUCKET}"/.staging/"
-OUTPUT_TABLE=${BQ_PROJECT_ID}:${BQ_DATASET_ID}.prefix_${BQ_TABLE_NAME}
 
 LAUNCH_PARAMS=" \
  --project=${PROJECT_ID} \
  --runner=DataflowRunner \
  --streaming \
- --stagingLocation=${STAGING_PATH} \
- --tempLocation=${BUCKET}/.temp \
- --gcpTempLocation=${BUCKET}/.temp \
- --outputTable=${OUTPUT_TABLE} \
- --numWorkers=1 \
+ --stagingLocation=$STAGING_BUCKET/dataflow/staging \
+ --tempLocation=$STAGING_BUCKET/dataflow/temp \
+ --gcpTempLocation=$STAGING_BUCKET/dataflow/gcptemp \
+ --numWorkers=10 \
  --maxNumWorkers=400 \
  --experiments=min_num_workers=1 \
  --workerMachineType=n2d-standard-4 \

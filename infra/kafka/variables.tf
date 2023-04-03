@@ -2,6 +2,10 @@ variable "project" {
   description = "GCP project identifier"
 }
 
+variable "ssh_user" {}
+variable "ssh_key" {}
+variable "topic_name" {}
+
 variable "region" {
   default = "us-central1"
 }
@@ -13,7 +17,7 @@ variable "env" {
 /*         Variables         */
 
 variable zone {
-  default = "us-central1-f"
+  default = "us-central1-a"
 }
 
 variable zk_version {

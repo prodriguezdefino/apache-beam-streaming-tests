@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Google Inc.
+ * Copyright (C) 2023 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -16,11 +16,14 @@
 package com.google.cloud.pso.beam.generator;
 
 import com.google.cloud.pso.beam.generator.formats.AvroDataGenerator;
+import com.google.cloud.pso.beam.generator.formats.JSONDataGenerator;
 import com.google.cloud.pso.beam.generator.formats.ThriftDataGenerator;
 import com.google.cloud.pso.beam.generator.thrift.CompoundEvent;
+import com.google.common.collect.Lists;
 import com.google.common.math.Quantiles;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import org.apache.avro.file.CodecFactory;
 import org.apache.avro.file.DataFileWriter;
 import org.apache.avro.generic.GenericDatumWriter;
@@ -31,23 +34,23 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-/**
- *
- */
+/** */
 @RunWith(JUnit4.class)
 public class StreamingDataGeneratorTest {
 
-  public StreamingDataGeneratorTest() {
-  }
+  public StreamingDataGeneratorTest() {}
 
   @Test
   public void testMakeThriftMessage() {
     var sizes = new ArrayList<Long>();
     var times = new ArrayList<Long>();
     var gen = ThriftDataGenerator.create(CompoundEvent.class, 5, 25, 20);
+    gen.configureSkewedProperties(List.of("uuid"), 3, 10);
+    List<Object> gens = Lists.newArrayList();
     for (int i = 0; i < 1000; i++) {
       var start = System.nanoTime();
       var obj = gen.populateNewInstance(true, 0.001D);
+      gens.add(obj);
       times.add(System.nanoTime() - start);
       Assert.assertNotNull(obj);
       Assert.assertTrue(obj instanceof CompoundEvent);
@@ -60,9 +63,11 @@ public class StreamingDataGeneratorTest {
         throw new RuntimeException("Error while creating a TSerializer.", e);
       }
     }
-    System.out.println("Thrift gen size percentiles (bytes): "
+    System.out.println(
+        "Thrift gen size percentiles (bytes): "
             + Quantiles.percentiles().indexes(50, 90, 95).compute(sizes).toString());
-    System.out.println("Thrift gen time percentiles (ns): "
+    System.out.println(
+        "Thrift gen time percentiles (ns): "
             + Quantiles.percentiles().indexes(50, 90, 95).compute(times).toString());
   }
 
@@ -88,10 +93,19 @@ public class StreamingDataGeneratorTest {
       var serialized = out.toByteArray();
       sizes.add((long) serialized.length);
     }
-    System.out.println("Avro gen size percentiles (bytes): "
+    System.out.println(
+        "Avro gen size percentiles (bytes): "
             + Quantiles.percentiles().indexes(50, 90, 95).compute(sizes).toString());
-    System.out.println("Avro gen time percentiles (ns): "
+    System.out.println(
+        "Avro gen time percentiles (ns): "
             + Quantiles.percentiles().indexes(50, 90, 95).compute(times).toString());
   }
 
+  @Test
+  public void testMakeJsonMessage() throws Exception {
+    var gen = new JSONDataGenerator("classpath://message-schema.json", 10, 20, 5);
+    gen.init();
+    var json = gen.createInstance(true);
+    Assert.assertNotNull(json);
+  }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Google Inc.
+ * Copyright (C) 2023 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -16,49 +16,46 @@
 package com.google.cloud.pso.beam.generator;
 
 import com.google.cloud.pso.beam.generator.formats.AvroDataGenerator;
+import com.google.cloud.pso.beam.generator.formats.JSONDataGenerator;
 import com.google.cloud.pso.beam.generator.formats.ThriftDataGenerator;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 import org.apache.beam.sdk.values.KV;
 
-/**
- *
- */
+/** */
 public interface DataGenerator extends Serializable {
 
-  public enum Format {
-    AVRO_FROM_FILE,
-    AVRO_FROM_SCHEMA,
-    THRIFT
-  }
+  default void init() throws Exception {}
 
-  default void init() throws Exception {
-  }
+  void configureSkewedProperties(
+      List<String> propertyNames, Integer skewDegree, Integer skewBuckets);
 
   Object createInstance(boolean allFieldsPopulated);
 
   Iterable<Object> createInstance(boolean allFieldsPopulated, Integer count);
 
-  KV<byte[], String> createInstanceAsBytesAndSchemaAsStringIfPresent(
-          boolean allFieldsPopulated) throws Exception;
+  KV<byte[], String> createInstanceAsBytesAndSchemaAsStringIfPresent(boolean allFieldsPopulated)
+      throws Exception;
 
   static DataGenerator createDataGenerator(
-          Format format,
-          Class clazz,
-          int minChars,
-          int maxChars,
-          int maxSizeCollectionType,
-          String filePath) throws IOException {
-    switch (format) {
-      case AVRO_FROM_FILE:
-        return AvroDataGenerator.createFromFile(filePath);
-      case AVRO_FROM_SCHEMA:
-        return AvroDataGenerator.createFromSchema(filePath);
-      case THRIFT:
-        return ThriftDataGenerator.create(clazz, minChars, maxChars, maxSizeCollectionType);
-      default:
-        throw new IllegalArgumentException("The format is not supported.");
-    }
+      StreamingDataGenerator.StreamingDataGeneratorOptions options)
+      throws IOException, ClassNotFoundException {
+    return switch (options.getFormat()) {
+      case AVRO -> options.getSchemaFileLocation().isBlank()
+          ? AvroDataGenerator.createFromFile(options.getAvroFileLocation())
+          : AvroDataGenerator.createFromSchema(options.getSchemaFileLocation());
+      case THRIFT -> ThriftDataGenerator.create(
+          Class.forName(options.getClassName()),
+          options.getMinStringLength(),
+          options.getMaxStringLength(),
+          options.getMaxSizeCollection());
+      case JSON -> JSONDataGenerator.create(
+          options.getSchemaFileLocation(),
+          options.getMinStringLength(),
+          options.getMaxStringLength(),
+          options.getMaxSizeCollection());
+      default -> throw new IllegalArgumentException("The format is not supported.");
+    };
   }
-
 }

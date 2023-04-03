@@ -15,13 +15,17 @@
  */
 package com.google.cloud.pso.beam.pipelines.transforms;
 
+import com.google.cloud.pso.beam.common.formats.options.TransportFormatOptions;
+import com.google.cloud.pso.beam.common.formats.transforms.TransformTransportToFormat;
 import com.google.cloud.pso.beam.common.transport.ErrorTransport;
 import com.google.cloud.pso.beam.common.transport.EventTransport;
 import com.google.cloud.pso.beam.pipelines.options.BigQueryWriteOptions;
-import com.google.cloud.pso.beam.pipelines.options.EventPayloadOptions;
-import org.apache.beam.sdk.coders.AvroGenericCoder;
+import org.apache.beam.sdk.extensions.avro.coders.AvroGenericCoder;
 import org.apache.beam.sdk.transforms.Flatten;
 import org.apache.beam.sdk.transforms.PTransform;
+import org.apache.beam.sdk.transforms.windowing.DefaultTrigger;
+import org.apache.beam.sdk.transforms.windowing.GlobalWindows;
+import org.apache.beam.sdk.transforms.windowing.Window;
 import org.apache.beam.sdk.values.PCollection;
 import org.apache.beam.sdk.values.PCollectionList;
 import org.apache.beam.sdk.values.PCollectionTuple;
@@ -34,11 +38,9 @@ import org.apache.beam.sdk.values.TupleTag;
  */
 public class StoreInBigQuery extends PTransform<PCollection<EventTransport>, PCollectionTuple> {
 
-  public static final TupleTag<ErrorTransport> FAILED_EVENTS = new TupleTag<>() {
-  };
+  public static final TupleTag<ErrorTransport> FAILED_EVENTS = new TupleTag<>() {};
 
-  StoreInBigQuery() {
-  }
+  StoreInBigQuery() {}
 
   public static StoreInBigQuery store() {
     return new StoreInBigQuery();
@@ -55,59 +57,68 @@ public class StoreInBigQuery extends PTransform<PCollection<EventTransport>, PCo
   @Override
   public PCollectionTuple expand(PCollection<EventTransport> input) {
     var returnPCT = PCollectionTuple.empty(input.getPipeline());
-    if (input.getPipeline().getOptions()
-            .as(BigQueryWriteOptions.class)
-            .isUsingAvroToStore()) {
-      var maybeGenericRecord = input
-              .apply("PrepDataAsGenericRecord",
-                      TransformTransportToFormat.transformToGenericRecords());
-      maybeGenericRecord
-              .get(TransformTransportToFormat.successfulGenericRecords())
-              .setCoder(
-                      AvroGenericCoder.of(
-                              TransformTransportToFormat.retrieveAvroSchema(
-                                      input.getPipeline().getOptions().as(
-                                              EventPayloadOptions.class))))
-              .apply("WriteIntoBigQuery",
-                      WriteFormatToBigQuery.writeGenericRecords());
-      returnPCT = returnPCT.and(
-              FAILED_EVENTS, maybeGenericRecord.get(TransformTransportToFormat.FAILED_EVENTS));
-    } else if (input.getPipeline().getOptions()
-            .as(BigQueryWriteOptions.class)
-            .isUsingTableRowToStore()) {
-      var maybeTableRows = input
-              .apply("PrepDataAsTableRow",
-                      TransformTransportToFormat.transformToTableRows());
-      maybeTableRows.get(TransformTransportToFormat.successfulTableRows())
-              .apply("WriteIntoBigQuery",
-                      WriteFormatToBigQuery.writeTableRows());
-      returnPCT = returnPCT
-              .and(FAILED_EVENTS, maybeTableRows.get(TransformTransportToFormat.FAILED_EVENTS));
-    } else {
-      var maybeRows = input
-              .apply("PrepDataAsRow", TransformTransportToFormat.transformToRows());
-      maybeRows.get(TransformTransportToFormat.successfulRows())
-              .setRowSchema(
-                      TransformTransportToFormat.retrieveRowSchema(
-                              input.getPipeline().getOptions().as(EventPayloadOptions.class)))
-              .apply("WriteIntoBigQuery", WriteFormatToBigQuery.writeBeamRows());
-      returnPCT = returnPCT
-              .and(FAILED_EVENTS, maybeRows.get(TransformTransportToFormat.FAILED_EVENTS));
-    }
+    var options = input.getPipeline().getOptions().as(BigQueryWriteOptions.class);
 
-    return returnPCT;
+    return switch (options.getFormatToStore()) {
+      case BEAM_ROW -> {
+        var maybeRows = input.apply("PrepDataAsRow", TransformTransportToFormat.transformToRows());
+        maybeRows
+            .get(TransformTransportToFormat.successfulRows())
+            .setRowSchema(
+                TransformTransportToFormat.retrieveRowSchema(
+                    input.getPipeline().getOptions().as(TransportFormatOptions.class)))
+            .apply("WriteIntoBigQuery", WriteFormatToBigQuery.writeBeamRows());
+        yield returnPCT.and(FAILED_EVENTS, maybeRows.get(TransformTransportToFormat.FAILED_EVENTS));
+      }
+      case AVRO_GENERIC_RECORD -> {
+        var maybeGenericRecord =
+            input.apply(
+                "PrepDataAsGenericRecord", TransformTransportToFormat.transformToGenericRecords());
+        maybeGenericRecord
+            .get(TransformTransportToFormat.successfulGenericRecords())
+            .setCoder(
+                AvroGenericCoder.of(
+                    TransformTransportToFormat.retrieveAvroSchema(
+                        input.getPipeline().getOptions().as(TransportFormatOptions.class))))
+            .apply("WriteIntoBigQuery", WriteFormatToBigQuery.writeGenericRecords());
+        yield returnPCT.and(
+            FAILED_EVENTS, maybeGenericRecord.get(TransformTransportToFormat.FAILED_EVENTS));
+      }
+      case TABLE_ROW -> {
+        var maybeTableRows =
+            input.apply("PrepDataAsTableRow", TransformTransportToFormat.transformToTableRows());
+        maybeTableRows
+            .get(TransformTransportToFormat.successfulTableRows())
+            .apply("WriteIntoBigQuery", WriteFormatToBigQuery.writeTableRows());
+        yield returnPCT.and(
+            FAILED_EVENTS, maybeTableRows.get(TransformTransportToFormat.FAILED_EVENTS));
+      }
+    };
   }
 
-  public static class StoreErrorsInBigQuery extends PTransform<PCollectionList<ErrorTransport>, PDone> {
+  public static class StoreErrorsInBigQuery
+      extends PTransform<PCollectionList<ErrorTransport>, PDone> {
 
     @Override
     public PDone expand(PCollectionList<ErrorTransport> input) {
-      input
-              .apply("FlattenErrors", Flatten.pCollections())
-              .apply("TransformToRows", TransformTransportToFormat.transformErrorsToRows())
-              .apply("WriteErrorsToBigQuery", WriteFormatToBigQuery.writeErrorsAsBeamRows());
+
+      var errorsToStore =
+          PCollectionList.of(
+              input.getAll().stream()
+                  // make sure all the input PCollections discard their window information
+                  .map(
+                      pc ->
+                          pc.apply(
+                              "rewindowIntoGlobal",
+                              Window.<ErrorTransport>into(new GlobalWindows())
+                                  .triggering(DefaultTrigger.of())))
+                  .toList());
+
+      errorsToStore
+          .apply("FlattenErrors", Flatten.pCollections())
+          .apply("TransformToRows", TransformTransportToFormat.transformErrorsToRows())
+          .apply("WriteErrorsToBigQuery", WriteFormatToBigQuery.writeErrorsAsBeamRows());
       return PDone.in(input.getPipeline());
     }
   }
-
 }

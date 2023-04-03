@@ -4,13 +4,10 @@
 # or representation for any use or purpose. Your use of it is subject to your
 # agreement with Google.
 
-# wait some time for zks to come up online
-sleep 2m
-
 SCALA_VERSION=2.12
 
 # Install Default JRE
-sudo apt-get update && sudo apt-get install -y default-jre supervisor --allow-unauthenticated
+sudo apt-get update && sudo apt-get install -y default-jre supervisor lsof netcat --allow-unauthenticated
 
 cd /tmp \
 && curl -O https://archive.apache.org/dist/kafka/${kafka_version}/kafka_$SCALA_VERSION-${kafka_version}.tgz
@@ -84,6 +81,7 @@ num.partitions=20
 # The number of threads per data directory to be used for log recovery at startup and flushing at shutdown.
 # This value is recommended to be increased for installations with data dirs located in RAID array.
 num.recovery.threads.per.data.dir=1
+auto.create.topics.enable=true
 ############################# Internal Topic Settings  #############################
 # The replication factor for the group metadata internal topics "__consumer_offsets" and "__transaction_state"
 # For anything other than development testing, a value greater than 1 is recommended for to ensure availability such as 3.
@@ -110,7 +108,7 @@ default.replication.factor=1
 # A segment will be deleted whenever *either* of these criteria are met. Deletion always happens
 # from the end of the log.
 # The minimum age of a log file to be eligible for deletion due to age.
-log.retention.hours=2
+log.retention.hours=1
 # A size-based retention policy for logs. Segments are pruned from the log unless the remaining
 # segments drop below log.retention.bytes. Functions independently of log.retention.hours.
 #log.retention.bytes=1073741824
@@ -137,9 +135,14 @@ zookeeper.connection.timeout.ms=6000
 group.initial.rebalance.delay.ms=0
 message.max.bytes=6291456" >  $KAFKA_ROOT/config/server.properties
 
+# wait for a zk to come up online
+echo "waiting for online zookeeper"
+while ! nc -z zk-0 2181 ; do sleep 1 ; done
+echo "found zookeeper online"
+
 # Start Kafka
 echo "#!/usr/bin/env bash
-export KAFKA_HEAP_OPTS='-Xms6g -Xmx6g'
+export KAFKA_HEAP_OPTS='-Xms8g -Xmx8g'
 export KAFKA_JVM_PERFORMANCE_OPTS='-XX:MetaspaceSize=96m -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:G1HeapRegionSize=16M -XX:MinMetaspaceFreeRatio=50 -XX:MaxMetaspaceFreeRatio=80'
 $KAFKA_ROOT/bin/kafka-server-start.sh $KAFKA_ROOT/config/server.properties" > $KAFKA_ROOT/bin/kafka-start.sh
 
@@ -155,4 +158,3 @@ stdout_logfile=/var/log/kafka.out.log" > /etc/supervisor/conf.d/kafka.conf
 
 supervisorctl reread
 supervisorctl reload
-

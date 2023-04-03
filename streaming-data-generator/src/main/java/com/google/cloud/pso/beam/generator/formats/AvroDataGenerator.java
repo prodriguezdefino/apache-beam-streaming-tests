@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2023 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package com.google.cloud.pso.beam.generator.formats;
 
 import com.google.cloud.pso.beam.generator.DataGenerator;
@@ -8,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.channels.Channels;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -24,9 +40,7 @@ import org.joda.time.Instant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- *
- */
+/** */
 public class AvroDataGenerator implements DataGenerator {
 
   private static final Logger LOG = LoggerFactory.getLogger(AvroDataGenerator.class);
@@ -48,18 +62,15 @@ public class AvroDataGenerator implements DataGenerator {
     return schema;
   }
 
-  synchronized private void initFromFile() throws IOException {
+  private synchronized void initFromFile() throws IOException {
     if (!DATA_CACHE.isEmpty()) {
       return;
     }
     Preconditions.checkState(filePath != null, "A file path should be provided");
-    var chan
-            = FileSystems.open(
-                    FileSystems.matchNewResource(
-                            filePath, false));
-    var stream
-            = new DataFileStream<GenericRecord>(
-                    Channels.newInputStream(chan), new GenericDatumReader<>());
+    var chan = FileSystems.open(FileSystems.matchNewResource(filePath, false));
+    var stream =
+        new DataFileStream<GenericRecord>(
+            Channels.newInputStream(chan), new GenericDatumReader<>());
     schema = stream.getSchema();
     GenericRecord record = null;
     while (stream.hasNext()) {
@@ -69,7 +80,7 @@ public class AvroDataGenerator implements DataGenerator {
     }
   }
 
-  synchronized private void initFromSchema() throws IOException {
+  private synchronized void initFromSchema() throws IOException {
     if (schema != null) {
       return;
     }
@@ -77,10 +88,9 @@ public class AvroDataGenerator implements DataGenerator {
     if (dataSchemaPath.startsWith("classpath://")) {
       iStream = this.getClass().getResourceAsStream(dataSchemaPath.replace("classpath://", "/"));
     } else {
-      iStream
-              = Channels.newInputStream(FileSystems.open(
-                      FileSystems.matchNewResource(
-                              dataSchemaPath, false)));
+      iStream =
+          Channels.newInputStream(
+              FileSystems.open(FileSystems.matchNewResource(dataSchemaPath, false)));
     }
     schema = new Schema.Parser().parse(iStream);
   }
@@ -88,21 +98,23 @@ public class AvroDataGenerator implements DataGenerator {
   GenericRecord modifyTimestamps(GenericRecord record) {
     for (Schema.Field field : record.getSchema().getFields()) {
       if (!field.schema().getTypes().isEmpty()
-              && field.schema()
-                      .getTypes()
-                      .stream()
-                      .anyMatch(s -> s.getLogicalType() != null
-                      && s.getLogicalType().getName().startsWith("timestamp"))
-              && transformTimestamps) {
+          && field.schema().getTypes().stream()
+              .anyMatch(
+                  s ->
+                      s.getLogicalType() != null
+                          && s.getLogicalType().getName().startsWith("timestamp"))
+          && transformTimestamps) {
         record.put(field.name(), Instant.now().getMillis());
-        LOG.debug("trasformed field name {}, new field value {}, field types [{}]",
-                field.name(),
-                record.get(field.name()),
-                field.schema()
-                        .getTypes()
-                        .stream()
-                        .map(s -> String.format("[type %s, logical type %s]", s.getType(), s.getLogicalType()))
-                        .collect(Collectors.joining(",")));
+        LOG.debug(
+            "trasformed field name {}, new field value {}, field types [{}]",
+            field.name(),
+            record.get(field.name()),
+            field.schema().getTypes().stream()
+                .map(
+                    s ->
+                        String.format(
+                            "[type %s, logical type %s]", s.getType(), s.getLogicalType()))
+                .collect(Collectors.joining(",")));
       }
     }
     return record;
@@ -131,17 +143,16 @@ public class AvroDataGenerator implements DataGenerator {
   @Override
   public Iterable<Object> createInstance(boolean allFieldsPopulated, Integer count) {
     if (fromFile) {
-      return IntStream
-              .range(0, count - 1)
-              .mapToObj(i -> DATA_CACHE.get(RANDOM.nextInt(DATA_CACHE.size())))
-              .collect(Collectors.toList());
+      return IntStream.range(0, count - 1)
+          .mapToObj(i -> DATA_CACHE.get(RANDOM.nextInt(DATA_CACHE.size())))
+          .collect(Collectors.toList());
     }
     return new RandomData(schema, count, true);
   }
 
   @Override
   public KV<byte[], String> createInstanceAsBytesAndSchemaAsStringIfPresent(
-          boolean allFieldsPopulated) throws Exception {
+      boolean allFieldsPopulated) throws Exception {
     var record = (GenericRecord) createInstance(allFieldsPopulated);
     var writer = new GenericDatumWriter<GenericRecord>(record.getSchema());
     var stream = new ByteArrayOutputStream();
@@ -160,4 +171,7 @@ public class AvroDataGenerator implements DataGenerator {
     }
   }
 
+  @Override
+  public void configureSkewedProperties(
+      List<String> propertyNames, Integer skewDegree, Integer skewBuckets) {}
 }

@@ -4,12 +4,10 @@
 # or representation for any use or purpose. Your use of it is subject to your
 # agreement with Google.
 
-# Configure Second disk for zkdata directory
-{ [ mkdir -p /tmp/testmount && sudo mount /dev/sdb1 /tmp/testmount && sudo umount /tmp/testmount && sudo rm -rf /tmp/testmount ]; } \
-|| { sudo parted --script /dev/sdb mklabel gpt && sudo parted --script --align optimal /dev/sdb mkpart primary ext4 0% 100% && sudo mkfs.ext4 /dev/sdb1 && sudo mkdir -p ${zkdata_dir} && sudo mount /dev/sdb1 ${zkdata_dir}; }
+sudo mkdir -p ${zkdata_dir}
 
 # Install Default JRE
-sudo apt-get update && sudo apt-get install -y default-jre supervisor --allow-unauthenticated
+sudo apt-get update && sudo apt-get install -y default-jre supervisor lsof --allow-unauthenticated
 
 cd /tmp \
   && curl -O https://archive.apache.org/dist/zookeeper/zookeeper-${zk_version}/zookeeper-${zk_version}.tar.gz
@@ -61,6 +59,8 @@ server.$zk_id2=${zk2_ip}:2888:3888
 server.$zk_id3=${zk3_ip}:2888:3888" > $ZK_ROOT/conf/zoo.cfg
 
 echo $zk_id > ${zkdata_dir}/myid
+echo "zookeeper id: "
+cat ${zkdata_dir}/myid
 
 # Start Zookeeper
 echo "#!/usr/bin/env bash
