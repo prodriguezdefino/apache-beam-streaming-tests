@@ -76,4 +76,12 @@ public interface BigQueryWriteOptions extends PipelineOptions, TransportFormatOp
   BigQueryInputFormat getFormatToStore();
 
   void setFormatToStore(BigQueryInputFormat value);
+
+  @Description("Enables auto-shard when using StreamingInserts into BigQuery")
+  @Default.Boolean(false)
+  Boolean isEnableBigQueryAutoshard();
+
+  void setEnableBigQueryAutoshard(Boolean value);
+  
+  
 }
