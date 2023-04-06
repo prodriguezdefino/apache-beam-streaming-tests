@@ -22,7 +22,7 @@ variable zone {
 
 variable zk_version {
   description = ""
-  default     = "3.4.6"
+  default     = "3.4.12"
 }
 
 variable zk_node_count {
@@ -30,11 +30,11 @@ variable zk_node_count {
 }
 
 variable kafka_node_count {
-  default = "10"
+  default = "15"
 }
 
 variable kafka_version {
-  default = "3.2.0"
+  default = "3.2.3"
 }
 
 variable zkdata_dir {
@@ -42,11 +42,11 @@ variable zkdata_dir {
 }
 
 variable zk_machine_type {
-  default = "n1-standard-2"
+  default = "n1-standard-8"
 }
 
 variable kafka_machine_type {
-  default = "n1-standard-8"
+  default = "n1-standard-16"
 }
 
 variable kafka_log_dir {

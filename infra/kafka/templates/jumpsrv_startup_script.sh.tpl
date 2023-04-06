@@ -30,5 +30,5 @@ echo "found kafka online"
 /opt/kafka_2.12-${kafka_version}/bin/kafka-topics.sh --create \
 --bootstrap-server kafka-0:9092 \
 --replication-factor 1 \
---partitions 100 \
+--partitions 200 \
 --topic ${topic_name}

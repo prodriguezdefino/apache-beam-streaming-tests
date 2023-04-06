@@ -133,7 +133,9 @@ zookeeper.connection.timeout.ms=6000
 # We override this to 0 here as it makes for a better out-of-the-box experience for development and testing.
 # However, in production environments the default value of 3 seconds is more suitable as this will help to avoid unnecessary, and potentially expensive, rebalances during application startup.
 group.initial.rebalance.delay.ms=0
-message.max.bytes=6291456" >  $KAFKA_ROOT/config/server.properties
+############################# Other Settings #############################
+message.max.bytes=6291456
+log.message.timestamp.type=LogAppendTime" >  $KAFKA_ROOT/config/server.properties
 
 # wait for a zk to come up online
 echo "waiting for online zookeeper"

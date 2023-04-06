@@ -36,7 +36,7 @@ locals {
 
 resource "google_service_account" "dataflow_runner_sa" {
   project    = var.project
-  account_id = "${var.topic_name}-dataflow-runner-sa"
+  account_id = "${var.topic_name}-df-sa"
 }
 
 module "data_processing_project_membership_roles" {
@@ -84,6 +84,7 @@ resource "google_compute_instance" "jmp" {
   }
 
   metadata_startup_script = local.jmp_template
+  depends_on              = [google_compute_instance.kafkas]
 }
 
 /*    Kafka setup resources  */
