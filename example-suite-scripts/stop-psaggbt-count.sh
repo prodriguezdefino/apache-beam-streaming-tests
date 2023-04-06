@@ -25,4 +25,6 @@ GEN_JOB_NAME=datagen-ps-`echo "$RUN_NAME" | tr _ -`-${USER}
 SUBSCRIPTION=$RUN_NAME-sub
 AGG_JOB_NAME=psaggsbt-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
 
-source stop-suite-example.sh $PROJECT_ID $REGION $RUN_NAME $GEN_JOB_NAME $AGG_JOB_NAME
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+
+source $SCRIPT_DIR/stop-suite.sh $PROJECT_ID $REGION $RUN_NAME $GEN_JOB_NAME $AGG_JOB_NAME

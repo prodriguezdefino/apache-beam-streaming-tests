@@ -76,6 +76,10 @@ public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>
             .withWriteDisposition(BigQueryIO.Write.WriteDisposition.WRITE_APPEND)
             .withSuccessfulInsertsPropagation(false)
             .withExtendedErrorInfo();
+    
+    if(options.isEnableBigQueryAutoshard()){
+      write=write.withAutoSharding();
+    }
 
     if (options.getTableDestinationCount() > 1) {
       var tableSchemaString = BigQueryHelpers.toJsonString(retrieveTableSchema(options));

@@ -54,10 +54,10 @@ BQ_DATASET_ID=`echo "${TOPIC}" | tr - _`
 source ./execute-ingestion.sh $1 $BUCKET "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
-  --numWorkers=200 \
+  --numWorkers=400 \
   --thriftClassName=com.google.cloud.pso.beam.generator.thrift.SimplerCompoundEvent \
   --subscription=projects/${PROJECT_ID}/subscriptions/${SUBSCRIPTION} \
-  --formatToStore=TABLE_ROW \
+  --formatToStore=BEAM_ROW \
   --outputTable=${PROJECT_ID}:${BQ_DATASET_ID}.stream_${BQ_TABLE_NAME} \
   --bigQueryWriteMethod=STORAGE_WRITE_API \
   --storageWriteApiTriggeringFrequencySec=1 \

@@ -1,24 +1,17 @@
 #!/bin/bash
 set -eu
-# Usage : sh run.sh <gcp project> <subscription name> <gcs bucket name> 
+# Usage : sh run.sh <gcp project> <gcs bucket name> 
 
-if [ "$#" -ne 3 ] && [ "$#" -ne 4 ]
+if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]
   then
-    echo "Usage : sh run.sh <gcp project> <subscription name> <gcs bucket name> <optional params>" 
+    echo "Usage : sh run.sh <gcp project> <gcs bucket name> <optional params>" 
     exit -1
 fi
 
 PROJECT_ID=$1
-BUCKET="gs://${3}"
+BUCKET="gs://${2}"
 
 PIPELINE_NAME=StreamingSourceToBigQuery
-TOPIC=`echo $2 | awk -F "-sub" '{print $1}'`
-SUBSCRIPTION=$2
-
-# The table need to be precreated with right schema.
-BQ_TABLE_NAME=`echo "$2" | tr - _`
-BQ_DATASET_ID=`echo "${TOPIC}" | tr - _`
-BQ_PROJECT_ID=${PROJECT_ID}
 
 STAGING_BUCKET=${BUCKET}
 
@@ -29,7 +22,6 @@ LAUNCH_PARAMS=" \
  --stagingLocation=$STAGING_BUCKET/dataflow/staging \
  --tempLocation=$STAGING_BUCKET/dataflow/temp \
  --gcpTempLocation=$STAGING_BUCKET/dataflow/gcptemp \
- --numWorkers=10 \
  --maxNumWorkers=400 \
  --experiments=min_num_workers=1 \
  --workerMachineType=n2d-standard-4 \
@@ -41,9 +33,9 @@ LAUNCH_PARAMS=" \
 #  --network=some-network \
 #  --subnetwork=https://www.googleapis.com/compute/v1/projects/some-project/regions/us-central1/subnetworks/some-subnetwork \
 
-if (( $# == 4 ))
+if (( $# == 3 ))
 then
-  LAUNCH_PARAMS=$LAUNCH_PARAMS$4
+  LAUNCH_PARAMS=$LAUNCH_PARAMS$3
 fi
 
 if [[ -z "${BEAM_VERSION}" ]]; then

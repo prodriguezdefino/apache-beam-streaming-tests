@@ -55,14 +55,12 @@ JOB_NAME=ps2bq-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
 BQ_TABLE_NAME=`echo "$SUBSCRIPTION" | tr - _`
 BQ_DATASET_ID=`echo "${TOPIC}" | tr - _`
 
-source ./execute-ingestion.sh $1 $SUBSCRIPTION $BUCKET "\
+source ./execute-ingestion.sh $PROJECT_ID $BUCKET "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
   --thriftClassName=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
   --subscription=projects/${PROJECT_ID}/subscriptions/${SUBSCRIPTION} \
-  --experiments=num_pubsub_keys=2048 \
-  --experiments=use_pubsub_streaming \
-  --useStorageApiConnectionPool=false \
+  --useStorageApiConnectionPool=true \
   --bigQueryWriteMethod=STORAGE_API_AT_LEAST_ONCE \
   --outputTable=${PROJECT_ID}:${BQ_DATASET_ID}.stream_${BQ_TABLE_NAME} \
   --tableDestinationCount=1 "$MORE_PARAMS

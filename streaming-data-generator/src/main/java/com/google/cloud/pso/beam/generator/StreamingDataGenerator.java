@@ -17,7 +17,7 @@ package com.google.cloud.pso.beam.generator;
 
 import com.google.cloud.pso.beam.common.compression.CompressionUtils;
 import com.google.cloud.pso.beam.common.compression.thrift.ThriftCompression;
-import com.google.cloud.pso.beam.common.formats.TransportFormats;
+import com.google.cloud.pso.beam.common.formats.TransportFormats.Format;
 import com.google.cloud.pso.beam.common.transport.CommonTransport;
 import com.google.cloud.pso.beam.common.transport.EventTransport;
 import com.google.cloud.pso.beam.common.transport.coder.CommonTransportCoder;
@@ -76,13 +76,13 @@ public class StreamingDataGenerator {
     void setClassName(String value);
 
     @Description("Min char count for a generated String")
-    @Default.Integer(5)
+    @Default.Integer(20)
     Integer getMinStringLength();
 
     void setMinStringLength(Integer value);
 
     @Description("Max char count for a generated String")
-    @Default.Integer(20)
+    @Default.Integer(80)
     Integer getMaxStringLength();
 
     void setMaxStringLength(Integer value);
@@ -94,13 +94,13 @@ public class StreamingDataGenerator {
     void setMaxSizeCollection(Integer value);
 
     @Description("Enables ZLIB compression and batched envelope payloads")
-    @Default.Boolean(true)
+    @Default.Boolean(false)
     Boolean isCompressionEnabled();
 
     void setCompressionEnabled(Boolean value);
 
     @Description("Object generation produces complete populated instances")
-    @Default.Boolean(false)
+    @Default.Boolean(true)
     Boolean isCompleteObjects();
 
     void setCompleteObjects(Boolean value);
@@ -113,9 +113,9 @@ public class StreamingDataGenerator {
 
     @Description("Format of the generated messages")
     @Default.Enum("THRIFT")
-    TransportFormats.Format getFormat();
+    Format getFormat();
 
-    void setFormat(TransportFormats.Format value);
+    void setFormat(Format value);
 
     @Description("File path for the already generated AVRO file with data to use.")
     @Default.String("")

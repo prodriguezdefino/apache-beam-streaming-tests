@@ -58,7 +58,7 @@ JOB_NAME=pslite2bq-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
 BQ_TABLE_NAME=`echo "$SUBSCRIPTION" | tr - _`
 BQ_DATASET_ID=`echo "${TOPIC}" | tr - _`
 
-source ./execute-ingestion.sh $1 $SUBSCRIPTION $BUCKET "\
+source ./execute-ingestion.sh $PROJECT_ID $BUCKET "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
   --workerZone=${ZONE} \
