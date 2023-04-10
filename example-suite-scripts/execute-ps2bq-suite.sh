@@ -58,6 +58,7 @@ BQ_DATASET_ID=`echo "${TOPIC}" | tr - _`
 source ./execute-ingestion.sh $PROJECT_ID $BUCKET "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
+  --numWorkers=10 \
   --thriftClassName=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
   --subscription=projects/${PROJECT_ID}/subscriptions/${SUBSCRIPTION} \
   --useStorageApiConnectionPool=true \
