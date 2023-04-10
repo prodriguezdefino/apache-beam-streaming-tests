@@ -22,7 +22,7 @@ variable "topic_name" {
 
 variable reservation_units {
   description = "The reserved capacity in units"
-  default = 400
+  default = 300
 }
 
 variable "partition_count" {
