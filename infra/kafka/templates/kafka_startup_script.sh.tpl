@@ -135,11 +135,12 @@ zookeeper.connection.timeout.ms=6000
 group.initial.rebalance.delay.ms=0
 ############################# Other Settings #############################
 message.max.bytes=6291456
-log.message.timestamp.type=LogAppendTime" >  $KAFKA_ROOT/config/server.properties
+log.message.timestamp.type=LogAppendTime" > $KAFKA_ROOT/config/server.properties
 
 # wait for a zk to come up online
+ZK_NODE=zk-${run_name}-0
 echo "waiting for online zookeeper"
-while ! nc -z zk-0 2181 ; do sleep 1 ; done
+while ! nc -z $ZK_NODE 2181 ; do sleep 1 ; done
 echo "found zookeeper online"
 
 # Start Kafka

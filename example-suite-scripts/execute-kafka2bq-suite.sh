@@ -40,7 +40,13 @@ popd
 
 echo "give some time to infra to stabilize..."
 
-sleep 90
+KAFKA_NODE=kafka-$RUN_NAME-0
+KFK_UP_CMD="while ! nc -z $KAFKA_NODE 9092 ; do sleep 1 ; done"
+
+echo "waiting for online kafka node"
+ssh -o "StrictHostKeyChecking=no" $USER@$REMOTE_JMPSVR_IP $KFK_UP_CMD
+echo "found kafka online"
+
 
 # since the kafka IO implementation needs to be able to read the partition metadata 
 # we need to make sure to build the packaged jar files and upload them to the created jump server
@@ -61,7 +67,7 @@ java -jar streaming-data-generator/target/streaming-data-generator-bundled-0.0.1
   --gcpTempLocation=gs://$BUCKET/dataflow/gcptemp \
   --enableStreamingEngine \
   --autoscalingAlgorithm=THROUGHPUT_BASED \
-  --numWorkers=10 \
+  --numWorkers=50 \
   --maxNumWorkers=1000 \
   --runner=DataflowRunner \
   --workerMachineType=n1-standard-4 \
@@ -74,7 +80,7 @@ java -jar streaming-data-generator/target/streaming-data-generator-bundled-0.0.1
   --generatorRatePerSec=100000 \
   --sdkHarnessLogLevelOverrides='{"org.apache.kafka.clients":"WARN"}' \
   --maxRecordsPerBatch=1000 \
-  --compressionEnabled=true \
+  --compressionEnabled=false \
   --serviceAccount=$DF_SA \
   --completeObjects=true $MORE_PARAMS
 
@@ -98,7 +104,7 @@ EXEC_CMD="java -cp ~/streaming-pipelines-bundled-0.0.1-SNAPSHOT.jar com.google.c
   --gcpTempLocation=gs://$BUCKET/dataflow/gcptemp \
   --enableStreamingEngine \
   --autoscalingAlgorithm=THROUGHPUT_BASED \
-  --numWorkers=10 \
+  --numWorkers=30 \
   --maxNumWorkers=400 \
   --experiments=min_num_workers=1 \
   --runner=DataflowRunner \
@@ -115,6 +121,7 @@ EXEC_CMD="java -cp ~/streaming-pipelines-bundled-0.0.1-SNAPSHOT.jar com.google.c
   --bootstrapServers=$KAFKA_IP:9092 \
   --consumerGroupId=$RUN_NAME \
   --useStorageApiConnectionPool=false \
+  --experiments=use_runner_v2 \
   --bigQueryWriteMethod=STORAGE_API_AT_LEAST_ONCE \
   --sdkHarnessLogLevelOverrides='{\"org.apache.kafka.clients\":\"WARN\", \"org.apache.kafka.clients.consumer.internals\":\"WARN\", \"org.apache.kafka.common.metrics\":\"WARN\", \"org.apache.kafka.common.utils\":\"WARN\"}' \
   --outputTable=${PROJECT_ID}:${BQ_DATASET_ID}.stream_${BQ_TABLE_NAME} \

@@ -39,7 +39,7 @@ module "kafka_resources" {
   project    = var.project
   ssh_user   = var.ssh_user
   ssh_key    = file(pathexpand("~/.ssh/id_rsa.pub"))
-  topic_name = var.run_name
+  run_name = var.run_name
 }
 
 resource "google_storage_bucket" "staging" {
