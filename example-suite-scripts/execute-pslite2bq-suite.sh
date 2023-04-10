@@ -62,6 +62,7 @@ source ./execute-ingestion.sh $PROJECT_ID $BUCKET "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
   --workerZone=${ZONE} \
+  --numWorkers=10 \
   --subscription=projects/${PROJECT_ID}/locations/${ZONE}/subscriptions/${SUBSCRIPTION} \
   --sourceType=PUBSUBLITE \
   --useStorageApiConnectionPool=false \
