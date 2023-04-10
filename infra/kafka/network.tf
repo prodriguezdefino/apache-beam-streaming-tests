@@ -1,11 +1,11 @@
 resource "google_compute_network" "net_priv" {
-  name                    = "kafka-net"
+  name                    = "kafka-net-${var.run_name}"
   auto_create_subnetworks = false
   project                 = "${var.project}"
 }
 
 resource "google_compute_subnetwork" "subnet_priv" {
-  name                     = "${var.region}-subnet"
+  name                     = "${var.region}-subnet-${var.run_name}"
   project                  = "${var.project}"
   region                   = "${var.region}"
   private_ip_google_access = true
@@ -16,7 +16,7 @@ resource "google_compute_subnetwork" "subnet_priv" {
 resource "google_compute_address" "zk_int_addresses" {
   count        = var.zk_node_count
   project      = var.project
-  name         = "zk-address-${count.index}"
+  name         = "zk-address-${var.run_name}-${count.index}"
   subnetwork   = "${google_compute_subnetwork.subnet_priv.name}"
   address_type = "INTERNAL"
   region       = "${var.region}"
@@ -25,14 +25,14 @@ resource "google_compute_address" "zk_int_addresses" {
 resource "google_compute_address" "kafka_int_addresses" {
   count        = var.kafka_node_count
   project      = var.project
-  name         = "kafka-address-${count.index}"
+  name         = "kafka-address-${var.run_name}-${count.index}"
   subnetwork   = "${google_compute_subnetwork.subnet_priv.name}"
   address_type = "INTERNAL"
   region       = "${var.region}"
 }
 
 resource "google_compute_router" "router" {
-  name    = "net-router"
+  name    = "net-router-${var.run_name}"
   project = var.project
   region  = "${google_compute_subnetwork.subnet_priv.region}"
   network = "${google_compute_network.net_priv.self_link}"
@@ -43,7 +43,7 @@ resource "google_compute_router" "router" {
 }
 
 resource "google_compute_router_nat" "nat" {
-  name                               = "nat"
+  name                               = "nat-${var.run_name}"
   project                            = var.project
   router                             = "${google_compute_router.router.name}"
   region                             = "${var.region}"
@@ -53,7 +53,7 @@ resource "google_compute_router_nat" "nat" {
 
 
 resource "google_compute_firewall" "allow_ssh" {
-  name    = "allow-ssh"
+  name    = "allow-ssh-${var.run_name}"
   project                            = var.project
   network = "${google_compute_network.net_priv.name}"
 
@@ -67,7 +67,7 @@ resource "google_compute_firewall" "allow_ssh" {
 }
 
 resource "google_compute_firewall" "allow_internal_ssh" {
-  name    = "allow-internal-ssh"
+  name    = "allow-internal-ssh-${var.run_name}"
   project                            = var.project
   network = "${google_compute_network.net_priv.name}"
 
@@ -81,7 +81,7 @@ resource "google_compute_firewall" "allow_internal_ssh" {
 }
 
 resource "google_compute_firewall" "zk_comms" {
-  name    = "zk-comms"
+  name    = "zk-comms-${var.run_name}"
   project                            = var.project
   network = "${google_compute_network.net_priv.name}"
 
@@ -99,7 +99,7 @@ resource "google_compute_firewall" "zk_comms" {
 }
 
 resource "google_compute_firewall" "zk_clients" {
-  name    = "zk-clients"
+  name    = "zk-clients-${var.run_name}"
   project                            = var.project
   network = "${google_compute_network.net_priv.name}"
 
@@ -117,7 +117,7 @@ resource "google_compute_firewall" "zk_clients" {
 }
 
 resource "google_compute_firewall" "kafka_clients_tag" {
-  name    = "kafka-clients-tag"
+  name    = "kafka-clients-tag-${var.run_name}"
   project                            = var.project
   network = "${google_compute_network.net_priv.name}"
 
@@ -135,7 +135,7 @@ resource "google_compute_firewall" "kafka_clients_tag" {
 }
 
 resource "google_compute_firewall" "dataflow_tag" {
-  name    = "dataflow-tag"
+  name    = "dataflow-tag-${var.run_name}"
   project                            = var.project
   network = "${google_compute_network.net_priv.name}"
 
@@ -149,7 +149,7 @@ resource "google_compute_firewall" "dataflow_tag" {
 }
 
 resource "google_compute_firewall" "kafka_clients_sa" {
-  name    = "kafka-clients-sa"
+  name    = "kafka-clients-sa-${var.run_name}"
   project                            = var.project
   network = "${google_compute_network.net_priv.name}"
 

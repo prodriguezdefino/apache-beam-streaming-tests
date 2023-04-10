@@ -26,17 +26,18 @@ locals {
     zk2_ip        = "${google_compute_address.zk_int_addresses.1.address}"
     zk3_ip        = "${google_compute_address.zk_int_addresses.2.address}"
     kafka_log_dir = "${var.kafka_log_dir}"
+    run_name   = var.run_name
   })
 
   jmp_template = templatefile("${path.module}/templates/jumpsrv_startup_script.sh.tpl", {
     kafka_version = "${var.kafka_version}"
-    topic_name    = var.topic_name
+    topic_name    = var.run_name
   })
 }
 
 resource "google_service_account" "dataflow_runner_sa" {
   project    = var.project
-  account_id = "${var.topic_name}-df-sa"
+  account_id = "${var.run_name}-df-sa"
 }
 
 module "data_processing_project_membership_roles" {
@@ -58,7 +59,7 @@ resource "google_compute_project_metadata" "my_ssh_key" {
 
 resource "google_compute_instance" "jmp" {
   project                   = var.project
-  name                      = "jmp-srv"
+  name                      = "jmp-srv-${var.run_name}"
   machine_type              = "n1-standard-4"
   zone                      = "${var.zone}"
   tags                      = ["zk-clients", "kafka-clients", "kafka", "allow-ssh"]
@@ -84,7 +85,6 @@ resource "google_compute_instance" "jmp" {
   }
 
   metadata_startup_script = local.jmp_template
-  depends_on              = [google_compute_instance.kafkas]
 }
 
 /*    Kafka setup resources  */
@@ -92,7 +92,7 @@ resource "google_compute_instance" "jmp" {
 resource "google_compute_instance" "kafkas" {
   count                     = var.kafka_node_count
   project                   = var.project
-  name                      = "kafka-${count.index}"
+  name                      = "kafka-${var.run_name}-${count.index}"
   machine_type              = "${var.kafka_machine_type}"
   zone                      = "${var.zone}"
   tags                      = ["zk-clients", "kafka-clients", "kafka", "allow-internal-ssh"]
@@ -113,7 +113,6 @@ resource "google_compute_instance" "kafkas" {
   }
 
   metadata_startup_script = local.kafka_template
-  depends_on              = [google_compute_instance.zks]
 }
 
 /* ------------------------- */
@@ -122,7 +121,7 @@ resource "google_compute_instance" "kafkas" {
 resource "google_compute_instance" "zks" {
   count                     = var.zk_node_count
   project                   = var.project
-  name                      = "zk-${count.index}"
+  name                      = "zk-${var.run_name}-${count.index}"
   machine_type              = "${var.zk_machine_type}"
   zone                      = "${var.zone}"
   tags                      = ["zk", "allow-internal-ssh"]

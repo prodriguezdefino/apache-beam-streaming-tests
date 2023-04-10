@@ -23,12 +23,13 @@ watch -n3 /opt/kafka_2.12-${kafka_version}/bin/kafka-consumer-groups.sh --bootst
 chmod 777 /opt/check-partitions.sh
 
 # wait for a kafka to come up online
+KF_NODE=kafka-${topic_name}-0
 echo "waiting for online kafka"
-while ! nc -z kafka-0 9092 ; do sleep 1 ; done
+while ! nc -z $KF_NODE 9092 ; do sleep 1 ; done
 echo "found kafka online"
 
 /opt/kafka_2.12-${kafka_version}/bin/kafka-topics.sh --create \
---bootstrap-server kafka-0:9092 \
+--bootstrap-server $KF_NODE:9092 \
 --replication-factor 1 \
 --partitions 200 \
 --topic ${topic_name}

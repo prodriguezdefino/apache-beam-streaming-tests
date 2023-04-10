@@ -4,7 +4,7 @@ variable "project" {
 
 variable "ssh_user" {}
 variable "ssh_key" {}
-variable "topic_name" {}
+variable "run_name" {}
 
 variable "region" {
   default = "us-central1"
