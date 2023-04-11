@@ -40,17 +40,17 @@ popd
 
 echo "give some time to infra to stabilize..."
 
+# since the kafka IO implementation needs to be able to read the partition metadata 
+# we need to make sure to build the packaged jar files and upload them to the created jump server
+sh build.sh
+
+# now we wait for the first kafka node to be available
 KAFKA_NODE=kafka-$RUN_NAME-0
 KFK_UP_CMD="while ! nc -z $KAFKA_NODE 9092 ; do sleep 1 ; done"
 
 echo "waiting for online kafka node"
 ssh -o "StrictHostKeyChecking=no" $USER@$REMOTE_JMPSVR_IP $KFK_UP_CMD
 echo "found kafka online"
-
-
-# since the kafka IO implementation needs to be able to read the partition metadata 
-# we need to make sure to build the packaged jar files and upload them to the created jump server
-sh build.sh
 
 echo "starting data generator"
 
@@ -104,7 +104,7 @@ EXEC_CMD="java -cp ~/streaming-pipelines-bundled-0.0.1-SNAPSHOT.jar com.google.c
   --gcpTempLocation=gs://$BUCKET/dataflow/gcptemp \
   --enableStreamingEngine \
   --autoscalingAlgorithm=THROUGHPUT_BASED \
-  --numWorkers=30 \
+  --numWorkers=20 \
   --maxNumWorkers=400 \
   --experiments=min_num_workers=1 \
   --runner=DataflowRunner \
