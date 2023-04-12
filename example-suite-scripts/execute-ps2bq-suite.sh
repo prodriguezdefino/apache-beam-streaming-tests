@@ -41,8 +41,8 @@ source ./execute-generator.sh $PROJECT_ID $BUCKET " \
   --outputTopic=projects/${PROJECT_ID}/topics/${TOPIC} \
   --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
   --generatorRatePerSec=100000 \
-  --maxRecordsPerBatch=4500 \
-  --compressionEnabled=false \
+  --maxRecordsPerBatch=1000 \
+  --compressionEnabled=true \
   --completeObjects=true "$MORE_PARAMS
 
 popd
@@ -58,7 +58,7 @@ BQ_DATASET_ID=`echo "${TOPIC}" | tr - _`
 source ./execute-ingestion.sh $PROJECT_ID $BUCKET "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
-  --numWorkers=10 \
+  --numWorkers=20 \
   --thriftClassName=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
   --subscription=projects/${PROJECT_ID}/subscriptions/${SUBSCRIPTION} \
   --useStorageApiConnectionPool=true \
