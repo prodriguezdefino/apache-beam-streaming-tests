@@ -39,11 +39,6 @@ REMOTE_JMPSVR_IP=$(echo $TF_JSON_OUTPUT | jq .jmpsrv_ip.value | tr -d '"')
 popd
 
 echo "give some time to infra to stabilize..."
-
-# since the kafka IO implementation needs to be able to read the partition metadata 
-# we need to make sure to build the packaged jar files and upload them to the created jump server
-sh build.sh
-
 # now we wait for the first kafka node to be available
 KAFKA_NODE=kafka-$RUN_NAME-0
 KFK_UP_CMD="while ! nc -z $KAFKA_NODE 9092 ; do sleep 1 ; done"
@@ -51,6 +46,10 @@ KFK_UP_CMD="while ! nc -z $KAFKA_NODE 9092 ; do sleep 1 ; done"
 echo "waiting for online kafka node"
 ssh -o "StrictHostKeyChecking=no" $USER@$REMOTE_JMPSVR_IP $KFK_UP_CMD
 echo "found kafka online"
+
+# since the kafka IO implementation needs to be able to read the partition metadata 
+# we need to make sure to build the packaged jar files and upload them to the created jump server
+sh build.sh
 
 echo "starting data generator"
 
@@ -121,7 +120,6 @@ EXEC_CMD="java -cp ~/streaming-pipelines-bundled-0.0.1-SNAPSHOT.jar com.google.c
   --bootstrapServers=$KAFKA_IP:9092 \
   --consumerGroupId=$RUN_NAME \
   --useStorageApiConnectionPool=false \
-  --experiments=use_runner_v2 \
   --bigQueryWriteMethod=STORAGE_API_AT_LEAST_ONCE \
   --sdkHarnessLogLevelOverrides='{\"org.apache.kafka.clients\":\"WARN\", \"org.apache.kafka.clients.consumer.internals\":\"WARN\", \"org.apache.kafka.common.metrics\":\"WARN\", \"org.apache.kafka.common.utils\":\"WARN\"}' \
   --outputTable=${PROJECT_ID}:${BQ_DATASET_ID}.stream_${BQ_TABLE_NAME} \

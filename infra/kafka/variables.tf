@@ -30,7 +30,7 @@ variable zk_node_count {
 }
 
 variable kafka_node_count {
-  default = "15"
+  default = "20"
 }
 
 variable kafka_version {
