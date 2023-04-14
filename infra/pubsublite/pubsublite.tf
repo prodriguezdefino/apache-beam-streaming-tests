@@ -25,10 +25,6 @@ resource "google_pubsub_lite_topic" "psl_topic" {
 
   partition_config {
     count = var.partition_count
-    capacity {
-      publish_mib_per_sec = var.publish_throughput_mbs
-      subscribe_mib_per_sec = var.subscribe_throughput_mbs
-    }
   }
 
   reservation_config {

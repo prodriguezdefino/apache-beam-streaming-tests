@@ -22,22 +22,22 @@ variable "topic_name" {
 
 variable reservation_units {
   description = "The reserved capacity in units"
-  default = 300
+  default = 500
 }
 
 variable "partition_count" {
   description = "the number of partitions for the topic"
-  default = 50
+  default = 199
 }
 
 variable "publish_throughput_mbs" {
   description = "The max throughput per partition in MBs for publishing"
-  default = 4
+  default = 8
 }
 
 variable "subscribe_throughput_mbs" {
   description = "The max throughput per partition in MBs for subscribing"
-  default = 8
+  default = 16
 }
 
 variable "bytes_per_partition" {
