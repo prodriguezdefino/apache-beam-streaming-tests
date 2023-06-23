@@ -31,11 +31,8 @@ import org.apache.thrift.TSerializer;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
 /** */
-@RunWith(JUnit4.class)
 public class StreamingDataGeneratorTest {
 
   public StreamingDataGeneratorTest() {}

@@ -52,6 +52,18 @@ public interface BigQueryWriteOptions extends PipelineOptions, TransportFormatOp
 
   void setCreateBQTable(Boolean value);
 
+  @Description("Configures the time partitioning column in BigQuery.")
+  @Default.String("")
+  String getTimePartitioningColumn();
+
+  void setTimePartitioningColumn(String value);
+
+  @Description("Configures partitioning type (HOUR, DAY, MONTH, YEAR).")
+  @Default.String("HOUR")
+  String getTimePartitioningType();
+
+  void setTimePartitioningType(String value);
+
   @Description("Configures the write method used to ingest data into BigQuery.")
   @Default.Enum("STORAGE_API_AT_LEAST_ONCE")
   BigQueryIO.Write.Method getBigQueryWriteMethod();
@@ -82,6 +94,4 @@ public interface BigQueryWriteOptions extends PipelineOptions, TransportFormatOp
   Boolean isEnableBigQueryAutoshard();
 
   void setEnableBigQueryAutoshard(Boolean value);
-  
-  
 }

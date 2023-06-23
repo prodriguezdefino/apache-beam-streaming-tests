@@ -30,6 +30,39 @@ struct Carrier {
   2: required i64 value
 }
 
+enum Source {
+   SOURCE_1,
+   SOURCE_2,
+   SOURCE_3,
+   SOURCE_4,
+   SOURCE_5,
+   SOURCE_6,
+   SOURCE_7,
+   SOURCE_8,
+   SOURCE_9,
+   SOURCE_10,
+   SOURCE_11,
+   SOURCE_12,
+   SOURCE_13,
+   SOURCE_14,
+   SOURCE_15,
+   SOURCE_16,
+   SOURCE_17,
+   SOURCE_18,
+   SOURCE_19,
+   SOURCE_20,
+   SOURCE_21,
+   SOURCE_22,
+   SOURCE_23,
+   SOURCE_24,
+   SOURCE_25,
+   SOURCE_26,
+   SOURCE_27,
+   SOURCE_28,
+   SOURCE_29,
+   SOURCE_30
+}
+
 typedef i64 ExternalId
 
 typedef i64 Epoch
@@ -41,7 +74,7 @@ struct CompoundEvent {
    4: optional Epoch	               clientEpoch,
    5: optional string                createdTimestamp,
    6: optional string                data,
-   7: optional string                source,
+   7: optional Source                source,
    8: optional string                destination,
    9: optional set<SimpleEvent>      events,
    10: optional list<Carrier>        carriers

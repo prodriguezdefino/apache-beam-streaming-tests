@@ -76,9 +76,9 @@ public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>
             .withWriteDisposition(BigQueryIO.Write.WriteDisposition.WRITE_APPEND)
             .withSuccessfulInsertsPropagation(false)
             .withExtendedErrorInfo();
-    
-    if(options.isEnableBigQueryAutoshard()){
-      write=write.withAutoSharding();
+
+    if (options.isEnableBigQueryAutoshard()) {
+      write = write.withAutoSharding();
     }
 
     if (options.getTableDestinationCount() > 1) {
@@ -116,13 +116,13 @@ public abstract class WriteFormatToBigQuery<T> extends PTransform<PCollection<T>
         write = write.withCreateDisposition(BigQueryIO.Write.CreateDisposition.CREATE_NEVER);
       }
     } else {
-      write = write.to(options.getOutputTable() + (writingErrors ? "-failed" : ""));
+      var tableSchema = retrieveTableSchema(options);
+      write =
+          write
+              .to(options.getOutputTable() + (writingErrors ? "-failed" : ""))
+              .withSchema(tableSchema);
       if (options.isCreateBQTable()) {
-        var tableSchema = retrieveTableSchema(options);
-        write =
-            write
-                .withSchema(tableSchema)
-                .withCreateDisposition(BigQueryIO.Write.CreateDisposition.CREATE_IF_NEEDED);
+        write = write.withCreateDisposition(BigQueryIO.Write.CreateDisposition.CREATE_IF_NEEDED);
 
       } else {
         write = write.withCreateDisposition(BigQueryIO.Write.CreateDisposition.CREATE_NEVER);

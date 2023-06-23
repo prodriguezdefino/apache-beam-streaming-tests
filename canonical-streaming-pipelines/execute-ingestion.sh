@@ -25,7 +25,6 @@ LAUNCH_PARAMS=" \
  --maxNumWorkers=400 \
  --experiments=min_num_workers=1 \
  --workerMachineType=n2d-standard-4 \
- --createBQTable \
  --autoscalingAlgorithm=THROUGHPUT_BASED \
  --enableStreamingEngine \
  --usePublicIps=false "
