@@ -3,7 +3,7 @@ set -eu
 
 if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]
   then
-    echo "Usage : sh execute-suite-example.sh <gcp project> <topic name> <optional params>" 
+    echo "Usage : sh execute-suite-example.sh <gcp project> <topic name> <optional params>"
     exit -1
 fi
 
@@ -25,7 +25,7 @@ BUCKET=$2-staging-$1
 echo "creating infrastructure"
 pushd infra
 
-# we need to create a ps topic+sub, bq dataset and staging bucket 
+# we need to create a ps topic+sub, bq dataset and staging bucket
 source ./tf-apply.sh $PROJECT_ID $TOPIC false true true false false
 
 popd
@@ -51,14 +51,15 @@ SUBSCRIPTION=$TOPIC-sub
 JOB_NAME=ps2bq-`echo "$SUBSCRIPTION" | tr _ -`-${USER}
 BQ_TABLE_NAME=`echo "$SUBSCRIPTION" | tr - _`
 BQ_DATASET_ID=`echo "${TOPIC}" | tr - _`
-source ./execute-ingestion.sh $1 $3 "\
+source ./execute-ingestion.sh $PROJECT_ID $BUCKET "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
-  --numWorkers=200 \
+  --numWorkers=10 \
   --thriftClassName=com.google.cloud.pso.beam.generator.thrift.SimplerCompoundEvent \
   --subscription=projects/${PROJECT_ID}/subscriptions/${SUBSCRIPTION} \
   --formatToStore=AVRO_GENERIC_RECORD \
   --outputTable=${PROJECT_ID}:${BQ_DATASET_ID}.stream_${BQ_TABLE_NAME} \
-  --bigQueryWriteMethod=STORAGE_API_AT_LEAST_ONCE "$MORE_PARAMS
+  --bigQueryWriteMethod=STORAGE_WRITE_API \
+  --storageWriteApiTriggeringFrequencySec=1 "$MORE_PARAMS
 
 popd
