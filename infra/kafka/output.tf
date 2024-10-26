@@ -11,10 +11,6 @@ output "jmpsrv_ip" {
   value = google_compute_instance.jmp.network_interface.0.access_config.0.nat_ip
 }
 
-output "kafka_ip" {
-  value = google_compute_instance.kafkas.0.network_interface.0.network_ip
-}
-
 output "df_sa" {
   value = google_service_account.dataflow_runner_sa.email
 }

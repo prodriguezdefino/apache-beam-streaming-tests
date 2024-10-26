@@ -1,17 +1,17 @@
 #!/bin/bash
 set -eu
-# Usage : sh run.sh <gcp project> <gcs bucket name>
+# Usage : sh run.sh <gcp project> <gcs bucket name> <pipeline name>
 
-if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]
+if [ "$#" -ne 3 ] && [ "$#" -ne 4 ]
   then
-    echo "Usage : sh run.sh <gcp project> <gcs bucket name> <optional params>"
+    echo "Usage : sh run.sh <gcp project> <gcs bucket name> <pipeline name> <optional params>"
     exit -1
 fi
 
 PROJECT_ID=$1
 BUCKET="gs://${2}"
 
-PIPELINE_NAME=StreamingSourceToBigQuery
+PIPELINE_NAME=$3
 
 STAGING_BUCKET=${BUCKET}
 
@@ -22,7 +22,8 @@ LAUNCH_PARAMS=" \
  --stagingLocation=$STAGING_BUCKET/dataflow/staging \
  --tempLocation=$STAGING_BUCKET/dataflow/temp \
  --gcpTempLocation=$STAGING_BUCKET/dataflow/gcptemp \
- --maxNumWorkers=200 \
+ --maxNumWorkers=50 \
+ --experiments=min_num_workers=1 \
  --workerMachineType=n2d-standard-4 \
  --autoscalingAlgorithm=THROUGHPUT_BASED \
  --enableStreamingEngine \
@@ -31,15 +32,9 @@ LAUNCH_PARAMS=" \
 #  --network=some-network \
 #  --subnetwork=https://www.googleapis.com/compute/v1/projects/some-project/regions/us-central1/subnetworks/some-subnetwork \
 
-if (( $# == 3 ))
+if (( $# == 4 ))
 then
-  LAUNCH_PARAMS=$LAUNCH_PARAMS$3
+  LAUNCH_PARAMS=$LAUNCH_PARAMS$4
 fi
 
-if [[ -z "${BEAM_VERSION}" ]]; then
-  MODIFY_BEAM_VERSION=""
-else
-  MODIFY_BEAM_VERSION="-Dbeam.version=${BEAM_VERSION}"
-fi
-
-mvn compile exec:java -Dexec.mainClass=com.google.cloud.pso.beam.pipelines.${PIPELINE_NAME} -Dexec.cleanupDaemonThreads=false $MODIFY_BEAM_VERSION -Dexec.args="${LAUNCH_PARAMS}"
+mvn compile exec:java -Dexec.mainClass=com.google.cloud.pso.beam.pipelines.${PIPELINE_NAME} -Dexec.cleanupDaemonThreads=false -Dexec.args="${LAUNCH_PARAMS}"

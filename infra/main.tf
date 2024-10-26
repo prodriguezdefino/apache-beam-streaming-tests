@@ -1,8 +1,13 @@
+/*
+* Copyright 2023 Google LLC. This software is provided as-is, without warranty
+* or representation for any use or purpose. Your use of it is subject to your
+* agreement with Google.
+*/
 
 module "bigtable_instance" {
   count = var.create_bigtable ? 1 : 0
   source = "./bigtable"
-  instance_name = "${var.run_name}-instance" 
+  instance_name = "${var.run_name}-instance"
   table_name = var.run_name
 
   project = var.project
@@ -43,7 +48,7 @@ module "kafka_resources" {
 }
 
 resource "google_storage_bucket" "staging" {
-  project       = var.project 
+  project       = var.project
   name          = "${var.run_name}-staging-${var.project}"
   location      = "US-CENTRAL1"
   storage_class = "REGIONAL"
@@ -62,23 +67,23 @@ resource "google_storage_bucket" "staging" {
 
 variable project {}
 
-variable create_bigtable { 
+variable create_bigtable {
     type = bool
 }
 
-variable create_bigquery { 
+variable create_bigquery {
     type = bool
 }
 
-variable create_pubsub { 
+variable create_pubsub {
     type = bool
 }
 
-variable create_pubsublite { 
+variable create_pubsublite {
     type = bool
 }
 
-variable create_kafka { 
+variable create_kafka {
     type = bool
 }
 
@@ -91,10 +96,6 @@ variable run_name {}
 
 output "jmpsrv_ip" {
   value = var.create_kafka ? module.kafka_resources.0.jmpsrv_ip : null
-}
-
-output "kafka_ip" {
-  value = var.create_kafka ? module.kafka_resources.0.kafka_ip : null
 }
 
 output "df_sa" {

@@ -18,7 +18,7 @@ LAUNCH_PARAMS=" \
   --gcpTempLocation=$STAGING_BUCKET/dataflow/gcptemp \
   --enableStreamingEngine \
   --numWorkers=50 \
-  --maxNumWorkers=1000 \
+  --maxNumWorkers=500 \
   --runner=DataflowRunner \
   --workerMachineType=n1-standard-4 \
   --usePublicIps=false "

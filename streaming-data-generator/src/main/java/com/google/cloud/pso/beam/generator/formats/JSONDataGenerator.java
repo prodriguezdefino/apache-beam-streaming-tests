@@ -20,8 +20,10 @@ import com.google.cloud.pso.beam.common.Utilities;
 import com.google.cloud.pso.beam.common.formats.JsonUtils;
 import com.google.cloud.pso.beam.generator.DataGenerator;
 import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -160,13 +162,20 @@ public class JSONDataGenerator implements DataGenerator {
       } else return RANDOM.nextDouble();
     } else if (jsonSchema instanceof BooleanSchema) {
       return RANDOM.nextBoolean();
-    } else if (jsonSchema instanceof StringSchema) {
-      return getStringValue(propertyName, randomFreq);
+    } else if (jsonSchema instanceof StringSchema stringSchema) {
+      var isTimestamp =
+          Optional.ofNullable(stringSchema.getDefaultValue())
+              .map(value -> ((String) value).equals("current-timestamp"))
+              .orElse(false);
+      return getStringValue(propertyName, randomFreq, isTimestamp);
     } else
       throw new IllegalArgumentException("JSON schema not supported: " + jsonSchema.toString());
   }
 
-  private String getStringValue(String fieldName, double randomFreq) {
+  private String getStringValue(String fieldName, double randomFreq, boolean isTimestampInMillis) {
+    if (isTimestampInMillis) {
+      return Instant.now().toString();
+    }
     if (skewedStringValuesForProperties.containsKey(fieldName)) {
       return getSkewedStringValue(fieldName);
     }

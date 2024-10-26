@@ -282,6 +282,7 @@ public class StreamingDataGenerator {
 
       } else {
         var messageAndSchema = makeMessage();
+         RAW_SIZE.update(messageAndSchema.getKey().length);
         // compress the schema
         var compressedSchema = CompressionUtils.compressString(messageAndSchema.getValue());
         // partition the schema in multiple strings of ~1000 bytes (under the limit of 1k per map

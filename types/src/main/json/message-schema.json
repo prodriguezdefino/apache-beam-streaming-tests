@@ -5,7 +5,8 @@
       "required": [
         "user",
         "topic",
-        "message"
+        "message",
+        "ts"
       ],
       "additionalProperties": false,
       "properties": {
@@ -38,6 +39,10 @@
               "type": "string"
             }
           ]
+        },
+        "ts": {
+          "type": "string",
+          "default": "current-timestamp"
         }
       }
     },

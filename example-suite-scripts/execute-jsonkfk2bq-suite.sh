@@ -33,19 +33,13 @@ source ./tf-apply.sh $PROJECT_ID $RUN_NAME false true false false true
 TF_JSON_OUTPUT=$(terraform output -json)
 SUBNET=$(echo $TF_JSON_OUTPUT | jq .subnet.value | tr -d '"')
 DF_SA=$(echo $TF_JSON_OUTPUT | jq .df_sa.value | tr -d '"')
-KAFKA_IP=$(echo $TF_JSON_OUTPUT | jq .kafka_ip.value | tr -d '"')
+KAFKA_IP="bootstrap.kafka-${RUN_NAME}.${REGION}.managedkafka.${PROJECT}.cloud.goog"
 REMOTE_JMPSVR_IP=$(echo $TF_JSON_OUTPUT | jq .jmpsrv_ip.value | tr -d '"')
 
 popd
 
-echo "give some time to infra to stabilize..."
-# now we wait for the first kafka node to be available
-KAFKA_NODE=kafka-$RUN_NAME-0
-KFK_UP_CMD="while ! nc -z $KAFKA_NODE 9092 ; do sleep 1 ; done"
-
-echo "waiting for online kafka node"
-ssh -o "StrictHostKeyChecking=no" $USER@$REMOTE_JMPSVR_IP $KFK_UP_CMD
-echo "found kafka online"
+echo "give some time to infra to stabilize... (10s)"
+sleep 10
 
 # since the kafka IO implementation needs to be able to read the partition metadata
 # we need to make sure to build the packaged jar files and upload them to the created jump server
@@ -67,7 +61,7 @@ java -jar streaming-data-generator/target/streaming-data-generator-bundled-0.0.1
   --enableStreamingEngine \
   --autoscalingAlgorithm=THROUGHPUT_BASED \
   --numWorkers=50 \
-  --maxNumWorkers=1000 \
+  --maxNumWorkers=500 \
   --runner=DataflowRunner \
   --workerMachineType=n1-standard-4 \
   --usePublicIps=false \
@@ -75,11 +69,13 @@ java -jar streaming-data-generator/target/streaming-data-generator-bundled-0.0.1
   --region=${REGION} \
   --outputTopic=${TOPIC_AND_BOOTSTRAPSERVERS} \
   --sinkType=KAFKA \
-  --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
-  --generatorRatePerSec=100000 \
-  --sdkHarnessLogLevelOverrides='{"org.apache.kafka.clients":"WARN"}' \
-  --maxRecordsPerBatch=1000 \
+  --format=JSON \
+  --schemaFileLocation=classpath://message-schema.json \
+  --generatorRatePerSec=1500 \
+  --maxRecordsPerBatch=100 \
+  --maxStringLength=200000 \
   --compressionEnabled=false \
+  --sdkHarnessLogLevelOverrides='{"org.apache.kafka.clients":"WARN"}' \
   --serviceAccount=$DF_SA \
   --completeObjects=true $MORE_PARAMS
 
@@ -94,36 +90,39 @@ JOB_NAME=kafka2bq-`echo "$RUN_NAME-sub" | tr _ -`-${USER}
 BQ_TABLE_NAME=`echo "$RUN_NAME-sub" | tr - _`
 BQ_DATASET_ID=`echo "$RUN_NAME" | tr - _`
 
-EXEC_CMD="java -cp ~/streaming-pipelines-bundled-0.0.1-SNAPSHOT.jar com.google.cloud.pso.beam.pipelines.StreamingSourceToBigQuery \
-  --project=$PROJECT_ID \
-  --subnetwork=$SUBNET \
+EXEC_CMD="/usr/local/jdk-21/bin/java -cp ~/streaming-pipelines-bundled-0.0.1-SNAPSHOT.jar com.google.cloud.pso.beam.pipelines.StreamingSourceToBigQuery \
+  --project=${PROJECT_ID} \
+  --subnetwork=${SUBNET} \
   --streaming \
-  --stagingLocation=gs://$BUCKET/dataflow/staging \
-  --tempLocation=gs://$BUCKET/dataflow/temp \
-  --gcpTempLocation=gs://$BUCKET/dataflow/gcptemp \
+  --stagingLocation=gs://${BUCKET}/dataflow/staging \
+  --tempLocation=gs://${BUCKET}/dataflow/temp \
+  --gcpTempLocation=gs://${BUCKET}/dataflow/gcptemp \
   --enableStreamingEngine \
   --autoscalingAlgorithm=THROUGHPUT_BASED \
-  --numWorkers=20 \
-  --maxNumWorkers=400 \
-  --experiments=min_num_workers=1 \
+  --numWorkers=50 \
+  --maxNumWorkers=200 \
+  --experiments=min_num_workers=20 \
   --runner=DataflowRunner \
-  --workerMachineType=n2d-standard-4 \
+  --workerMachineType=n2d-standard-8 \
   --usePublicIps=false \
   --jobName=${JOB_NAME} \
   --region=${REGION} \
-  --serviceAccount=$DF_SA \
+  --serviceAccount=${DF_SA} \
   --createBQTable \
   --subscription=${TOPIC_AND_BOOTSTRAPSERVERS} \
   --sourceType=KAFKA \
+  --transportFormat=JSON \
+  --schemaFileLocation=classpath://message-schema.json \
   --timestampType=LOG_APPEND_TIME \
-  --inputTopic=$RUN_NAME \
-  --bootstrapServers=$KAFKA_IP:9092 \
-  --consumerGroupId=$RUN_NAME \
-  --useStorageApiConnectionPool=false \
+  --inputTopic=${RUN_NAME} \
+  --bootstrapServers=${KAFKA_IP}:9092 \
+  --consumerGroupId=${RUN_NAME} \
+  --formatToStore=TABLE_ROW \
+  --useStorageApiConnectionPool=true \
   --bigQueryWriteMethod=STORAGE_API_AT_LEAST_ONCE \
   --sdkHarnessLogLevelOverrides='{\"org.apache.kafka.clients\":\"WARN\", \"org.apache.kafka.clients.consumer.internals\":\"WARN\", \"org.apache.kafka.common.metrics\":\"WARN\", \"org.apache.kafka.common.utils\":\"WARN\"}' \
   --outputTable=${PROJECT_ID}:${BQ_DATASET_ID}.stream_${BQ_TABLE_NAME} \
-  --tableDestinationCount=1 $MORE_PARAMS"
+  --tableDestinationCount=1 ${MORE_PARAMS}"
 
 ssh -o "StrictHostKeyChecking=no" $USER@$REMOTE_JMPSVR_IP $EXEC_CMD
 
