@@ -25,3 +25,9 @@ resource "google_bigquery_dataset" "dataset" {
   max_time_travel_hours       = 168
   delete_contents_on_destroy  = true
 }
+
+resource "google_bigquery_dataset_iam_member" "df_worker_editor" {
+  dataset_id = google_bigquery_dataset.dataset.dataset_id
+  role       = "roles/bigquery.dataEditor"
+  member     = "serviceAccount:${var.df_worker}"
+}

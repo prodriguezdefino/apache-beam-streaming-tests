@@ -4,6 +4,20 @@
 * agreement with Google.
 */
 
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "~> 6"
+    }
+  }
+}
+
+provider "google" {
+  project = var.project
+  region  = var.region
+}
+
 module "bigtable_instance" {
   count = var.create_bigtable ? 1 : 0
   source = "./bigtable"
@@ -19,6 +33,7 @@ module "bigquery_dataset" {
 
   project = var.project
   dataset_name = var.run_name
+  df_worker = google_service_account.df_worker.email
 }
 
 module "pubsub_resources" {
@@ -27,6 +42,7 @@ module "pubsub_resources" {
 
   project = var.project
   topic_name = var.run_name
+  df_worker = google_service_account.df_worker.email
 }
 
 module "pubsublite_resources" {
@@ -45,6 +61,8 @@ module "kafka_resources" {
   ssh_user   = var.ssh_user
   ssh_key    = file(pathexpand("~/.ssh/id_rsa.pub"))
   run_name = var.run_name
+  subnet = google_compute_subnetwork.subnet_priv.self_link
+  df_worker = google_service_account.df_worker.email
 }
 
 resource "google_storage_bucket" "staging" {
@@ -65,7 +83,22 @@ resource "google_storage_bucket" "staging" {
   public_access_prevention = "enforced"
 }
 
+resource google_service_account "df_worker" {
+  project = var.project
+  account_id = "${var.run_name}-df-sa"
+}
+
+resource google_project_iam_member "df_worker" {
+  project = var.project
+  role = "roles/dataflow.worker"
+  member = "serviceAccount:${google_service_account.df_worker.email}"
+}
+
 variable project {}
+
+variable region {
+  default = "us-central1"
+}
 
 variable create_bigtable {
     type = bool
@@ -99,9 +132,9 @@ output "jmpsrv_ip" {
 }
 
 output "df_sa" {
-  value = var.create_kafka ? module.kafka_resources.0.df_sa : null
+  value = google_service_account.df_worker.email
 }
 
 output "subnet" {
-  value = var.create_kafka ? module.kafka_resources.0.subnet : null
+  value = google_compute_subnetwork.subnet_priv.self_link
 }

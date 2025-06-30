@@ -16,4 +16,6 @@ variable "dataset_name" {
   description = "The dataset name to be created"
 }
 
+variable df_worker {}
+
 /* ------------------------- */

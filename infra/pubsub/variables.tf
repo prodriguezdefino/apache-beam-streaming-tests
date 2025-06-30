@@ -17,3 +17,5 @@ variable "topic_name" {
 }
 
 /* ------------------------- */
+
+variable df_worker {}

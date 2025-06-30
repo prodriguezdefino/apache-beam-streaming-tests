@@ -9,7 +9,7 @@ locals {
     kafka_version = "${var.kafka_version}"
     topic_name    = var.run_name
   })
-  subnet_min = "projects/${var.project}/regions/${var.region}/subnetworks/${google_compute_subnetwork.subnet_priv.name}"
+  subnet_min = var.subnet
   subnet = "https://www.googleapis.com/compute/v1/${local.subnet_min}"
 }
 

@@ -11,6 +11,8 @@ variable "project" {
 variable "ssh_user" {}
 variable "ssh_key" {}
 variable "run_name" {}
+variable subnet {}
+variable df_worker {}
 
 variable "region" {
   default = "us-central1"

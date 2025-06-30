@@ -17,7 +17,7 @@ resource "google_managed_kafka_cluster" "cluster" {
     gcp_config {
         access_config {
             network_configs {
-                subnet = "projects/${var.project}/regions/${var.region}/subnetworks/${google_compute_subnetwork.subnet_priv.name}"
+                subnet = var.subnet
             }
         }
     }

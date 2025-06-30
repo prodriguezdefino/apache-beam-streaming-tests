@@ -10,11 +10,3 @@
 output "jmpsrv_ip" {
   value = google_compute_instance.jmp.network_interface.0.access_config.0.nat_ip
 }
-
-output "df_sa" {
-  value = google_service_account.dataflow_runner_sa.email
-}
-
-output "subnet" {
-  value = google_compute_subnetwork.subnet_priv.self_link
-}
