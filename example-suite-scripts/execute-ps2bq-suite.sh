@@ -3,7 +3,7 @@ set -eu
 
 if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]
   then
-    echo "Usage : sh execute-suite-example.sh <gcp project> <run name> <optional params>" 
+    echo "Usage : sh execute-suite-example.sh <gcp project> <run name> <optional params>"
     exit -1
 fi
 
@@ -25,8 +25,13 @@ BUCKET=$2-staging-$1
 echo "creating infrastructure"
 pushd infra
 
-# we need to create a ps topic+sub, bq dataset, bq dataset and staging bucket 
+# we need to create a ps topic+sub, bq dataset, bq dataset and staging bucket
 source ./tf-apply.sh $PROJECT_ID $TOPIC false true true false false
+
+# capture the outputs in variables
+TF_JSON_OUTPUT=$(terraform output -json)
+SUBNET=$(echo $TF_JSON_OUTPUT | jq .subnet.value | tr -d '"')
+DF_SA=$(echo $TF_JSON_OUTPUT | jq .df_sa.value | tr -d '"')
 
 popd
 
@@ -38,11 +43,14 @@ JOB_NAME=datagen-ps-`echo "$2" | tr _ -`-${USER}
 source ./execute-generator.sh $PROJECT_ID $BUCKET " \
   --jobName=${JOB_NAME} \
   --region=${REGION} \
+  --subnetwork=${SUBNET} \
+  --numWorkers=5 \
+  --serviceAccount=${DF_SA} \
   --outputTopic=projects/${PROJECT_ID}/topics/${TOPIC} \
   --className=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
-  --generatorRatePerSec=100000 \
+  --generatorRatePerSec=1000 \
   --maxRecordsPerBatch=1000 \
-  --compressionEnabled=true \
+  --compressionEnabled=false \
   --completeObjects=true "$MORE_PARAMS
 
 popd
@@ -58,7 +66,9 @@ BQ_DATASET_ID=`echo "${TOPIC}" | tr - _`
 source ./execute-ingestion.sh $PROJECT_ID $BUCKET "\
   --jobName=${JOB_NAME} \
   --region=${REGION} \
-  --numWorkers=20 \
+  --subnetwork=${SUBNET} \
+  --serviceAccount=${DF_SA} \
+  --numWorkers=5 \
   --thriftClassName=com.google.cloud.pso.beam.generator.thrift.CompoundEvent \
   --subscription=projects/${PROJECT_ID}/subscriptions/${SUBSCRIPTION} \
   --useStorageApiConnectionPool=true \
