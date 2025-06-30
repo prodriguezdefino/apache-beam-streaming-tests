@@ -3,7 +3,7 @@ set -eu
 
 if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]
   then
-    echo "Usage : sh execute-suite-example.sh <gcp project> <run name> <optional params>" 
+    echo "Usage : sh execute-suite-example.sh <gcp project> <run name> <optional params>"
     exit -1
 fi
 

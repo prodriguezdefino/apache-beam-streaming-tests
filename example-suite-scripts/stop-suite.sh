@@ -3,7 +3,7 @@ set -eu
 
 if [ "$#" -ne 5 ]
   then
-    echo "Usage : sh stop-suite-example.sh <gcp project> <region> <run name> <generator job> <ingestion job>" 
+    echo "Usage : sh stop-suite-example.sh <gcp project> <region> <run name> <generator job> <ingestion job>"
     exit -1
 fi
 
@@ -16,18 +16,18 @@ ING_JOB=$5
 function drain_job(){
   JOB_NAME=$1
   REGION=$2
-  # get job id 
-  JOB_ID=$(gcloud dataflow jobs list --filter="name=${JOB_NAME}" --status=active --format="value(JOB_ID)" --region=${REGION})
+  # get job id
+  JOB_ID=$(gcloud dataflow jobs list --filter="name=${JOB_NAME}" --status=active --format="value(JOB_ID)" --region=${REGION} --project=${GCP_PROJECT})
   # drain job
-  if [ ! -z "$JOB_ID" ] 
-  then 
+  if [ ! -z "$JOB_ID" ]
+  then
     gcloud dataflow jobs drain $JOB_ID --region=${REGION}
     STATUS=""
-    while [[ $STATUS != "JOB_STATE_DRAINED" ]]; 
+    while [[ $STATUS != "JOB_STATE_DRAINED" ]];
     do
-      echo "draining..." 
+      echo "draining..."
       sleep 30
-      STATUS=$(gcloud dataflow jobs describe ${JOB_ID} --format='value(currentState)' --region=${REGION}) 
+      STATUS=$(gcloud dataflow jobs describe ${JOB_ID} --format='value(currentState)' --region=${REGION} --project=${GCP_PROJECT})
     done
   fi
 }

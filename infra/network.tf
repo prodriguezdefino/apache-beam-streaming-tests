@@ -5,7 +5,7 @@
 */
 
 resource "google_compute_network" "net_priv" {
-  name                    = "kafka-net-${var.run_name}"
+  name                    = "net-${var.run_name}"
   auto_create_subnetworks = false
   project                 = "${var.project}"
 }
